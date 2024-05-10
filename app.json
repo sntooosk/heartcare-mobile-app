@@ -1,0 +1,46 @@
+{
+  "expo": {
+    "name": "movelt",
+    "slug": "movelt",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#7001FD"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "packageOpts": {
+      "config": "metro.config.js",
+      "sourceExts": [
+        "js",
+        "jsx",
+        "ts",
+        "tsx",
+        "svg"
+      ]
+    },
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#7001FD"
+      },
+      "package": "com.devsntosx71.movelt"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "a86a28df-ab6e-48c6-aa86-f58447c0d628"
+      }
+    }
+  }
+}
