@@ -1,7 +1,7 @@
 import { ReactNode, useEffect, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
-import { signIn as signInApi } from "../api/SignIn";
-import { signUp as signUpApi } from "../api/SignUp";
+import { signIn as signInApi } from "../api/auth/SignIn";
+import { signUp as signUpApi } from "../api/auth/SignUp";
 import {
   asyncGetUser,
   asyncRemoveUser,
@@ -53,8 +53,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const signUp = async (credentials: RegisterRequest) => {
     setIsLoading(true);
     try {
-      await signUpApi(credentials);
-      Alert.alert("Cadastro realizado com sucesso");
+      const user = await signUpApi(credentials);
+      setAuthData(user);
+      console.log(user);
+      await asyncSetUser(user);
     } catch (error) {
       console.error("Erro ao se cadastrar:", error);
       Alert.alert("Falha ao se cadastrar");

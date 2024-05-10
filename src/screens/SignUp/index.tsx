@@ -32,7 +32,6 @@ function SignUp() {
 
     try {
       await signUp({ name, email, password });
-      navigate("SignIn");
     } catch (error) {}
   };
 

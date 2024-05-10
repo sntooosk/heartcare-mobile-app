@@ -11,23 +11,19 @@ import { Checkbox } from "expo-checkbox";
 import { styles } from "./styles";
 import shadow, { Theme } from "../../../utils/styles/index";
 
-const generoOptions = ["Masculino", "Feminino", "Prefiro não dizer"];
+const genderOptions = ["Masculino", "Feminino", "Prefiro não dizer"];
 
 interface UserProfileFormProps {
-  username: string;
   name: string;
   lastName: string;
   email: string;
   dob: string;
   number: string;
-  genero: string;
-  setUsername: (text: string) => void;
-  setName: (text: string) => void;
+  gender: string;
   setLastName: (text: string) => void;
-  setEmail: (text: string) => void;
   setDob: (text: string) => void;
   setNumber: (text: string) => void;
-  setGenero: (text: string) => void;
+  setGender: (text: string) => void;
   handleSaveProfile: () => void;
   loading: boolean;
   theme: Theme;
@@ -35,20 +31,16 @@ interface UserProfileFormProps {
 
 export default function UserProfileForm(props: UserProfileFormProps) {
   const {
-    username,
     name,
     lastName,
     email,
     dob,
     number,
-    genero,
-    setUsername,
-    setName,
+    gender,
     setLastName,
-    setEmail,
     setDob,
     setNumber,
-    setGenero,
+    setGender,
     handleSaveProfile,
     loading,
     theme,
@@ -80,21 +72,6 @@ export default function UserProfileForm(props: UserProfileFormProps) {
       ]}
     >
       <ScrollView>
-        <Text style={[styles.title, { color: theme.COLORS.TITLE }]}>
-          Usuário:
-        </Text>
-        <TextInput
-          style={[
-            styles.input,
-            {
-              backgroundColor: theme.COLORS.BACKGROUND_CARD,
-              color: theme.COLORS.CONTENT,
-            },
-          ]}
-          placeholder="Digite seu usuário"
-          onChangeText={(text) => setUsername(text)}
-          value={username}
-        />
         <Text style={[styles.title, { color: theme.COLORS.TITLE }]}>Nome:</Text>
         <TextInput
           style={[
@@ -105,7 +82,6 @@ export default function UserProfileForm(props: UserProfileFormProps) {
             },
           ]}
           placeholder="Digite seu nome"
-          onChangeText={(text) => setName(text)}
           value={name}
         />
         <Text style={[styles.title, { color: theme.COLORS.TITLE }]}>
@@ -159,14 +135,14 @@ export default function UserProfileForm(props: UserProfileFormProps) {
           Gênero:
         </Text>
         <View style={styles.checkboxContainerDoc}>
-          {generoOptions.map((genderOption) => (
+          {genderOptions.map((genderOption) => (
             <View key={genderOption}>
               <Text style={[styles.label, { color: theme.COLORS.TEXT }]}>
                 {genderOption}
               </Text>
               <Checkbox
-                value={genero === genderOption}
-                onValueChange={() => setGenero(genderOption)}
+                value={gender === genderOption}
+                onValueChange={() => setGender(genderOption)}
                 color={theme.COLORS.PRIMARY}
                 style={styles.checkbox}
               />
@@ -181,7 +157,6 @@ export default function UserProfileForm(props: UserProfileFormProps) {
           placeholder="Digite seu email"
           value={email}
           pointerEvents={email.trim() ? "none" : "auto"}
-          onChangeText={(text) => setEmail(text)}
         />
       </ScrollView>
       <TouchableOpacity
