@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { View, Text, TouchableOpacity, ScrollView } from "react-native";
 import { styles } from "./styles";
 import * as Animatable from "react-native-animatable";
-import { themes } from "../../utils/styles/colors";
 import Header from "../components/Header";
+import { useTheme } from "../../context/ThemeContext";
 
 export default function FAQ() {
   const [benefits] = useState([
@@ -40,6 +40,7 @@ export default function FAQ() {
   ]);
 
   const [selectedBenefit, setSelectedBenefit] = useState(null);
+  const { theme } = useTheme();
 
   const handleBenefitPress = (id) => {
     setSelectedBenefit(id === selectedBenefit ? null : id);
@@ -50,12 +51,12 @@ export default function FAQ() {
       style={[
         styles.container,
         {
-          backgroundColor: themes.COLORS.BACKGROUND,
+          backgroundColor: theme.COLORS.BACKGROUND,
         },
       ]}
     >
       <View>
-        <Header title="Benefícios da Corrida" />
+        <Header theme={theme} title="FAQ" />
       </View>
 
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -66,7 +67,7 @@ export default function FAQ() {
             style={[
               styles.benefitContainer,
               {
-                backgroundColor: themes.COLORS.BACKGROUND_CARD,
+                backgroundColor: theme.COLORS.BACKGROUND_CARD,
               },
             ]}
           >
@@ -75,7 +76,7 @@ export default function FAQ() {
                 style={[
                   styles.benefitHeader,
                   {
-                    backgroundColor: themes.COLORS.BACKGROUND_CARD,
+                    backgroundColor: theme.COLORS.BACKGROUND_CARD,
                   },
                 ]}
               >
@@ -83,7 +84,7 @@ export default function FAQ() {
                   style={[
                     styles.benefitTitle,
                     {
-                      color: themes.COLORS.TITLE,
+                      color: theme.COLORS.TITLE,
                     },
                   ]}
                 >
@@ -97,7 +98,7 @@ export default function FAQ() {
                 style={[
                   styles.benefitDescription,
                   {
-                    color: themes.COLORS.CONTENT,
+                    color: theme.COLORS.CONTENT,
                   },
                 ]}
               >

@@ -3,25 +3,26 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Feather } from "@expo/vector-icons";
 
 import { StatusBar } from "react-native";
-import { themes } from "../utils/styles/colors";
 import { propsNavigationStack } from "./types";
 import FAQ from "../screens/FAQ";
 import Profile from "../screens/Profile";
+import { useTheme } from "../context/ThemeContext";
 
 const { Navigator, Screen } = createBottomTabNavigator<propsNavigationStack>();
 
 export default function TabRoutes() {
+  const { theme } = useTheme();
   return (
     <>
       <StatusBar
-        backgroundColor={themes.COLORS.PRIMARY}
+        backgroundColor={theme.COLORS.PRIMARY}
         barStyle="light-content"
       />
       <Navigator
         screenOptions={{
           headerShown: false,
           tabBarStyle: {
-            backgroundColor: themes.COLORS.BACKGROUND,
+            backgroundColor: theme.COLORS.BACKGROUND,
           },
         }}
       >
@@ -33,7 +34,7 @@ export default function TabRoutes() {
               <Feather
                 name="info"
                 size={focused ? size + 5 : size}
-                color={focused ? themes.COLORS.PRIMARY : themes.COLORS.TITLE}
+                color={focused ? theme.COLORS.PRIMARY : theme.COLORS.TITLE}
               />
             ),
             tabBarLabel: () => null,
@@ -47,7 +48,7 @@ export default function TabRoutes() {
               <Feather
                 name="user"
                 size={focused ? size + 5 : size}
-                color={focused ? themes.COLORS.PRIMARY : themes.COLORS.TITLE}
+                color={focused ? theme.COLORS.PRIMARY : theme.COLORS.TITLE}
               />
             ),
             tabBarLabel: () => null,

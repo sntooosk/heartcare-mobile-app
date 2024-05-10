@@ -1,7 +1,7 @@
-interface RegisterRequestDTO{
-  name: String;
-  email: String;
-  password: String;
+interface RegisterRequestDTO {
+  name: string;
+  email: string;
+  password: string;
 }
 
 export default RegisterRequestDTO;

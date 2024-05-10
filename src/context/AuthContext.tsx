@@ -12,19 +12,14 @@ interface AuthContextData {
   isLoading: boolean;
 }
 
-export const AuthContext = createContext<AuthContextData>({
-  authData: undefined,
-  setAuthData: () => {},
-  signIn: async () => {},
-  signUp: async () => {},
-  signOut: async () => {},
-  isLoading: false,
-});
+export const AuthContext = createContext<AuthContextData>(
+  {} as AuthContextData
+);
 
 export function useAuth(): AuthContextData {
   const context = useContext(AuthContext);
   if (!context) {
-    throw new Error("useAuth must be used within an AuthProvider");
+    throw new Error("useAuth deve ser utilizado dentro de um AuthProvider");
   }
   return context;
 }

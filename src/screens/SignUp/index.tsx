@@ -1,17 +1,18 @@
 import React, { useState } from "react";
-import { View, Text, Alert } from "react-native";
-import * as Animatable from "react-native-animatable";
+import { View, Alert } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { themes } from "../../utils/styles/colors";
 import SignUpForm from "../components/SignUpForm";
 import { styles } from "./styles";
 import { propsStack } from "../../routes/types";
 import { useAuth } from "../../context/AuthContext";
+import { useTheme } from "../../context/ThemeContext";
+import LogoSvg from "../../assets/svg/logo.svg";
 
 function SignUp() {
   const { signUp, isLoading } = useAuth();
 
   const { navigate } = useNavigation<propsStack>();
+  const { theme } = useTheme();
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -36,16 +37,8 @@ function SignUp() {
   };
 
   return (
-    <View
-      style={[styles.container, { backgroundColor: themes.COLORS.PRIMARY }]}
-    >
-      <Animatable.View
-        animation="fadeInLeft"
-        delay={500}
-        style={styles.containerHeader}
-      >
-        <Text style={styles.message}>Cadastrar</Text>
-      </Animatable.View>
+    <View style={[styles.container, { backgroundColor: theme.COLORS.PRIMARY }]}>
+      <LogoSvg width={200} height={150} />
 
       <SignUpForm
         name={name}
@@ -60,6 +53,7 @@ function SignUp() {
         togglePasswordVisibility={togglePasswordVisibility}
         handleSignUp={handleSignUp}
         isLoading={isLoading}
+        theme={theme}
       />
     </View>
   );

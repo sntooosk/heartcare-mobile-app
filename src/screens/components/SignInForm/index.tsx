@@ -3,13 +3,15 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
+  View,
   ActivityIndicator,
 } from "react-native";
 import * as Animatable from "react-native-animatable";
-import { styles } from "./styles";
 import { useNavigation } from "@react-navigation/native";
 import { propsStack } from "../../../routes/types";
-import { themes } from "../../../utils/styles/colors";
+import { styles } from "./styles";
+import { Ionicons } from "@expo/vector-icons";
+import { Theme } from "../../../utils/styles";
 
 interface SignInFormProps {
   email: string;
@@ -20,6 +22,7 @@ interface SignInFormProps {
   togglePasswordVisibility: () => void;
   handleLogin: () => void;
   isLoading: boolean;
+  theme: Theme;
 }
 
 export default function SignInForm({
@@ -31,7 +34,9 @@ export default function SignInForm({
   togglePasswordVisibility,
   handleLogin,
   isLoading,
+  theme,
 }: SignInFormProps) {
+
   const { navigate } = useNavigation<propsStack>();
 
   return (
@@ -39,71 +44,80 @@ export default function SignInForm({
       animation="fadeInUp"
       style={[
         styles.containerForm,
-        { backgroundColor: themes.COLORS.BACKGROUND },
+        { backgroundColor: theme.COLORS.BACKGROUND },
       ]}
     >
-      <Text style={[styles.title, { color: themes.COLORS.TITLE }]}>
-        Email Address
-      </Text>
+      <Text style={[styles.title, { color: theme.COLORS.TITLE }]}>Email</Text>
       <TextInput
-        placeholder={"alex@email.com"}
-        placeholderTextColor={themes.COLORS.TEXT}
-        style={[styles.input, { color: themes.COLORS.CONTENT }]}
+        placeholder="Digite seu e-mail"
+        placeholderTextColor={theme.COLORS.TEXT}
+        style={[
+          styles.input,
+          {
+            backgroundColor: theme.COLORS.BACKGROUND_CARD,
+            color: theme.COLORS.CONTENT,
+          },
+        ]}
         onChangeText={(text) => setEmail(text)}
       />
 
-      <Text style={[styles.title, { color: themes.COLORS.TITLE }]}>
-        Password
-      </Text>
-      <TextInput
-        placeholder={"Enter your password"}
-        placeholderTextColor={themes.COLORS.TEXT}
-        style={[styles.input, { color: themes.COLORS.CONTENT }]}
-        value={password}
-        secureTextEntry={!isPasswordVisible}
-        onChangeText={(text) => setPassword(text)}
-      />
-      <TouchableOpacity
-        onPress={togglePasswordVisibility}
-        style={styles.togglePasswordButton}
+      <Text style={[styles.title, { color: theme.COLORS.TITLE }]}>Senha</Text>
+      <View
+        style={[
+          styles.inputArea,
+          { backgroundColor: theme.COLORS.BACKGROUND_CARD },
+        ]}
       >
-        <Text
+        <TextInput
+          placeholder="Digite sua senha"
+          placeholderTextColor={theme.COLORS.TEXT}
           style={[
-            styles.togglePasswordButtonText,
-            { color: themes.COLORS.TEXT },
+            styles.inputPassword,
+            {
+              backgroundColor: theme.COLORS.BACKGROUND_CARD,
+              color: theme.COLORS.CONTENT,
+            },
           ]}
+          value={password}
+          secureTextEntry={!isPasswordVisible}
+          onChangeText={(text) => setPassword(text)}
+        />
+        <TouchableOpacity
+          style={[
+            styles.icon,
+            { backgroundColor: theme.COLORS.BACKGROUND_CARD },
+          ]}
+          onPress={togglePasswordVisibility}
         >
-          {isPasswordVisible ? "Hide password" : "Show password"}{" "}
-        </Text>
-      </TouchableOpacity>
-
+          <Ionicons
+            name={isPasswordVisible ? "eye" : "eye-off"}
+            color={theme.COLORS.TEXT}
+            size={25}
+          />
+        </TouchableOpacity>
+      </View>
       <TouchableOpacity
-        style={[styles.button, { backgroundColor: themes.COLORS.BUTTON }]}
+        style={[styles.button, { backgroundColor: theme.COLORS.BUTTON }]}
         onPress={handleLogin}
         disabled={isLoading}
       >
         {isLoading ? (
-          <ActivityIndicator size="small" color={themes.COLORS.WHITE} />
+          <ActivityIndicator size="small" color={theme.COLORS.WHITE} />
         ) : (
           <Text
-            style={[styles.buttonText, { color: themes.COLORS.BUTTON_TEXT }]}
+            style={[styles.buttonText, { color: theme.COLORS.BUTTON_TEXT }]}
           >
-            Login Now
+            Acessar
           </Text>
         )}
       </TouchableOpacity>
+
       <TouchableOpacity
         onPress={() => navigate("SignUp")}
-        style={[
-          styles.buttonRegister,
-          {
-            backgroundColor: themes.COLORS.WHITE,
-            borderColor: themes.COLORS.BUTTON,
-          },
-        ]}
+        style={[styles.buttonRegister, { borderColor: theme.COLORS.PRIMARY }]}
       >
-        <Text style={[styles.buttonText, { color: themes.COLORS.BUTTON }]}>
-          Signup Now
+        <Text style={[styles.buttonText, { color: theme.COLORS.PRIMARY }]}>
+          Não possui conta?
         </Text>
       </TouchableOpacity>
     </Animatable.View>

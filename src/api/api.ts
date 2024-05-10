@@ -1,1 +1,1 @@
-export const API = 'https://heartcare-backend.onrender.com/auth';
+export const API = "https://heartcare-backend.onrender.com/auth";

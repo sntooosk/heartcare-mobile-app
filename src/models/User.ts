@@ -1,8 +1,8 @@
-interface User{
-  token: String;
-  name: String;
-  email: String;
-  password: String;
+interface User {
+  token: string;
+  name: string;
+  email: string;
+  password: string;
 }
 
 export default User;

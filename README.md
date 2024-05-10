@@ -6,11 +6,6 @@
 
 [About](#about) • [Getting Started](#started) • [Features](#features) • [Contribute](#contribute) • [License](#license)
 
-## 📌 About
-
-Este app de login usa React Native e Expo, fornecendo uma maneira simples e segura de acessar contas. 🔒
-
-## 🚀 Getting Started
 
 ### Prerequisites
 

@@ -7,7 +7,9 @@ import {
   ActivityIndicator,
 } from "react-native";
 import { styles } from "./styles";
-import { themes } from "../../../utils/styles/colors";
+import { propsStack } from "../../../routes/types";
+import { useNavigation } from "@react-navigation/native";
+import { Theme } from "../../../utils/styles";
 
 interface SignUpFormProps {
   name: string;
@@ -22,6 +24,7 @@ interface SignUpFormProps {
   togglePasswordVisibility: () => void;
   handleSignUp: () => void;
   isLoading: boolean;
+  theme: Theme;
 }
 
 export default function SignUpForm({
@@ -37,51 +40,55 @@ export default function SignUpForm({
   togglePasswordVisibility,
   handleSignUp,
   isLoading,
+  theme
 }: SignUpFormProps) {
+
+  const { navigate } = useNavigation<propsStack>();
+
   return (
     <View
       style={[
         styles.containerForm,
-        { backgroundColor: themes.COLORS.BACKGROUND },
+        { backgroundColor: theme.COLORS.BACKGROUND },
       ]}
     >
-      <Text style={[styles.title, { color: themes.COLORS.TITLE }]}>Name</Text>
+      <Text style={[styles.title, { color: theme.COLORS.TITLE }]}>Nome:</Text>
       <TextInput
-        placeholder={"Jonh Doe"}
-        placeholderTextColor={themes.COLORS.TEXT}
-        style={[styles.input, { color: themes.COLORS.CONTENT }]}
+        placeholder={"Digite seu nome"}
+        placeholderTextColor={theme.COLORS.TEXT}
+        style={[styles.input, { color: theme.COLORS.CONTENT }]}
         onChangeText={(text) => setName(text)}
       />
 
-      <Text style={[styles.title, { color: themes.COLORS.TITLE }]}>
-        Email Address
+      <Text style={[styles.title, { color: theme.COLORS.TITLE }]}>
+        Email:
       </Text>
       <TextInput
-        placeholder={"alex@email.com"}
-        placeholderTextColor={themes.COLORS.TEXT}
-        style={[styles.input, { color: themes.COLORS.CONTENT }]}
+        placeholder={"Digite seu email"}
+        placeholderTextColor={theme.COLORS.TEXT}
+        style={[styles.input, { color: theme.COLORS.CONTENT }]}
         onChangeText={(text) => setEmail(text)}
       />
 
-      <Text style={[styles.title, { color: themes.COLORS.TITLE }]}>
-        Password
+      <Text style={[styles.title, { color: theme.COLORS.TITLE }]}>
+        Senha:
       </Text>
       <TextInput
-        placeholder={"Enter your password"}
-        placeholderTextColor={themes.COLORS.TEXT}
-        style={[styles.input, { color: themes.COLORS.CONTENT }]}
+        placeholder={"Digite sua senha"}
+        placeholderTextColor={theme.COLORS.TEXT}
+        style={[styles.input, { color: theme.COLORS.CONTENT }]}
         value={password}
         secureTextEntry={!isPasswordVisible}
         onChangeText={(text) => setPassword(text)}
       />
 
-      <Text style={[styles.title, { color: themes.COLORS.TITLE }]}>
-        Confirm Password
+      <Text style={[styles.title, { color: theme.COLORS.TITLE }]}>
+        Confirme sua senha:
       </Text>
       <TextInput
-        placeholder={"Confirm your password"}
-        placeholderTextColor={themes.COLORS.TEXT}
-        style={[styles.input, { color: themes.COLORS.CONTENT }]}
+        placeholder={"Confirme sua senha"}
+        placeholderTextColor={theme.COLORS.TEXT}
+        style={[styles.input, { color: theme.COLORS.CONTENT }]}
         value={confPassword}
         secureTextEntry={!isPasswordVisible}
         onChangeText={(text) => setConfPassword(text)}
@@ -94,27 +101,35 @@ export default function SignUpForm({
         <Text
           style={[
             styles.togglePasswordButtonText,
-            { color: themes.COLORS.TEXT },
+            { color: theme.COLORS.TEXT },
           ]}
         >
-          {isPasswordVisible ? "Hide password" : "Show password"}
+          {isPasswordVisible ? "Esconder senha" : "Mostrar senha"}
         </Text>
       </TouchableOpacity>
 
       <TouchableOpacity
-        style={[styles.button, { backgroundColor: themes.COLORS.BUTTON }]}
+        style={[styles.button, { backgroundColor: theme.COLORS.BUTTON }]}
         onPress={handleSignUp}
         disabled={isLoading}
       >
         {isLoading ? (
-          <ActivityIndicator size="small" color={themes.COLORS.WHITE} />
+          <ActivityIndicator size="small" color={theme.COLORS.WHITE} />
         ) : (
           <Text
-            style={[styles.buttonText, { color: themes.COLORS.BUTTON_TEXT }]}
+            style={[styles.buttonText, { color: theme.COLORS.BUTTON_TEXT }]}
           >
-            Register
+            Registrar
           </Text>
         )}
+      </TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => navigate("SignIn")}
+        style={[styles.buttonRegister, { borderColor: theme.COLORS.PRIMARY }]}
+      >
+        <Text style={[styles.buttonText, { color: theme.COLORS.PRIMARY }]}>
+          Já possui conta?
+        </Text>
       </TouchableOpacity>
     </View>
   );

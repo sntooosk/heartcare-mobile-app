@@ -10,7 +10,6 @@ export const styles = StyleSheet.create({
   container: {
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#7001FD",
     borderBottomLeftRadius: 30,
     borderBottomRightRadius: 30,
   },
