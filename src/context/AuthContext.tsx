@@ -1,11 +1,11 @@
 import React, { createContext, useContext } from "react";
 import LoginRequest from "../models/dto/LoginRequestDTO";
 import RegisterRequest from "../models/dto/RegisterRequestDTO";
-import User from "../models/User";
+import Auth from "../models/Auth";
 
 interface AuthContextData {
-  authData?: User;
-  setAuthData: React.Dispatch<React.SetStateAction<User | undefined>>;
+  authData?: Auth;
+  setAuthData: React.Dispatch<React.SetStateAction<Auth | undefined>>;
   signIn: (credentials: LoginRequest) => Promise<void>;
   signUp: (credentials: RegisterRequest) => Promise<void>;
   signOut: () => Promise<void>;

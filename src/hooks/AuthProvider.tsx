@@ -10,10 +10,10 @@ import {
 import { Alert } from "react-native";
 import LoginRequest from "../models/dto/LoginRequestDTO";
 import RegisterRequest from "../models/dto/RegisterRequestDTO";
-import User from "../models/User";
+import Auth from "../models/Auth";
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const [authData, setAuthData] = useState<User | undefined>();
+  const [authData, setAuthData] = useState<Auth | undefined>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   useEffect(() => {

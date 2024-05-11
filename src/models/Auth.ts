@@ -1,8 +1,8 @@
-interface User {
+interface Auth {
   token: string;
   name: string;
   email: string;
   password: string;
 }
 
-export default User;
+export default Auth;

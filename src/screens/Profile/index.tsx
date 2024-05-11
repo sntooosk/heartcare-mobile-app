@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Text, View, Alert, ScrollView, TouchableOpacity } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import { FontAwesome } from "@expo/vector-icons";
@@ -8,16 +8,13 @@ import Header from "../components/Header";
 import ProfileImage from "../components/ProfileImage";
 import UserProfileForm from "../components/UserProfileForm";
 import { styles } from "./styles";
-import { getProfile } from "../../api/user/get";
-import { createProfile } from "../../api/user/create";
 
 function Profile() {
   const { signOut, authData } = useAuth();
   const user = authData;
+  const token = user.token;
   const email = user.email;
   const name = user.name;
-  const user_id = user.token;
-  const authorization = user.token;
 
   const { theme, toggleTheme } = useTheme();
   const [loading, setLoading] = useState(false);
@@ -29,24 +26,6 @@ function Profile() {
   const [number, setNumber] = useState("");
   const [gender, setGender] = useState("");
   const [editMode, setEditMode] = useState(false);
-
-  useEffect(() => {
-    loadUserProfile();
-  }, []);
-
-  const loadUserProfile = async () => {
-    try {
-      const dataUser = await getProfile(authorization);
-
-      setPhoto(dataUser.photo || null);
-      setLastName(dataUser.lastName || "");
-      setDob(dataUser.dob || "");
-      setNumber(dataUser.number || "");
-      setGender(dataUser.gender || "");
-    } catch (error) {
-      console.error("Erro ao carregar perfil de usuário:", error);
-    }
-  };
 
   const handleChoosePhoto = async () => {
     try {
@@ -82,47 +61,6 @@ function Profile() {
       }
     } catch (error) {
       console.error("Erro ao escolher a foto:", error);
-    }
-  };
-
-  const handleSaveProfile = async () => {
-    try {
-      setLoading(true);
-
-      if (!user) {
-        Alert.alert("Erro", "Usuário não autenticado");
-        setLoading(false);
-        return;
-      }
-
-
-      if (!name || !lastName || !dob || !email || !number) {
-        Alert.alert("Erro", "Preencha todos os campos");
-        setLoading(false);
-        return;
-      }
-
-      // Enviar credenciais para a API usando axios
-      await createProfile({
-        id_user: user_id,
-        name: name,
-        lastName: lastName,
-        dob: dob,
-        number: number,
-        gender: gender,
-        email: email,
-        photo: photo,
-      }, authorization);
-
-      setLoading(false);
-      setEditMode(false);
-      Alert.alert("Alterado com sucesso");
-    } catch (error) {
-      setLoading(false);
-      Alert.alert(
-        "Erro",
-        "Houve um erro ao salvar o perfil. Tente novamente mais tarde."
-      );
     }
   };
 
@@ -179,7 +117,7 @@ function Profile() {
           setDob={setDob}
           setNumber={setNumber}
           setGender={setGender}
-          handleSaveProfile={handleSaveProfile}
+          handleSaveProfile={() => {}}
           loading={loading}
           theme={theme}
         />
