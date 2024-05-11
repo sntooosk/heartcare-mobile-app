@@ -1,4 +1,5 @@
 interface UserProfile {
+  id_user: string;  
   name: string;
   lastName: string;
   dob: string;

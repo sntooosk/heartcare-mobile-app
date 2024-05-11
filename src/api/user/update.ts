@@ -10,7 +10,7 @@ export async function updateProfile(credentials: UserProfile, id: string, author
   };
 
   try {
-    await axios.put(`${API}/profile/update/${id}`, credentials, config);
+    await axios.put(`${API}profile/update/${id}`, credentials, config);
     console.log("Perfil atualizado com sucesso!");
   } catch (error) {
     console.error("Erro ao atualizar perfil:", error);

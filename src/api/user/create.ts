@@ -10,7 +10,7 @@ export async function createProfile(credentials: UserProfile, authorization: str
   };
 
   try {
-    await axios.post(`${API}/profile/create`, credentials, config);
+    await axios.post(`${API}profile/create`, credentials, config);
     console.log("Perfil criado com sucesso!");
   } catch (error) {
     console.error("Erro ao criar perfil:", error);

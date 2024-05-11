@@ -7,10 +7,8 @@ import { useAuth } from "../../context/AuthContext";
 import Header from "../components/Header";
 import ProfileImage from "../components/ProfileImage";
 import UserProfileForm from "../components/UserProfileForm";
-import UserProfile from "../../models/UserProfile";
 import { styles } from "./styles";
 import { getProfile } from "../../api/user/get";
-import { updateProfile } from "../../api/user/update";
 import { createProfile } from "../../api/user/create";
 
 function Profile() {
@@ -18,6 +16,7 @@ function Profile() {
   const user = authData;
   const email = user.email;
   const name = user.name;
+  const user_id = user.token;
   const authorization = user.token;
 
   const { theme, toggleTheme } = useTheme();
@@ -96,7 +95,6 @@ function Profile() {
         return;
       }
 
-      const uid = user.token;
 
       if (!name || !lastName || !dob || !email || !number) {
         Alert.alert("Erro", "Preencha todos os campos");
@@ -106,6 +104,7 @@ function Profile() {
 
       // Enviar credenciais para a API usando axios
       await createProfile({
+        id_user: user_id,
         name: name,
         lastName: lastName,
         dob: dob,
