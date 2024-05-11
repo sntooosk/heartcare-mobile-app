@@ -16,9 +16,9 @@ import { createProfile } from "../../api/user/create";
 function Profile() {
   const { signOut, authData } = useAuth();
   const user = authData;
-  const id = user.token;
   const email = user.email;
   const name = user.name;
+  const authorization = user.token;
 
   const { theme, toggleTheme } = useTheme();
   const [loading, setLoading] = useState(false);
@@ -37,7 +37,7 @@ function Profile() {
 
   const loadUserProfile = async () => {
     try {
-      const dataUser = await getProfile();
+      const dataUser = await getProfile(authorization);
 
       setPhoto(dataUser.photo || null);
       setLastName(dataUser.lastName || "");
@@ -113,7 +113,7 @@ function Profile() {
         gender: gender,
         email: email,
         photo: photo,
-      });
+      }, authorization);
 
       setLoading(false);
       setEditMode(false);
