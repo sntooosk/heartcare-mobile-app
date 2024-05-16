@@ -13,3 +13,8 @@ export const asyncGetUser = async () => {
 export const asyncRemoveUser = async () => {
   await AsyncStorage.removeItem("heartcare@user");
 };
+
+export const asyncGetUserToken = async () => {
+  const userData = await asyncGetUser();
+  return userData ? userData.token : null;
+};

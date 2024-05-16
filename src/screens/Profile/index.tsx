@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Text, View, Alert, ScrollView, TouchableOpacity } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import { FontAwesome } from "@expo/vector-icons";
@@ -8,24 +8,50 @@ import Header from "../components/Header";
 import ProfileImage from "../components/ProfileImage";
 import UserProfileForm from "../components/UserProfileForm";
 import { styles } from "./styles";
+import { update } from "../../api/requests/user/update";
+import User from "../../models/User";
+import { get } from "../../api/requests/user/get";
 
 function Profile() {
   const { signOut, authData } = useAuth();
-  const user = authData;
-  const token = user.token;
-  const email = user.email;
-  const name = user.name;
+  const auth = authData;
+
+  const email = auth.email;
 
   const { theme, toggleTheme } = useTheme();
   const [loading, setLoading] = useState(false);
   const [isDayMode, setIsDayMode] = useState(true);
 
   const [photo, setPhoto] = useState<string | null>(null);
+  const [name, setName] = useState("");
   const [lastName, setLastName] = useState("");
   const [dob, setDob] = useState("");
-  const [number, setNumber] = useState("");
   const [gender, setGender] = useState("");
   const [editMode, setEditMode] = useState(false);
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        setLoading(true);
+
+        if (auth) {
+          const userData = await get(auth.id);
+          setName(userData.name || "");
+          setLastName(userData.lastName || "");
+          setDob(userData.dob || "");
+          setPhoto(userData.photo || null);
+          setGender(userData.gender || "");
+        }
+
+        setLoading(false);
+      } catch (error) {
+        setLoading(false);
+        console.error("Erro ao obter dados do usuário:", error);
+      }
+    };
+
+    fetchUserData();
+  }, [auth]);
 
   const handleChoosePhoto = async () => {
     try {
@@ -61,6 +87,29 @@ function Profile() {
       }
     } catch (error) {
       console.error("Erro ao escolher a foto:", error);
+    }
+  };
+
+  const handleUpdate = async () => {
+    try {
+      setLoading(true);
+      const updatedUserData: User = {
+        id: auth.id,
+        name: name,
+        lastname: lastName,
+        gender: gender,
+        dob: dob,
+        auth: {
+          id: auth.id,
+        },
+      };
+      await update(auth.id, updatedUserData);
+      setLoading(false);
+      Alert.alert("Perfil atualizado com sucesso!");
+    } catch (error) {
+      setLoading(false);
+      console.error("Erro ao atualizar perfil:", error);
+      Alert.alert("Erro ao atualizar perfil. Tente novamente mais tarde.");
     }
   };
 
@@ -110,14 +159,12 @@ function Profile() {
           name={name}
           lastName={lastName}
           dob={dob}
-          number={number}
           email={email}
           gender={gender}
           setLastName={setLastName}
           setDob={setDob}
-          setNumber={setNumber}
           setGender={setGender}
-          handleSaveProfile={() => {}}
+          handleUpdate={handleUpdate}
           loading={loading}
           theme={theme}
         />

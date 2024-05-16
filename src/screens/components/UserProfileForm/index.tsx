@@ -18,13 +18,11 @@ interface UserProfileFormProps {
   lastName: string;
   email: string;
   dob: string;
-  number: string;
   gender: string;
   setLastName: (text: string) => void;
   setDob: (text: string) => void;
-  setNumber: (text: string) => void;
   setGender: (text: string) => void;
-  handleSaveProfile: () => void;
+  handleUpdate: () => void;
   loading: boolean;
   theme: Theme;
 }
@@ -35,13 +33,11 @@ export default function UserProfileForm(props: UserProfileFormProps) {
     lastName,
     email,
     dob,
-    number,
     gender,
     setLastName,
     setDob,
-    setNumber,
     setGender,
-    handleSaveProfile,
+    handleUpdate,
     loading,
     theme,
   } = props;
@@ -116,22 +112,6 @@ export default function UserProfileForm(props: UserProfileFormProps) {
           keyboardType="numeric"
         />
         <Text style={[styles.title, { color: theme.COLORS.TITLE }]}>
-          Celular:
-        </Text>
-        <TextInput
-          style={[
-            styles.input,
-            {
-              backgroundColor: theme.COLORS.BACKGROUND_CARD,
-              color: theme.COLORS.CONTENT,
-            },
-          ]}
-          placeholder="Digite seu número de celular"
-          onChangeText={(text) => setNumber(formatNumberInput(text))}
-          value={number}
-          keyboardType="phone-pad"
-        />
-        <Text style={[styles.title, { color: theme.COLORS.TITLE }]}>
           Gênero:
         </Text>
         <View style={styles.checkboxContainerDoc}>
@@ -161,7 +141,7 @@ export default function UserProfileForm(props: UserProfileFormProps) {
       </ScrollView>
       <TouchableOpacity
         style={[styles.button, { backgroundColor: theme.COLORS.BUTTON }]}
-        onPress={handleSaveProfile}
+        onPress={handleUpdate}
         disabled={loading}
       >
         {loading ? (

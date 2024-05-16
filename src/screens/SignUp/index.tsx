@@ -11,7 +11,6 @@ import LogoSvg from "../../assets/svg/logo.svg";
 function SignUp() {
   const { signUp, isLoading } = useAuth();
 
-  const { navigate } = useNavigation<propsStack>();
   const { theme } = useTheme();
 
   const [name, setName] = useState("");
