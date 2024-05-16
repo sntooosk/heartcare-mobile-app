@@ -35,9 +35,9 @@ function Profile() {
         setLoading(true);
 
         if (auth) {
-          const userData = await get(auth.id);
+          const userData = await get(auth.id , auth.token);
           setName(userData.name || "");
-          setLastName(userData.lastName || "");
+          setLastName(userData.lastname || "");
           setDob(userData.dob || "");
           setPhoto(userData.photo || null);
           setGender(userData.gender || "");
@@ -96,14 +96,14 @@ function Profile() {
       const updatedUserData: User = {
         id: auth.id,
         name: name,
-        lastname: lastName,
+        lastName: lastName,
         gender: gender,
         dob: dob,
         auth: {
           id: auth.id,
         },
       };
-      await update(auth.id, updatedUserData);
+      await update(auth.id, auth.token, updatedUserData);
       setLoading(false);
       Alert.alert("Perfil atualizado com sucesso!");
     } catch (error) {

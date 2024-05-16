@@ -26,7 +26,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       const user = await asyncGetUser();
       if (user) {
         setAuthData(user);
-        console.log(user);
       }
     } catch (error) {
       console.error("Erro ao carregar usuário do armazenamento:", error);
@@ -40,7 +39,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     try {
       const user = await signInApi(credentials);
       setAuthData(user);
-      console.log(user);
       await asyncSetUser(user);
     } catch (error) {
       console.error("Erro ao entrar:", error);
@@ -55,7 +53,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     try {
       const user = await signUpApi(credentials);
       setAuthData(user);
-      console.log(user);
       await asyncSetUser(user);
     } catch (error) {
       console.error("Erro ao se cadastrar:", error);
