@@ -4,10 +4,11 @@ import { Feather } from "@expo/vector-icons";
 
 import { StatusBar } from "react-native";
 import { propsNavigationStack } from "./types";
-import FAQ from "../screens/FAQ";
 import Profile from "../screens/Profile";
 import { useTheme } from "../context/ThemeContext";
 import Query from "../screens/Query";
+import shadow from "../utils/styles";
+import Duvidas from "../screens/Duvidas";
 
 const { Navigator, Screen } = createBottomTabNavigator<propsNavigationStack>();
 
@@ -23,13 +24,23 @@ export default function TabRoutes() {
         screenOptions={{
           headerShown: false,
           tabBarStyle: {
-            backgroundColor: theme.COLORS.BACKGROUND,
+              backgroundColor: theme.COLORS.BACKGROUND,
+              position: "absolute",
+              borderTopColor: "transparent",
+              padding: 15,
+              bottom: 25,
+              left: 20,
+              right: 20,
+              elevation: 0,
+              borderRadius: 30,
+              height: 80,
+              ...shadow.shadowOverlay,
           },
         }}
       >
         <Screen
-          name="FAQ"
-          component={FAQ}
+          name="Duvidas"
+          component={Duvidas}
           options={{
             tabBarIcon: ({ focused, size }) => (
               <Feather

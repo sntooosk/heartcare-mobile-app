@@ -37,12 +37,17 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const signIn = async (credentials: LoginRequest) => {
     setIsLoading(true);
     try {
-      const user = await signInApi(credentials);
-      setAuthData(user);
-      await asyncSetUser(user);
+      const response = await signInApi(credentials);
+      if ("message" in response) {
+        Alert.alert("Erro ao entrar", response.message);
+      } else {
+        const user = response as Auth;
+        setAuthData(user);
+        await asyncSetUser(user);
+      }
     } catch (error) {
       console.error("Erro ao entrar:", error);
-      Alert.alert("Falha ao entrar");
+      Alert.alert("Erro ao entrar", "Algo deu errado. Tente novamente.");
     } finally {
       setIsLoading(false);
     }
@@ -51,12 +56,17 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const signUp = async (credentials: RegisterRequest) => {
     setIsLoading(true);
     try {
-      const user = await signUpApi(credentials);
-      setAuthData(user);
-      await asyncSetUser(user);
+      const response = await signUpApi(credentials);
+      if ("message" in response) {
+        Alert.alert("Erro ao se cadastrar", response.message);
+      } else {
+        const user = response as Auth;
+        setAuthData(user);
+        await asyncSetUser(user);
+      }
     } catch (error) {
       console.error("Erro ao se cadastrar:", error);
-      Alert.alert("Falha ao se cadastrar");
+      Alert.alert("Erro ao se cadastrar", "Algo deu errado. Tente novamente.");
     } finally {
       setIsLoading(false);
     }

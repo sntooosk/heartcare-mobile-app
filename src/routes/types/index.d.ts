@@ -5,7 +5,7 @@ export type propsNavigationStack = {
   SignIn: undefined | any;
   SignUp: undefined | any;
 
-  FAQ: undefined | any;
+  Duvidas: undefined | any;
   Profile: undefined | any;
   Query: undefined | any;
 };
