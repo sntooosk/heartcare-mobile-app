@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   View,
   Text,
@@ -10,6 +10,7 @@ import {
 import { Checkbox } from "expo-checkbox";
 import { styles } from "./styles";
 import shadow, { Theme } from "../../../utils/styles/index";
+import { formatBirthdateInput } from "../../../utils/FormatBirthdateInput";
 
 const genderOptions = ["Masculino", "Feminino", "Prefiro não dizer"];
 
@@ -19,6 +20,7 @@ interface UserProfileFormProps {
   email: string;
   dob: string;
   gender: string;
+  setName: (text: string) => void;
   setLastName: (text: string) => void;
   setDob: (text: string) => void;
   setGender: (text: string) => void;
@@ -34,6 +36,7 @@ export default function UserProfileForm(props: UserProfileFormProps) {
     email,
     dob,
     gender,
+    setName,
     setLastName,
     setDob,
     setGender,
@@ -41,24 +44,6 @@ export default function UserProfileForm(props: UserProfileFormProps) {
     loading,
     theme,
   } = props;
-
-  const formatBirthdateInput = (inputValue: string): string => {
-    const formattedValue = inputValue
-      .replace(/\D/g, "")
-      .replace(/(\d{2})(\d)/, "$1/$2")
-      .replace(/(\d{2})(\d)/, "$1/$2")
-      .replace(/(\d{4})\d+?$/, "$1");
-    return formattedValue;
-  };
-
-  const formatNumberInput = (inputValue: string): string => {
-    const cleaned: string = inputValue.replace(/\D/g, "").slice(0, 11);
-    const match = cleaned.match(/^(\d{0,2})(\d{0,5})(\d{0,4})$/);
-    if (match) {
-      return `(${match[1] || ""})${match[2] || ""}-${match[3] || ""}`;
-    }
-    return inputValue;
-  };
 
   return (
     <View
@@ -78,6 +63,7 @@ export default function UserProfileForm(props: UserProfileFormProps) {
             },
           ]}
           placeholder="Digite seu nome"
+          onChangeText={(text) => setName(text)}
           value={name}
         />
         <Text style={[styles.title, { color: theme.COLORS.TITLE }]}>

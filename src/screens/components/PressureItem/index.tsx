@@ -1,41 +1,57 @@
 import React, { useState } from "react";
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity, Alert } from "react-native";
 import { styles } from "./styles";
 import ModalEdicao from "../ModalEdit";
 import * as Animatable from "react-native-animatable";
-import shadow, { Theme } from '../../../utils/styles/index';
+import shadow, { Theme } from "../../../utils/styles/index";
 import Pressure from "../../../models/Pressure";
 import Auth from "../../../models/Auth";
+import { deletar } from "../../../api/requests/Pressure/delete";
 
 interface PressureItemProps {
   pressure: Pressure;
-  deletePressure: (pressureId: number) => void;
   theme: Theme;
   auth: Auth;
 }
 
 export default function PressureItem({
   pressure,
-  deletePressure,
   theme,
   auth,
 }: PressureItemProps) {
-
   const [modalVisivel, setModalVisivel] = useState(false);
-
 
   const abrirModal = () => {
     setModalVisivel(true);
   };
 
+  const deletePressures = async () => {
+    try {
+      Alert.alert(
+        "Confirmação",
+        "Deseja apagar esta medição?",
+        [
+          {
+            text: "Cancelar",
+            style: "cancel",
+          },
+          {
+            text: "Apagar",
+            onPress: async () => {
+              deletar(pressure.id, auth.token);
+              Alert.alert("Excluído com sucesso");
+            },
+          },
+        ],
+        { cancelable: true }
+      );
+    } catch (error) {}
+  };
+
+
   const fecharModal = () => {
     setModalVisivel(false);
   };
-
-  const salvarEdicao = () => {
-    fecharModal();
-  };
-
   const avaliarPressao = () => {
     const sistolica = parseFloat(pressure.sistolica);
     const diastolica = parseFloat(pressure.diastolica);
@@ -79,9 +95,10 @@ export default function PressureItem({
       animation="fadeInUp"
       style={[
         styles.container,
-        { backgroundColor: theme.COLORS.BACKGROUND_CARD,
-          ...shadow.shadowOverlay
-         },
+        {
+          backgroundColor: theme.COLORS.BACKGROUND_CARD,
+          ...shadow.shadowOverlay,
+        },
       ]}
     >
       <Text style={[styles.textPressure, { color: theme.COLORS.CONTENT }]}>
@@ -125,19 +142,15 @@ export default function PressureItem({
           style={[styles.button, { backgroundColor: theme.COLORS.BUTTON }]}
           onPress={abrirModal}
         >
-          <Text
-            style={[styles.textBotao, { color: theme.COLORS.BUTTON_TEXT }]}
-          >
+          <Text style={[styles.textBotao, { color: theme.COLORS.BUTTON_TEXT }]}>
             Editar
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={[styles.button, { backgroundColor: theme.COLORS.BUTTON }]}
-          onPress={() => deletePressure(pressure.id)}
+          onPress={() => deletePressures()}
         >
-          <Text
-            style={[styles.textBotao, { color: theme.COLORS.BUTTON_TEXT }]}
-          >
+          <Text style={[styles.textBotao, { color: theme.COLORS.BUTTON_TEXT }]}>
             Excluir
           </Text>
         </TouchableOpacity>
@@ -147,8 +160,9 @@ export default function PressureItem({
         visivel={modalVisivel}
         fecharModal={fecharModal}
         pressure={pressure}
-        salvarEdicao={salvarEdicao}
-        theme={theme} auth={auth}      />
+        theme={theme}
+        auth={auth}
+      />
     </Animatable.View>
   );
 }

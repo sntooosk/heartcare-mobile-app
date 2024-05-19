@@ -25,7 +25,7 @@ interface SignInFormProps {
   theme: Theme;
 }
 
-export default function SignInForm({
+const SignInForm: React.FC<SignInFormProps> = ({
   email,
   setEmail,
   password,
@@ -35,8 +35,7 @@ export default function SignInForm({
   handleLogin,
   isLoading,
   theme,
-}: SignInFormProps) {
-
+}) => {
   const { navigate } = useNavigation<propsStack>();
 
   return (
@@ -51,6 +50,7 @@ export default function SignInForm({
       <TextInput
         placeholder="Digite seu e-mail"
         placeholderTextColor={theme.COLORS.TEXT}
+        value={email}
         style={[
           styles.input,
           {
@@ -122,4 +122,6 @@ export default function SignInForm({
       </TouchableOpacity>
     </Animatable.View>
   );
-}
+};
+
+export default SignInForm;

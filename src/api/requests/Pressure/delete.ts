@@ -2,21 +2,15 @@ import axios from "axios";
 import { API } from "../..";
 
 export async function deletar(id: number, token: string) {
-  const authToken = `Bearer ${token}`;
-
   try {
-    const response = await axios.delete(`${API}/pressure/${id}`, {
+    const { data } = await axios.delete(`${API}/pressure/${id}`, {
       headers: {
-        Authorization: authToken
+        Authorization: `Bearer ${token}`
       }
     });
-
-    const { data } = response;
     return data;
   } catch (error) {
-    console.error("Erro ao obter usuário:", error);
-    throw error; // Reenvia o erro para ser tratado no componente que chama essa função
+    console.error("Erro ao deletar pressão:", error);
+    throw error;
   }
 }
-
-

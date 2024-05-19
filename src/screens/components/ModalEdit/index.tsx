@@ -19,7 +19,6 @@ interface ModalEdicaoProps {
   visivel: boolean;
   fecharModal: () => void;
   pressure: Pressure;
-  salvarEdicao: () => void;
   theme: Theme;
   auth: Auth;
 }
@@ -28,7 +27,6 @@ export default function ModalEdicao({
   visivel,
   fecharModal,
   pressure,
-  salvarEdicao,
   theme,
   auth,
 }: ModalEdicaoProps) {
@@ -52,10 +50,9 @@ export default function ModalEdicao({
           id: auth.id
         }
       };
-      console.log(PressureParaAtualizar)
 
       await update(pressure.id, auth.token, PressureParaAtualizar);
-      salvarEdicao();
+      fecharModal();
       setLoading(false);
       Alert.alert("Editado com sucesso");
     } catch (error) {

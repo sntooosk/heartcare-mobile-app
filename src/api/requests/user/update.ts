@@ -2,20 +2,17 @@ import axios from "axios";
 import { API } from "../..";
 import User from "../../../models/User";
 
-export async function update(id: number, token: string ,  user: User) {
-  const authToken = `Bearer ${token}`;
-
+export async function update(id: number, token: string, user: User) {
   try {
-    const response = await axios.put(`${API}/users/${id}`, user, {
+    const { data } = await axios.put(`${API}/users/${id}`, user, {
       headers: {
-        Authorization: authToken
-      }
+        Authorization: `Bearer ${token}`,
+      },
     });
 
-    const { data } = response;
     return data;
   } catch (error) {
     console.error("Erro ao atualizar usuário:", error);
-    throw error; // Reenvia o erro para ser tratado no componente que chama essa função
+    throw error;
   }
 }

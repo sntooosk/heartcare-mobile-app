@@ -14,22 +14,18 @@ import { create } from "../../../api/requests/Pressure/create";
 import Auth from "../../../models/Auth";
 
 interface PressureFormProps {
-  pressureAdicionada: () => void;
-  loading: boolean;
   auth: Auth;
   theme: Theme;
 }
 
 export default function PressureForm({
-  pressureAdicionada,
-  loading,
   auth,
   theme,
 }: PressureFormProps) {
   const [sistolica, setSistolica] = useState("");
   const [diastolica, setDiastolica] = useState("");
   const [pulso, setPulso] = useState("");
-  const [isAddingPressure, setIsAddingPressure] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const adicionarPressure = async () => {
     if (sistolica.trim() !== "" && diastolica.trim() !== "" && pulso.trim() !== "") {
@@ -42,15 +38,14 @@ export default function PressureForm({
       };
 
       try {
-        setIsAddingPressure(true);
+        setLoading(true);
         await create(auth.id, auth.token, novaPressure);
         Alert.alert("Adicionado com sucesso");
-        pressureAdicionada();
       } catch (error) {
         console.error("Erro ao adicionar medição:", error);
         Alert.alert("Erro ao adicionar medição");
       } finally {
-        setIsAddingPressure(false);
+        setLoading(false);
       }
     } else {
       Alert.alert("Por favor, preencha todos os campos");
@@ -107,9 +102,9 @@ export default function PressureForm({
       <TouchableOpacity
         style={[styles.button, { backgroundColor: theme.COLORS.BUTTON }]}
         onPress={adicionarPressure}
-        disabled={loading || isAddingPressure}
+        disabled={loading}
       >
-        {isAddingPressure ? (
+        {loading ? (
           <ActivityIndicator size="small" color={theme.COLORS.WHITE} />
         ) : (
           <Text style={{ color: theme.COLORS.BUTTON_TEXT, fontWeight: "bold" }}>
