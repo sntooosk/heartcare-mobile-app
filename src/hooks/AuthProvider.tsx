@@ -26,6 +26,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       const user = await asyncGetUser();
       if (user) {
         setAuthData(user);
+        console.log(user);
       }
     } catch (error) {
       console.error("Erro ao carregar usuário do armazenamento:", error);

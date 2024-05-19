@@ -7,6 +7,7 @@ export type propsNavigationStack = {
 
   FAQ: undefined | any;
   Profile: undefined | any;
+  Query: undefined | any;
 };
 
 export type propsStack = NativeStackNavigationProp<propsNavigationStack>;

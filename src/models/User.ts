@@ -4,6 +4,7 @@ interface User {
     lastName: string;
     dob: string;
     gender: string;
+    photo: string;
     auth: {
         id: number;
     };

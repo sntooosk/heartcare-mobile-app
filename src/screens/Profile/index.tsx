@@ -35,7 +35,7 @@ function Profile() {
         setLoading(true);
 
         if (auth) {
-          const userData = await get(auth.id , auth.token);
+          const userData = await get(auth.id, auth.token);
           setName(userData.name || "");
           setLastName(userData.lastname || "");
           setDob(userData.dob || "");
@@ -93,12 +93,35 @@ function Profile() {
   const handleUpdate = async () => {
     try {
       setLoading(true);
+
+      if (!auth) {
+        Alert.alert("Erro", "Usuário não autenticado");
+        setLoading(false);
+        return;
+      }
+
+      if (!name || !lastName || !dob || !email) {
+        Alert.alert("Erro", "Preencha todos os campos");
+        setLoading(false);
+        return;
+      }
+
+      if (!photo) {
+        Alert.alert("Erro", "Adicione uma foto");
+        setLoading(false);
+        return;
+      }
+
+          const photoBytes = await convertPhotoToBytes(photo);
+
+      // Converter a foto em bytes
       const updatedUserData: User = {
         id: auth.id,
         name: name,
         lastName: lastName,
         gender: gender,
         dob: dob,
+        photo: photoBytes, // Salvar os bytes da foto
         auth: {
           id: auth.id,
         },
@@ -111,6 +134,31 @@ function Profile() {
       console.error("Erro ao atualizar perfil:", error);
       Alert.alert("Erro ao atualizar perfil. Tente novamente mais tarde.");
     }
+  };
+
+  // Função para converter a foto em bytes
+  const convertPhotoToBytes = async (photoUri: string): Promise<string> => {
+    try {
+      const response = await fetch(photoUri);
+      const blob = await response.blob();
+      const bytes = await blobToBase64(blob);
+      return bytes;
+    } catch (error) {
+      console.error("Erro ao converter a foto em bytes:", error);
+      throw error;
+    }
+  };
+
+  // Função para converter um blob em base64
+  const blobToBase64 = (blob: Blob): Promise<string> => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onerror = reject;
+      reader.onload = () => {
+        resolve(reader.result as string);
+      };
+      reader.readAsDataURL(blob);
+    });
   };
 
   const handleEditClick = () => {
@@ -155,20 +203,23 @@ function Profile() {
         contentContainerStyle={styles.scrollViewContent}
         showsVerticalScrollIndicator={false}
       >
-        <UserProfileForm
-          name={name}
-          lastName={lastName}
-          dob={dob}
-          email={email}
-          gender={gender}
-          setLastName={setLastName}
-          setDob={setDob}
-          setGender={setGender}
-          handleUpdate={handleUpdate}
-          loading={loading}
-          theme={theme}
-        />
-
+        {editMode ? (
+          <UserProfileForm
+            name={name}
+            lastName={lastName}
+            dob={dob}
+            email={email}
+            gender={gender}
+            setLastName={setLastName}
+            setDob={setDob}
+            setGender={setGender}
+            handleUpdate={handleUpdate}
+            loading={loading}
+            theme={theme}
+          />
+        ) : (
+          <></>
+        )}
         <View
           style={[
             styles.userPostsContainer,
