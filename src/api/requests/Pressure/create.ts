@@ -2,9 +2,9 @@ import axios from "axios";
 import { API } from "../..";
 import CreatePressureDTO from "../../../models/dto/CreatePressureDTO";
 
-export async function create(id: number, token: string, pressure: CreatePressureDTO) {
+export async function create(token: string, pressure: CreatePressureDTO) {
   try {
-    const { data } = await axios.post(
+    const response = await axios.post(
       `${API}/pressure/`,
       pressure,
       {
@@ -13,9 +13,9 @@ export async function create(id: number, token: string, pressure: CreatePressure
         }
       }
     );
-    return data;
+    return response.data;
   } catch (error) {
     console.error("Erro ao criar pressão:", error);
-    throw error;
+    throw new Error("Erro ao criar pressão. Por favor, tente novamente.");
   }
 }

@@ -1,7 +1,7 @@
 interface User {
     id: number;
     name: string;
-    lastName: string;
+    lastname: string;
     dob: string;
     gender: string;
     photo: string;

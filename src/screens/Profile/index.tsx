@@ -9,20 +9,16 @@ import ProfileImage from "../components/ProfileImage";
 import UserProfileForm from "../components/UserProfileForm";
 import { styles } from "./styles";
 import { update } from "../../api/requests/user/update";
-import User from "../../models/User";
 import { get } from "../../api/requests/user/get";
 import { convertPhotoToBytes } from "../../utils/ConvertPhotoBytes";
+import UpdateUserDTO from "../../models/dto/UpdateUserDTO";
 
 function Profile() {
   const { signOut, authData } = useAuth();
-  const auth = authData;
-
-  const email = auth.email;
-
+  const { email, id, token } = authData;
   const { theme, toggleTheme } = useTheme();
   const [loading, setLoading] = useState(false);
   const [isDayMode, setIsDayMode] = useState(true);
-
   const [photo, setPhoto] = useState<string | null>(null);
   const [name, setName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -34,52 +30,41 @@ function Profile() {
     const fetchUserData = async () => {
       try {
         setLoading(true);
-
-        if (auth) {
-          const userData = await get(auth.id, auth.token);
-          setName(userData.name || "");
-          setLastName(userData.lastname || "");
-          setDob(userData.dob || "");
-          setPhoto(userData.photo || null);
-          setGender(userData.gender || "");
-        }
-
+        const userCache = await get(id, token);
+        setName(userCache.name || "");
+        setLastName(userCache.lastname || "");
+        setDob(userCache.dob || "");
+        setPhoto(userCache.photo || null);
+        setGender(userCache.gender || "");
         setLoading(false);
       } catch (error) {
         setLoading(false);
         console.error("Erro ao obter dados do usuário:", error);
       }
     };
-
     fetchUserData();
-  }, [auth]);
+  }, [id, token]);
 
   const handleChoosePhoto = async () => {
     try {
       const permissionResult =
         await ImagePicker.requestMediaLibraryPermissionsAsync();
-
-      if (permissionResult.granted === false) {
+      if (!permissionResult.granted) {
         Alert.alert("Permissão negada");
         return;
       }
-
       const result = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.Images,
         allowsEditing: true,
         aspect: [1, 1],
         quality: 1,
       });
-
-      if (
-        result.canceled === false &&
-        result.assets &&
-        result.assets.length > 0
-      ) {
+      if (!result.canceled && result.assets?.length > 0) {
         const supportedFormats = ["jpeg", "png", "jpg"];
-        const uriParts = result.assets[0].uri.split(".");
-        const fileExtension = uriParts[uriParts.length - 1].toLowerCase();
-
+        const fileExtension = result.assets[0].uri
+          .split(".")
+          .pop()
+          .toLowerCase();
         if (supportedFormats.includes(fileExtension)) {
           setPhoto(result.assets[0].uri);
         } else {
@@ -94,33 +79,27 @@ function Profile() {
   const handleUpdate = async () => {
     try {
       setLoading(true);
-
       if (!name || !lastName || !dob || !email) {
         Alert.alert("Erro", "Preencha todos os campos");
         setLoading(false);
         return;
       }
-
       if (!photo) {
         Alert.alert("Erro", "Adicione uma foto");
         setLoading(false);
         return;
       }
-
       const photoBytes = await convertPhotoToBytes(photo);
-
-      const updatedUserData: User = {
-        id: auth.id,
-        name: name,
-        lastName: lastName,
-        gender: gender,
-        dob: dob,
+      const userCache: UpdateUserDTO = {
+        id,
+        name,
+        lastname: lastName,
+        gender,
+        dob,
         photo: photoBytes,
-        auth: {
-          id: auth.id,
-        },
+        auth: { id },
       };
-      await update(auth.id, auth.token, updatedUserData);
+      await update(id, token, userCache);
       setLoading(false);
       Alert.alert("Perfil atualizado com sucesso!");
     } catch (error) {
@@ -142,9 +121,7 @@ function Profile() {
   return (
     <View style={[styles.container, { backgroundColor: theme.COLORS.PRIMARY }]}>
       <Header theme={theme} title="Perfil" />
-
       <ProfileImage photo={photo} onPress={handleChoosePhoto} />
-
       <TouchableOpacity
         style={[styles.button, { backgroundColor: theme.COLORS.PRIMARY }]}
         onPress={handleEditClick}
@@ -153,7 +130,6 @@ function Profile() {
           {editMode ? "Cancelar" : "Editar usuário"}
         </Text>
       </TouchableOpacity>
-
       <TouchableOpacity
         style={[
           styles.themeToggleButton,
@@ -167,15 +143,14 @@ function Profile() {
           color={theme.COLORS.ICON}
         />
       </TouchableOpacity>
-
       <ScrollView
         contentContainerStyle={styles.scrollViewContent}
         showsVerticalScrollIndicator={false}
       >
-        {editMode ? (
+        {editMode && (
           <UserProfileForm
             name={name}
-            lastName={lastName}
+            lastname={lastName}
             dob={dob}
             email={email}
             gender={gender}
@@ -187,8 +162,6 @@ function Profile() {
             loading={loading}
             theme={theme}
           />
-        ) : (
-          <></>
         )}
         <View
           style={[
@@ -196,15 +169,9 @@ function Profile() {
             { backgroundColor: theme.COLORS.BACKGROUND },
           ]}
         >
-          <View style={styles.botoes}>
-            <TouchableOpacity onPress={() => signOut()}>
-              <FontAwesome
-                name="sign-out"
-                size={30}
-                color={theme.COLORS.ICON}
-              />
-            </TouchableOpacity>
-          </View>
+          <TouchableOpacity onPress={signOut}>
+            <FontAwesome name="sign-out" size={30} color={theme.COLORS.ICON} />
+          </TouchableOpacity>
         </View>
       </ScrollView>
     </View>

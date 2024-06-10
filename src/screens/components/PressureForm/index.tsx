@@ -39,7 +39,7 @@ export default function PressureForm({
 
       try {
         setLoading(true);
-        await create(auth.id, auth.token, novaPressure);
+        await create(auth.token, novaPressure);
         Alert.alert("Adicionado com sucesso");
       } catch (error) {
         console.error("Erro ao adicionar medição:", error);

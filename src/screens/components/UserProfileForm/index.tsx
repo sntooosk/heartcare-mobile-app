@@ -12,11 +12,11 @@ import { styles } from "./styles";
 import shadow, { Theme } from "../../../utils/styles/index";
 import { formatBirthdateInput } from "../../../utils/FormatBirthdateInput";
 
-const genderOptions = ["Masculino", "Feminino", "Prefiro não dizer"];
+const genderOptions = ["Masculino", "Feminino"];
 
 interface UserProfileFormProps {
   name: string;
-  lastName: string;
+  lastname: string;
   email: string;
   dob: string;
   gender: string;
@@ -29,22 +29,20 @@ interface UserProfileFormProps {
   theme: Theme;
 }
 
-export default function UserProfileForm(props: UserProfileFormProps) {
-  const {
-    name,
-    lastName,
-    email,
-    dob,
-    gender,
-    setName,
-    setLastName,
-    setDob,
-    setGender,
-    handleUpdate,
-    loading,
-    theme,
-  } = props;
-
+export default function UserProfileForm({
+  name,
+  lastname,
+  email,
+  dob,
+  gender,
+  setName,
+  setLastName,
+  setDob,
+  setGender,
+  handleUpdate,
+  loading,
+  theme,
+}: UserProfileFormProps) {
   return (
     <View
       style={[
@@ -53,77 +51,71 @@ export default function UserProfileForm(props: UserProfileFormProps) {
       ]}
     >
       <ScrollView>
-        <Text style={[styles.title, { color: theme.COLORS.TITLE }]}>Nome:</Text>
-        <TextInput
-          style={[
-            styles.input,
-            {
-              backgroundColor: theme.COLORS.BACKGROUND_CARD,
-              color: theme.COLORS.CONTENT,
-            },
-          ]}
-          placeholder="Digite seu nome"
-          onChangeText={(text) => setName(text)}
-          value={name}
-        />
-        <Text style={[styles.title, { color: theme.COLORS.TITLE }]}>
-          Sobrenome:
-        </Text>
-        <TextInput
-          style={[
-            styles.input,
-            {
-              backgroundColor: theme.COLORS.BACKGROUND_CARD,
-              color: theme.COLORS.CONTENT,
-            },
-          ]}
-          placeholder="Digite seu sobrenome"
-          onChangeText={(text) => setLastName(text)}
-          value={lastName}
-        />
-        <Text style={[styles.title, { color: theme.COLORS.TITLE }]}>
-          Data de Nascimento:
-        </Text>
-        <TextInput
-          style={[
-            styles.input,
-            {
-              backgroundColor: theme.COLORS.BACKGROUND_CARD,
-              color: theme.COLORS.CONTENT,
-            },
-          ]}
-          placeholder="Digite sua data de nascimento"
-          onChangeText={(text) => setDob(formatBirthdateInput(text))}
-          value={dob}
-          keyboardType="numeric"
-        />
+        {[
+          {
+            label: "Nome",
+            value: name,
+            onChange: setName,
+            placeholder: "Digite seu nome",
+          },
+          {
+            label: "Sobrenome",
+            value: lastname,
+            onChange: setLastName,
+            placeholder: "Digite seu sobrenome",
+          },
+          {
+            label: "Data de Nascimento",
+            value: dob,
+            onChange: (text) => setDob(formatBirthdateInput(text)),
+            placeholder: "Digite sua data de nascimento",
+            keyboardType: "numeric",
+          },
+          {
+            label: "Email",
+            value: email,
+            placeholder: "Digite seu email",
+            editable: !email.trim(),
+          },
+        ].map(({ label, value, onChange, placeholder, editable = true }) => (
+          <View key={label}>
+            <Text style={[styles.title, { color: theme.COLORS.TITLE }]}>
+              {label}:
+            </Text>
+            <TextInput
+              style={[
+                styles.input,
+                {
+                  backgroundColor: theme.COLORS.BACKGROUND_CARD,
+                  color: theme.COLORS.CONTENT,
+                },
+              ]}
+              placeholder={placeholder}
+              onChangeText={onChange}
+              value={value}
+              editable={editable}
+            />
+          </View>
+        ))}
+
         <Text style={[styles.title, { color: theme.COLORS.TITLE }]}>
           Gênero:
         </Text>
         <View style={styles.checkboxContainerDoc}>
           {genderOptions.map((genderOption) => (
-            <View key={genderOption}>
-              <Text style={[styles.label, { color: theme.COLORS.TEXT }]}>
-                {genderOption}
-              </Text>
+            <View key={genderOption} style={styles.checkbox}>
               <Checkbox
                 value={gender === genderOption}
                 onValueChange={() => setGender(genderOption)}
                 color={theme.COLORS.PRIMARY}
                 style={styles.checkbox}
               />
+              <Text style={[styles.label, { color: theme.COLORS.TEXT }]}>
+                {genderOption}
+              </Text>
             </View>
           ))}
         </View>
-        <Text style={[styles.title, { color: theme.COLORS.TITLE }]}>
-          Email:
-        </Text>
-        <TextInput
-          style={[styles.input, { color: email.trim() ? "gray" : "black" }]}
-          placeholder="Digite seu email"
-          value={email}
-          pointerEvents={email.trim() ? "none" : "auto"}
-        />
       </ScrollView>
       <TouchableOpacity
         style={[styles.button, { backgroundColor: theme.COLORS.BUTTON }]}

@@ -1,10 +1,10 @@
 import axios from "axios";
 import { API } from "../..";
-import User from "../../../models/User";
+import UpdateUserDTO from "../../../models/dto/UpdateUserDTO";
 
-export async function update(id: number, token: string, user: User) {
+export async function update(id: number, token: string, updateUser: UpdateUserDTO) {
   try {
-    const { data } = await axios.put(`${API}/users/${id}`, user, {
+    const { data } = await axios.put(`${API}/users/${id}`, updateUser, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

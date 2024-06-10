@@ -53,8 +53,8 @@ export default function PressureItem({
     setModalVisivel(false);
   };
   const avaliarPressao = () => {
-    const sistolica = parseFloat(pressure.sistolica);
-    const diastolica = parseFloat(pressure.diastolica);
+    const sistolica = parseFloat(pressure.systolic);
+    const diastolica = parseFloat(pressure.diastolic);
 
     if (!isNaN(sistolica) && !isNaN(diastolica)) {
       if (sistolica < 90 && diastolica < 60) {
@@ -104,13 +104,13 @@ export default function PressureItem({
       <Text style={[styles.textPressure, { color: theme.COLORS.CONTENT }]}>
         Sistólica:{" "}
         <Text style={{ fontWeight: "bold", fontSize: 13 }}>
-          {pressure.sistolica}
+          {pressure.systolic}
         </Text>
       </Text>
       <Text style={[styles.textPressure, { color: theme.COLORS.CONTENT }]}>
         Diastólica:{" "}
         <Text style={{ fontWeight: "bold", fontSize: 13 }}>
-          {pressure.diastolica}
+          {pressure.diastolic}
         </Text>
       </Text>
       <Text style={[styles.textPressure, { color: theme.COLORS.CONTENT }]}>

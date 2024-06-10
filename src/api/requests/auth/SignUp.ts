@@ -1,8 +1,13 @@
 import axios from "axios";
 import { API } from "../..";
-import RegisterRequest from "../../../models/dto/LoginRequestDTO";
+import RegisterRequestDTO from "../../../models/dto/RegisterRequestDTO";
 
-export async function signUp(credentials: RegisterRequest) {
-  const { data } = await axios.post(`${API}/auth/register`, credentials);
-  return data;
+export async function signUp(credentials: RegisterRequestDTO) {
+  try {
+    const response = await axios.post(`${API}/auth/register`, credentials);
+    return response.data;
+  } catch (error) {
+    console.error("Erro durante o registro:", error);
+    throw new Error("Erro ao realizar o registro. Por favor, tente novamente.");
+  }
 }

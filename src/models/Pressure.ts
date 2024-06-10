@@ -1,7 +1,7 @@
 interface Pressure {
     id: number;
-    sistolica: string;
-    diastolica: string;
+    systolic: string;
+    diastolic: string;
     pulse: string;
     date: string;
     user: {

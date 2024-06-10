@@ -3,14 +3,14 @@ import { API } from "../..";
 
 export async function get(id: number, token: string) {
   try {
-    const { data } = await axios.get(`${API}/users/${id}`, {
+    const response = await axios.get(`${API}/users/${id}`, {
       headers: {
-        Authorization: `Bearer ${token}`,
-      },
+        Authorization: `Bearer ${token}`
+      }
     });
-    return data;
+    return response.data;
   } catch (error) {
     console.error("Erro ao obter usuário:", error);
-    throw error;
+    throw new Error("Erro ao obter usuário. Por favor, tente novamente.");
   }
 }

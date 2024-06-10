@@ -3,14 +3,16 @@ import { API } from "../..";
 
 export async function get(idUser: number, token: string) {
   try {
-    const { data } = await axios.get(`${API}/pressure/?userId=${idUser}`, {
+    const response = await axios.get(`${API}/pressure/?userId=${idUser}`, {
       headers: {
-        Authorization: `Bearer ${token}`
-      }
+        Authorization: `Bearer ${token}`,
+      },
     });
-    return data;
+    return response.data;
   } catch (error) {
-    console.error("Erro ao obter usuário:", error);
-    throw error;
+    console.error("Erro ao obter dados de pressão:", error);
+    throw new Error(
+      "Erro ao obter dados de pressão. Por favor, tente novamente."
+    );
   }
 }

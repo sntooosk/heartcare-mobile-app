@@ -3,14 +3,14 @@ import { API } from "../..";
 
 export async function deletar(id: number, token: string) {
   try {
-    const { data } = await axios.delete(`${API}/pressure/${id}`, {
+    const response = await axios.delete(`${API}/pressure/${id}`, {
       headers: {
-        Authorization: `Bearer ${token}`
-      }
+        Authorization: `Bearer ${token}`,
+      },
     });
-    return data;
+    return response.data;
   } catch (error) {
     console.error("Erro ao deletar pressão:", error);
-    throw error;
+    throw new Error("Erro ao deletar pressão. Por favor, tente novamente.");
   }
 }

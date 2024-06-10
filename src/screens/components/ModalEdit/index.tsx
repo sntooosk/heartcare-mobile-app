@@ -30,8 +30,8 @@ export default function ModalEdicao({
   theme,
   auth,
 }: ModalEdicaoProps) {
-  const [sistolicaEditada, setSistolicaEditada] = useState(pressure.sistolica);
-  const [diastolicaEditada, setDiastolicaEditada] = useState(pressure.diastolica);
+  const [sistolicaEditada, setSistolicaEditada] = useState(pressure.systolic);
+  const [diastolicaEditada, setDiastolicaEditada] = useState(pressure.diastolic);
   const [pulsoEditado, setPulsoEditado] = useState(pressure.pulse);
   const [loading, setLoading] = useState(false);
 
