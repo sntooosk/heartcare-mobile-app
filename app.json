@@ -24,13 +24,13 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#f5295a"
       },
-      "package": "com.sntoosk.heartcare"
+      "package": "com.sntooosk.heartcare"
     },
     "extra": {
       "eas": {
         "projectId": "2b306298-b994-4437-9d45-a2751352f5b2"
       }
     },
-    "owner": "sntoosk"
+    "owner": "sntooosk"
   }
 }
