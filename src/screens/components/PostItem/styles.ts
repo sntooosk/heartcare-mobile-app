@@ -7,28 +7,19 @@ export const styles = StyleSheet.create({
     padding: 20,
     marginBottom: 20,
   },
-  userPhoto: {
-    width: 50,
-    height: 50,
-    borderRadius: 30,
-    marginRight: 15,
-  },
+
   postHeader: {
     flexDirection: "row",
     alignItems: "center",
     marginBottom: 12,
   },
-  username: {
-    fontSize: 14,
-    fontWeight: "bold",
-  },
   postTitle: {
-    fontSize: 13,
+    fontSize: 15,
     fontWeight: "bold",
     marginBottom: 12,
   },
   postContent: {
-    fontSize: 12,
+    fontSize: 13,
     marginBottom: 12,
   },
   actionIconContainer: {
@@ -36,11 +27,5 @@ export const styles = StyleSheet.create({
   },
   saveIconContainer: {
     alignSelf: "flex-end",
-  },
-  likerImage: {
-    width: 25,
-    height: 25,
-    borderRadius: 8,
-    marginRight: 2,
   },
 });
