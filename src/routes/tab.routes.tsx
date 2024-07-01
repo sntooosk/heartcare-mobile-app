@@ -9,6 +9,7 @@ import { useTheme } from "../context/ThemeContext";
 import Query from "../screens/Query";
 import shadow from "../utils/styles";
 import Duvidas from "../screens/Duvidas";
+import Feed from "../screens/Feed";
 
 const { Navigator, Screen } = createBottomTabNavigator<propsNavigationStack>();
 
@@ -24,20 +25,35 @@ export default function TabRoutes() {
         screenOptions={{
           headerShown: false,
           tabBarStyle: {
-              backgroundColor: theme.COLORS.BACKGROUND,
-              position: "absolute",
-              borderTopColor: "transparent",
-              padding: 15,
-              bottom: 25,
-              left: 20,
-              right: 20,
-              elevation: 0,
-              borderRadius: 30,
-              height: 80,
-              ...shadow.shadowOverlay,
+            backgroundColor: theme.COLORS.BACKGROUND,
+            position: "absolute",
+            borderTopColor: "transparent",
+            padding: 15,
+            bottom: 25,
+            left: 20,
+            right: 20,
+            elevation: 0,
+            borderRadius: 30,
+            height: 80,
+            ...shadow.shadowOverlay,
           },
         }}
       >
+        <Screen
+          name="Feed"
+          component={Feed}
+          options={{
+            tabBarIcon: ({ focused, size }) => (
+              <Feather
+                name="heart"
+                size={focused ? size + 5 : size}
+                color={focused ? theme.COLORS.PRIMARY : theme.COLORS.TITLE}
+              />
+            ),
+            tabBarLabel: () => null,
+          }}
+        />
+
         <Screen
           name="Duvidas"
           component={Duvidas}

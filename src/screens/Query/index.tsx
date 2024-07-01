@@ -11,7 +11,7 @@ import { AntDesign, MaterialIcons } from "@expo/vector-icons";
 import { useTheme } from "../../context/ThemeContext";
 import Pressure from "../../models/Pressure";
 import { useAuth } from "../../context/AuthContext";
-import { get } from "../../api/requests/Pressure/get";
+import { get } from "../../api/requests/pressure/get";
 import PressureForm from "../components/PressureForm";
 import PressureItem from "../components/PressureItem";
 import Header from "../components/Header";
@@ -33,7 +33,6 @@ function Query() {
       setPressures(pressuresRef);
       setRefreshing(false);
     } catch (error) {
-      console.error("Erro ao carregar medições:", error);
     }
   };
 

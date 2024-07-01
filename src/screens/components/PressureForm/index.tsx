@@ -10,7 +10,7 @@ import {
 import { styles } from "./styles";
 import shadow, { Theme } from "../../../utils/styles/index";
 import * as Animatable from "react-native-animatable";
-import { create } from "../../../api/requests/Pressure/create";
+import { create } from "../../../api/requests/pressure/create";
 import Auth from "../../../models/Auth";
 
 interface PressureFormProps {

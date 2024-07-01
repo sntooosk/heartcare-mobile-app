@@ -10,9 +10,5 @@ export async function get(idUser: number, token: string) {
     });
     return response.data;
   } catch (error) {
-    console.error("Erro ao obter dados de pressão:", error);
-    throw new Error(
-      "Erro ao obter dados de pressão. Por favor, tente novamente."
-    );
   }
 }
