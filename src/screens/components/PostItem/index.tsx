@@ -40,7 +40,7 @@ export default function PostItem({
         style={styles.saveIconContainer}
         onPress={() => sharePost(post.title, post.comment)}
       >
-        <FontAwesome name="send-o" size={30} color={theme.COLORS.ICON} />
+        <FontAwesome name="send-o" size={25} color={theme.COLORS.ICON} />
       </TouchableOpacity>
     </Animatable.View>
   );
