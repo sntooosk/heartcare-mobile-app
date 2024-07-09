@@ -23,6 +23,7 @@ interface SignInFormProps {
   handleLogin: () => void;
   isLoading: boolean;
   theme: Theme;
+  handleForgotPassword: () => void;
 }
 
 const SignInForm: React.FC<SignInFormProps> = ({
@@ -35,6 +36,7 @@ const SignInForm: React.FC<SignInFormProps> = ({
   handleLogin,
   isLoading,
   theme,
+  handleForgotPassword,
 }) => {
   const { navigate } = useNavigation<propsStack>();
 
@@ -96,6 +98,19 @@ const SignInForm: React.FC<SignInFormProps> = ({
           />
         </TouchableOpacity>
       </View>
+      <TouchableOpacity
+        style={[styles.button, { alignItems: "flex-end" , paddingBottom: 20 }]}
+        onPress={handleForgotPassword}
+      >
+        <Text
+          style={[
+            styles.togglePasswordButtonText,
+            { color: theme.COLORS.TEXT },
+          ]}
+        >
+          Esqueceu a senha?
+        </Text>
+      </TouchableOpacity>
       <TouchableOpacity
         style={[styles.button, { backgroundColor: theme.COLORS.BUTTON }]}
         onPress={handleLogin}

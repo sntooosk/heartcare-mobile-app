@@ -4,6 +4,8 @@ export type propsNavigationStack = {
   Home: undefined | any;
   SignIn: undefined | any;
   SignUp: undefined | any;
+  ResetPassword: undefined | any;
+
 
   Feed: undefined | any;
   Duvidas: undefined | any;
