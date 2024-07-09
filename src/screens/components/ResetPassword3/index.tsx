@@ -51,7 +51,6 @@ const ResetPasswordForm3: React.FC<ResetPasswordForm3Props> = ({
           },
         ]}
         onChangeText={(text) => setPassword(text)}
-        secureTextEntry={true}
       />
       <TextInput
         placeholder="Confirme sua nova senha"
@@ -65,7 +64,6 @@ const ResetPasswordForm3: React.FC<ResetPasswordForm3Props> = ({
           },
         ]}
         onChangeText={(text) => setConfPassword(text)}
-        secureTextEntry={true}
       />
       <TouchableOpacity
         style={[styles.button, { backgroundColor: theme.COLORS.BUTTON }]}

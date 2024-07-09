@@ -11,14 +11,14 @@ import { useTheme } from "../../../context/ThemeContext";
 import { styles } from "./styles";
 
 interface ResetPasswordForm2Props {
-  codigoOtp: number;
-  setCodigoOtp: (codigoOtp: number) => void;
+  codigoOtp: string;
+  setCodigoOtp: (codigoOtp: string) => void;
   handleVerificarCodigoOtp: () => void;
   handleEnvioCodigoOtp2: () => void;
   loading: boolean;
 }
 
-const RESET_TIMEOUT = 2 * 60 * 1000; // 2 minutes in milliseconds
+const RESET_TIMEOUT = 20 * 1000; // 20 seconds in milliseconds
 
 export default function ResetPasswordForm2({
   codigoOtp,
@@ -53,7 +53,7 @@ export default function ResetPasswordForm2({
   const handleChangeDigit = (index: number, digit: string) => {
     let newOtpDigits = [...codigoOtp.toString()];
     newOtpDigits[index] = digit;
-    const newOtp = Number(newOtpDigits.join(""));
+    const newOtp = newOtpDigits.join("");
     setCodigoOtp(newOtp);
 
     if (digit && index < inputRefs.current.length - 1) {
@@ -62,9 +62,8 @@ export default function ResetPasswordForm2({
   };
 
   const formatTime = (milliseconds: number) => {
-    const minutes = Math.floor(milliseconds / (1000 * 60));
-    const seconds = Math.floor((milliseconds % (1000 * 60)) / 1000);
-    return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+    const seconds = Math.floor(milliseconds / 1000);
+    return `${seconds} segundos`;
   };
 
   return (
@@ -93,7 +92,7 @@ export default function ResetPasswordForm2({
             ]}
             maxLength={1}
             keyboardType="numeric"
-            value={codigoOtp.toString()[index] || ""}
+            value={codigoOtp[index] || ""}
             onChangeText={(text) => handleChangeDigit(index, text)}
           />
         ))}
@@ -112,17 +111,17 @@ export default function ResetPasswordForm2({
         )}
       </TouchableOpacity>
       {countdown > 0 && (
-        <Text style={{ color: theme.COLORS.TEXT }}>
+        <Text style={{ color: theme.COLORS.TEXT, marginTop: 10 }}>
           Tempo restante para reenvio: {formatTime(countdown)}
         </Text>
       )}
       {countdown === 0 && (
         <TouchableOpacity
-          style={[styles.button, { backgroundColor: theme.COLORS.BUTTON }]}
+          style={[styles.buttonRegister, { borderColor: theme.COLORS.PRIMARY }]}
           onPress={resetTimeout}
           disabled={loading}
         >
-          <Text style={[styles.buttonText, { color: theme.COLORS.BUTTON_TEXT }]}>
+          <Text style={[styles.buttonText, { color: theme.COLORS.PRIMARY }]}>
             Reenviar OTP
           </Text>
         </TouchableOpacity>

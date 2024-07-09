@@ -20,7 +20,7 @@ function ResetPassword() {
   const { navigate } = useNavigation<propsStack>();
 
   const [resetEmail, setResetEmail] = useState("");
-  const [codigoOtp, setCodigoOtp] = useState(0);
+  const [codigoOtp, setCodigoOtp] = useState("");
   const [loading, setLoading] = useState(false);
   const [showResetPassword, setShowResetPassword] = useState(true);
   const [showResetPassword2, setShowResetPassword2] = useState(false);
@@ -54,7 +54,7 @@ function ResetPassword() {
   const handleVerificarCodigoOtp = async () => {
     try {
       setLoading(true);
-      await verifyOtp(codigoOtp, resetEmail);
+      await verifyOtp(Number(codigoOtp), resetEmail); // Convertendo codigoOtp para número
       setLoading(false);
       setShowResetPassword2(false);
       setShowResetPassword3(true);
@@ -64,6 +64,7 @@ function ResetPassword() {
       alert(error);
     }
   };
+  
 
   const handleMudarAsenha = async () => {
     const changePasswordData: ChangePassword = {
