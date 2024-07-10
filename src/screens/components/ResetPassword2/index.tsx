@@ -50,14 +50,30 @@ export default function ResetPasswordForm2({
     handleEnvioCodigoOtp2();
   };
 
-  const handleChangeDigit = (index: number, digit: string) => {
-    let newOtpDigits = [...codigoOtp.toString()];
-    newOtpDigits[index] = digit;
-    const newOtp = newOtpDigits.join("");
-    setCodigoOtp(newOtp);
+  const handleChangeDigit = (index: number, text: string) => {
+    if (text.length > 1) {
+      const newOtpDigits = text.split('').slice(0, 6);
+      setCodigoOtp(newOtpDigits.join(''));
+      newOtpDigits.forEach((digit, idx) => {
+        if (inputRefs.current[idx]) {
+          inputRefs.current[idx].focus();
+        }
+      });
+    } else {
+      let newOtpDigits = [...codigoOtp.toString()];
+      newOtpDigits[index] = text;
+      const newOtp = newOtpDigits.join("");
+      setCodigoOtp(newOtp);
 
-    if (digit && index < inputRefs.current.length - 1) {
-      inputRefs.current[index + 1]?.focus();
+      if (text && index < inputRefs.current.length - 1) {
+        inputRefs.current[index + 1]?.focus();
+      }
+    }
+  };
+
+  const handleKeyPress = (index: number, key: string) => {
+    if (key === 'Backspace' && index > 0) {
+      inputRefs.current[index - 1]?.focus();
     }
   };
 
@@ -94,6 +110,7 @@ export default function ResetPasswordForm2({
             keyboardType="numeric"
             value={codigoOtp[index] || ""}
             onChangeText={(text) => handleChangeDigit(index, text)}
+            onKeyPress={(e) => handleKeyPress(index, e.nativeEvent.key)}
           />
         ))}
       </View>
