@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View } from "react-native";
+import { Alert, View } from "react-native";
 import { styles } from "./styles";
 
 import LogoSvg from "../../assets/svg/logo.svg";
@@ -16,7 +16,6 @@ import { propsStack } from "../../routes/types";
 
 function ResetPassword() {
   const { theme } = useTheme();
-
   const { navigate } = useNavigation<propsStack>();
 
   const [resetEmail, setResetEmail] = useState("");
@@ -31,40 +30,56 @@ function ResetPassword() {
   const handleEnvioCodigoOtp = async () => {
     try {
       setLoading(true);
-      await verifyMail(resetEmail);
-      setLoading(false);
-      setShowResetPassword(false);
-      setShowResetPassword2(true);
-      alert("Código OTP enviado com sucesso");
+      const response = await verifyMail(resetEmail);
+      if (response.status === "OK") {
+        setShowResetPassword(false);
+        setShowResetPassword2(true);
+      } else {
+        Alert.alert(response.message || "Erro ao enviar código OTP.");
+      }
     } catch (error) {
+      console.error("Erro ao verificar email:", error);
+      Alert.alert("Erro ao enviar código OTP. Tente novamente mais tarde.");
+    } finally {
       setLoading(false);
-      alert(error);
     }
   };
+
   const handleEnvioCodigoOtp2 = async () => {
     try {
-      await verifyMail(resetEmail);
-      alert("Código OTP enviado com sucesso");
+      setLoading(true);
+      const response = await verifyMail(resetEmail);
+      if (response.status === "OK") {
+        setShowResetPassword(false);
+        setShowResetPassword2(true);
+      } else {
+        Alert.alert(response.message || "Erro ao enviar código OTP.");
+      }
     } catch (error) {
+      console.error("Erro ao verificar email:", error);
+      Alert.alert("Erro ao enviar código OTP. Tente novamente mais tarde.");
+    } finally {
       setLoading(false);
-      alert(error);
     }
   };
 
   const handleVerificarCodigoOtp = async () => {
     try {
       setLoading(true);
-      await verifyOtp(Number(codigoOtp), resetEmail); // Convertendo codigoOtp para número
-      setLoading(false);
-      setShowResetPassword2(false);
-      setShowResetPassword3(true);
-      alert("Código OTP verificado com sucesso");
+      const response = await verifyOtp(Number(codigoOtp), resetEmail);
+      if (response.status === "OK") {
+        setShowResetPassword2(false);
+        setShowResetPassword3(true);
+      } else {
+        Alert.alert(response.message || "Erro ao verificar código OTP.");
+      }
     } catch (error) {
+      console.error("Erro ao verificar OTP:", error);
+      Alert.alert("Erro ao verificar código OTP. Tente novamente mais tarde.");
+    } finally {
       setLoading(false);
-      alert(error);
     }
   };
-  
 
   const handleMudarAsenha = async () => {
     const changePasswordData: ChangePassword = {
@@ -75,14 +90,14 @@ function ResetPassword() {
     try {
       setLoading(true);
       await changePassword(resetEmail, changePasswordData);
+        setShowResetPassword3(false);
+        navigate("SignIn");
+      }
+     catch (error) {
+      console.error("Erro ao mudar senha:", error);
+      Alert.alert("Erro ao alterar senha. Tente novamente mais tarde.");
+    } finally {
       setLoading(false);
-      setShowResetPassword2(false);
-      setShowResetPassword3(true);
-      alert("Senha alterada com sucesso");
-      navigate("SignIn");
-    } catch (error) {
-      setLoading(false);
-      alert(error);
     }
   };
 
@@ -102,7 +117,7 @@ function ResetPassword() {
           codigoOtp={codigoOtp}
           setCodigoOtp={setCodigoOtp}
           handleVerificarCodigoOtp={handleVerificarCodigoOtp}
-          handleEnvioCodigoOtp2={handleEnvioCodigoOtp2}
+          handleEnvioCodigoOtp2={handleEnvioCodigoOtp2} // Aqui adicionado handleEnvioCodigoOtp2
           loading={loading}
         />
       ) : showResetPassword3 ? (
