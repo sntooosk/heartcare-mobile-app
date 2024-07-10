@@ -90,10 +90,10 @@ function ResetPassword() {
     try {
       setLoading(true);
       await changePassword(resetEmail, changePasswordData);
-        setShowResetPassword3(false);
-        navigate("SignIn");
-      }
-     catch (error) {
+      setShowResetPassword3(false);
+      navigate("SignIn");
+    }
+    catch (error) {
       console.error("Erro ao mudar senha:", error);
       Alert.alert("Erro ao alterar senha. Tente novamente mais tarde.");
     } finally {
