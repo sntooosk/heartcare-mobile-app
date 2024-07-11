@@ -16,6 +16,7 @@ function SignUp() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [role, setRole] = useState("USER");
   const [confPassword, setConfPassword] = useState("");
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
@@ -30,7 +31,7 @@ function SignUp() {
     }
 
     try {
-      await signUp({ name, email, password });
+      await signUp({ name, email, password , role});
     } catch (error) {}
   };
 
