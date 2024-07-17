@@ -69,9 +69,3 @@ Este projeto está licenciado sob a Licença MIT. Consulte o arquivo [LICENSE](L
 ## Contato
 
 Juliano Cassimiro dos Santos - [LinkedIn](https://www.linkedin.com/in/sntooosk)
-
----
-
-<div align="center">
-  <strong>HeartCare</strong> - Cuidando do seu coração com tecnologia
-</div>
