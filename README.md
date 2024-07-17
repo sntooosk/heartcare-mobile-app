@@ -1,13 +1,11 @@
-# HeartCare Mobile Application
-
 ## Tecnologias Utilizadas
+
 <p align="center">
   <img src="https://img.shields.io/badge/react_native-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB" alt="React Native" />
   <img src="https://img.shields.io/badge/axios-%5E0.21.1-61DAFB?style=for-the-badge&logo=axios&logoColor=white" alt="Axios" />
   <img src="https://img.shields.io/badge/SVG-black?style=for-the-badge&logo=svg&logoColor=white" alt="SVG" />
   <img src="https://img.shields.io/badge/expo-1C1E24?style=for-the-badge&logo=expo&logoColor=white" alt="Expo" />
 </p>
-
 
 ## Funcionalidades
 
@@ -20,7 +18,6 @@
 - **ResetPassword**: Funcionalidade para redefinir a senha.
 - **Signin**: Tela de login para acesso seguro.
 - **SignUp**: Tela de cadastro para novos usuários.
-
 
 ## Instalação
 
@@ -63,17 +60,18 @@
     ```bash
     git push origin minha-feature
     ```
-5. Abra um Pull Request.
+5. Abra um Pull Request para revisão.
 
 ## Licença
 
-Este projeto está licenciado sob a Licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
+Este projeto está licenciado sob a Licença MIT. Consulte o arquivo [LICENSE](LICENSE) para mais detalhes.
 
 ## Contato
 
 Juliano Cassimiro dos Santos - [LinkedIn](https://www.linkedin.com/in/sntooosk)
 
+---
+
 <div align="center">
   <strong>HeartCare</strong> - Cuidando do seu coração com tecnologia
 </div>
-
