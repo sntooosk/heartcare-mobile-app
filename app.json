@@ -9,7 +9,7 @@
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#f5295a"
+      "backgroundColor": "#1F2937"
     },
     "assetBundlePatterns": ["**/*"],
     "packageOpts": {
@@ -22,7 +22,7 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#f5295a"
+        "backgroundColor": "#1F2937"
       },
       "package": "com.sntooosk.heartcare"
     },

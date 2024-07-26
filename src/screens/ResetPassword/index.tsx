@@ -102,7 +102,7 @@ function ResetPassword() {
   };
 
   return (
-    <View style={[styles.container, { backgroundColor: theme.COLORS.PRIMARY }]}>
+    <View style={[styles.container, { backgroundColor: "#1F2937" }]}>
       <LogoSvg width={200} height={150} />
 
       {showResetPassword ? (

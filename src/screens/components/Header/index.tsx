@@ -8,9 +8,11 @@ interface HeaderProps {
   title: string;
   theme: Theme;
 }
+
 export default function Header({ title, theme }: HeaderProps) {
+
   return (
-    <View style={[styles.container, { backgroundColor: theme.COLORS.PRIMARY }]}>
+    <View style={[styles.container, { backgroundColor: "#1F2937" }]}>
       <View style={styles.contain}>
         <Text style={styles.text}>{title}</Text>
       </View>

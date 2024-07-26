@@ -15,7 +15,7 @@ function Home() {
   const { theme } = useTheme();
 
   return (
-    <View style={[styles.container, { backgroundColor: theme.COLORS.PRIMARY }]}>
+    <View style={[styles.container, { backgroundColor: "#1F2937" }]}>
       <MainIllustrationSvg width={400} height={400} />
 
       <Animatable.View

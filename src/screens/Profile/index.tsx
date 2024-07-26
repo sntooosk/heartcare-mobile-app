@@ -119,11 +119,11 @@ function Profile() {
   };
 
   return (
-    <View style={[styles.container, { backgroundColor: theme.COLORS.PRIMARY }]}>
+    <View style={[styles.container, { backgroundColor: "#1F2937" }]}>
       <Header theme={theme} title="Perfil" />
       <ProfileImage photo={photo} onPress={handleChoosePhoto} />
       <TouchableOpacity
-        style={[styles.button, { backgroundColor: theme.COLORS.PRIMARY }]}
+        style={[styles.button, { backgroundColor: "#1F2937" }]}
         onPress={handleEditClick}
       >
         <Text style={[styles.buttonText, { color: theme.COLORS.BUTTON_TEXT }]}>
