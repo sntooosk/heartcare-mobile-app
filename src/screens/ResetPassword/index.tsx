@@ -3,7 +3,6 @@ import { Alert, View } from "react-native";
 import { styles } from "./styles";
 
 import LogoSvg from "../../assets/svg/logo.svg";
-import { useTheme } from "../../context/ThemeContext";
 import ResetPasswordForm from "../components/ResetPassword";
 import ResetPasswordForm2 from "../components/ResetPassword2";
 import ResetPasswordForm3 from "../components/ResetPassword3";
@@ -15,7 +14,7 @@ import { useNavigation } from "@react-navigation/native";
 import { propsStack } from "../../routes/types";
 
 function ResetPassword() {
-  const { theme } = useTheme();
+
   const { navigate } = useNavigation<propsStack>();
 
   const [resetEmail, setResetEmail] = useState("");
@@ -117,7 +116,7 @@ function ResetPassword() {
           codigoOtp={codigoOtp}
           setCodigoOtp={setCodigoOtp}
           handleVerificarCodigoOtp={handleVerificarCodigoOtp}
-          handleEnvioCodigoOtp2={handleEnvioCodigoOtp2} // Aqui adicionado handleEnvioCodigoOtp2
+          handleEnvioCodigoOtp2={handleEnvioCodigoOtp2}
           loading={loading}
         />
       ) : showResetPassword3 ? (

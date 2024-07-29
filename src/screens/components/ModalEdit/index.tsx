@@ -9,11 +9,11 @@ import {
   Alert,
 } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
-import { update } from "../../../api/requests/pressure/update";
 import { styles } from "./styles";
 import shadow, { Theme } from "../../../utils/styles/index";
 import Pressure from "../../../models/Pressure";
 import Auth from "../../../models/Auth";
+import { update } from "../../../api/requests/Pressure/update";
 
 interface ModalEdicaoProps {
   visivel: boolean;

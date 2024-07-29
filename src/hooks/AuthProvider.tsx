@@ -1,7 +1,7 @@
 import { ReactNode, useEffect, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
-import { signIn as signInApi } from "../api/requests/auth/signIn";
-import { signUp as signUpApi } from "../api/requests/auth/signUp";
+import { signIn as signInApi } from "../api/requests/auth/SignIn";
+import { signUp as signUpApi } from "../api/requests/auth/SignUp";
 import {
   asyncGetUser,
   asyncRemoveUser,

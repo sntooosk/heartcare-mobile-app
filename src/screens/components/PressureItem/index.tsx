@@ -6,7 +6,7 @@ import * as Animatable from "react-native-animatable";
 import shadow, { Theme } from "../../../utils/styles/index";
 import Pressure from "../../../models/Pressure";
 import Auth from "../../../models/Auth";
-import { deletar } from "../../../api/requests/pressure/delete";
+import { deletar } from "../../../api/requests/Pressure/delete";
 
 interface PressureItemProps {
   pressure: Pressure;
