@@ -13,7 +13,7 @@ import { styles } from "./styles";
 import shadow, { Theme } from "../../../utils/styles/index";
 import Pressure from "../../../models/Pressure";
 import Auth from "../../../models/Auth";
-import { update } from "../../../api/requests/Pressure/update";
+import { update } from "../../../api/requests/pressure/update";
 
 interface ModalEdicaoProps {
   visivel: boolean;

@@ -11,7 +11,7 @@ import { styles } from "./styles";
 import shadow, { Theme } from "../../../utils/styles/index";
 import * as Animatable from "react-native-animatable";
 import Auth from "../../../models/Auth";
-import { create } from "../../../api/requests/Pressure/create";
+import { create } from "../../../api/requests/pressure/create";
 
 interface PressureFormProps {
   auth: Auth;

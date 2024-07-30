@@ -14,7 +14,7 @@ import { useAuth } from "../../context/AuthContext";
 import PressureForm from "../components/PressureForm";
 import PressureItem from "../components/PressureItem";
 import Header from "../components/Header";
-import { get } from "../../api/requests/Pressure/get";
+import { get } from "../../api/requests/pressure/get";
 
 function Query() {
   const [pressures, setPressures] = useState<Pressure[]>([]);

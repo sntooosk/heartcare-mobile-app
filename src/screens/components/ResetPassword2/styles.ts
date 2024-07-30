@@ -52,11 +52,11 @@ export const styles = StyleSheet.create({
     width: 40,
     height: 40,
     borderRadius: 10,
-    borderWidth: 1,
+    borderWidth: 2,
     justifyContent: "center",
     alignItems: "center",
     textAlign: "center", // Centraliza o texto horizontalmente
     fontWeight: "bold",  // Define o texto como negrito
-    fontSize: 18,        // Define o tamanho da fonte
+    fontSize: 20,        // Define o tamanho da fonte
   },
 });
