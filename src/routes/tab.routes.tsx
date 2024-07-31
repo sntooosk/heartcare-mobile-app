@@ -18,7 +18,7 @@ export default function TabRoutes() {
   return (
     <>
       <StatusBar
-        backgroundColor={theme.COLORS.PRIMARY}
+        backgroundColor={"#1F2937"}
         barStyle="light-content"
       />
       <Navigator
@@ -28,17 +28,18 @@ export default function TabRoutes() {
             backgroundColor: theme.COLORS.BACKGROUND,
             position: "absolute",
             borderTopColor: theme.COLORS.PRIMARY,
-            padding: 15,
+            padding: 20,
             bottom: 25,
-            left: 20,
-            right: 20,
+            left: 25,
+            right: 25,
             elevation: 0,
             borderRadius: 30,
             borderWidth: 2.5,
             borderColor: theme.COLORS.PRIMARY,
             height: 80,
             ...shadow.shadowOverlay,
-          },
+          }
+          
         }}
       >
         <Screen
@@ -48,7 +49,7 @@ export default function TabRoutes() {
             tabBarIcon: ({ focused, size }) => (
               <Feather
                 name="heart"
-                size={focused ? size + 10 : size}
+                size={focused ? size + 5 : size}
                 color={focused ? theme.COLORS.PRIMARY : theme.COLORS.TITLE}
               />
             ),
@@ -63,7 +64,7 @@ export default function TabRoutes() {
             tabBarIcon: ({ focused, size }) => (
               <Feather
                 name="info"
-                size={focused ? size + 10 : size}
+                size={focused ? size + 5 : size}
                 color={focused ? theme.COLORS.PRIMARY : theme.COLORS.TITLE}
               />
             ),
@@ -77,7 +78,7 @@ export default function TabRoutes() {
             tabBarIcon: ({ focused, size }) => (
               <Feather
                 name="calendar"
-                size={focused ? size + 10 : size}
+                size={focused ? size + 5 : size}
                 color={focused ? theme.COLORS.PRIMARY : theme.COLORS.TITLE}
               />
             ),
@@ -91,7 +92,7 @@ export default function TabRoutes() {
             tabBarIcon: ({ focused, size }) => (
               <Feather
                 name="user"
-                size={focused ? size + 10 : size}
+                size={focused ? size + 5 : size}
                 color={focused ? theme.COLORS.PRIMARY : theme.COLORS.TITLE}
               />
             ),
