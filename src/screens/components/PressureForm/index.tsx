@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import {
-  View,
   Text,
   TouchableOpacity,
   TextInput,
-  Alert,
   ActivityIndicator,
 } from "react-native";
 import { styles } from "./styles";
@@ -12,6 +10,7 @@ import shadow, { Theme } from "../../../utils/styles/index";
 import * as Animatable from "react-native-animatable";
 import Auth from "../../../models/Auth";
 import { create } from "../../../api/requests/pressure/create";
+import { useToast } from "../../../context/ToastContext";
 
 interface PressureFormProps {
   auth: Auth;
@@ -27,6 +26,8 @@ export default function PressureForm({
   const [pulso, setPulso] = useState("");
   const [loading, setLoading] = useState(false);
 
+  const { showToast } = useToast();
+
   const adicionarPressure = async () => {
     if (sistolica.trim() !== "" && diastolica.trim() !== "" && pulso.trim() !== "") {
       const novaPressure = {
@@ -40,15 +41,15 @@ export default function PressureForm({
       try {
         setLoading(true);
         await create(auth.token, novaPressure);
-        Alert.alert("Adicionado com sucesso");
+        showToast("success", "Medição adicionada com sucesso!");
       } catch (error) {
         console.error("Erro ao adicionar medição:", error);
-        Alert.alert("Erro ao adicionar medição");
+        showToast("error", "Erro ao adicionar medição. Tente novamente mais tarde.");
       } finally {
         setLoading(false);
       }
     } else {
-      Alert.alert("Por favor, preencha todos os campos");
+      showToast("error", "Por favor, preencha todos os campos");
     }
   };
 

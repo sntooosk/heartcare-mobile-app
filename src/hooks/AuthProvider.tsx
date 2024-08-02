@@ -1,13 +1,13 @@
-import { ReactNode, useEffect, useState } from "react";
+import React, { ReactNode, useEffect, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
-import { signIn as signInApi } from "../api/requests/auth/signIn";
-import { signUp as signUpApi } from "../api/requests/auth/signUp";
+import { signIn as signInApi } from "../api/requests/auth/SignIn";
+import { signUp as signUpApi } from "../api/requests/auth/SignUp";
 import {
   asyncGetUser,
   asyncRemoveUser,
   asyncSetUser,
 } from "../utils/storage/AuthStorage";
-import { Alert } from "react-native";
+import { useToast } from "../context/ToastContext";
 import LoginRequest from "../models/dto/LoginRequestDTO";
 import RegisterRequest from "../models/dto/RegisterRequestDTO";
 import Auth from "../models/Auth";
@@ -15,6 +15,7 @@ import Auth from "../models/Auth";
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [authData, setAuthData] = useState<Auth | undefined>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const { showToast } = useToast();
 
   useEffect(() => {
     loadFromStorage();
@@ -40,15 +41,16 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     try {
       const response = await signInApi(credentials);
       if ("message" in response) {
-        Alert.alert("Erro ao entrar", response.message);
+        showToast('error', response.message);
       } else {
         const user = response as Auth;
         setAuthData(user);
         await asyncSetUser(user);
+        showToast('success', 'Login realizado com sucesso!');
       }
     } catch (error) {
       console.error("Erro ao entrar:", error);
-      Alert.alert("Erro ao entrar", "Algo deu errado. Tente novamente.");
+      showToast('error', "Algo deu errado. Tente novamente.");
     } finally {
       setIsLoading(false);
     }
@@ -59,39 +61,25 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     try {
       const response = await signUpApi(credentials);
       if ("message" in response) {
-        Alert.alert("Erro ao se cadastrar", response.message);
+        showToast('error', response.message);
       } else {
         const user = response as Auth;
         setAuthData(user);
         await asyncSetUser(user);
+        showToast('success', 'Cadastro realizado com sucesso!');
       }
     } catch (error) {
       console.error("Erro ao se cadastrar:", error);
-      Alert.alert("Erro ao se cadastrar", "Algo deu errado. Tente novamente.");
+      showToast('error', "Algo deu errado. Tente novamente.");
     } finally {
       setIsLoading(false);
     }
   };
 
   const signOut = async () => {
-    Alert.alert(
-      "Confirmação",
-      "Deseja sair?",
-      [
-        {
-          text: "Cancelar",
-          style: "cancel",
-        },
-        {
-          text: "Sair",
-          onPress: async () => {
-            setAuthData(undefined);
-            await asyncRemoveUser();
-          },
-        },
-      ],
-      { cancelable: false }
-    );
+    showToast('info', 'Você foi desconectado.');
+    setAuthData(undefined);
+    await asyncRemoveUser();
   };
 
   return (

@@ -6,7 +6,6 @@ import {
   TextInput,
   TouchableOpacity,
   ActivityIndicator,
-  Alert,
 } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import { styles } from "./styles";
@@ -14,6 +13,7 @@ import shadow, { Theme } from "../../../utils/styles/index";
 import Pressure from "../../../models/Pressure";
 import Auth from "../../../models/Auth";
 import { update } from "../../../api/requests/pressure/update";
+import { useToast } from "../../../context/ToastContext";
 
 interface ModalEdicaoProps {
   visivel: boolean;
@@ -35,8 +35,9 @@ export default function ModalEdicao({
   const [pulsoEditado, setPulsoEditado] = useState(pressure.pulse);
   const [loading, setLoading] = useState(false);
 
-  const handleSalvarEdicao = async () => {
+  const { showToast } = useToast();
 
+  const handleSalvarEdicao = async () => {
     try {
       setLoading(true);
 
@@ -46,18 +47,19 @@ export default function ModalEdicao({
         diastolic: diastolicaEditada,
         date: pressure.date,
         pulse: pulsoEditado,
-        user:{
-          id: auth.id
-        }
+        user: {
+          id: auth.id,
+        },
       };
 
       await update(pressure.id, auth.token, PressureParaAtualizar);
       fecharModal();
-      setLoading(false);
-      Alert.alert("Editado com sucesso");
+      showToast("success", "Edição realizada com sucesso!");
     } catch (error) {
-      setLoading(false);
       console.error("Erro ao editar medição:", error);
+      showToast("error", "Erro ao editar medição. Tente novamente mais tarde.");
+    } finally {
+      setLoading(false);
     }
   };
 

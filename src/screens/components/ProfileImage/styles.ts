@@ -1,13 +1,13 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, Platform } from 'react-native';
 
 export const styles = StyleSheet.create({
   profileImageContainer: {
-    alignItems: "center",
-    margin: 25,
+    alignItems: 'center',
+    margin: Platform.OS === 'web' ? 30 : 25,
   },
   profileImage: {
-    width: 100,
-    height: 100,
-    borderRadius: 50,
+    width: Platform.OS === 'web' ? 120 : 100,
+    height: Platform.OS === 'web' ? 120 : 100,
+    borderRadius: Platform.OS === 'web' ? 60 : 50,
   },
 });

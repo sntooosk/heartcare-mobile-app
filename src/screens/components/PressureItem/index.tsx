@@ -1,5 +1,11 @@
 import React, { useState } from "react";
-import { View, Text, TouchableOpacity, Alert } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Alert,
+  Platform,
+} from "react-native";
 import { styles } from "./styles";
 import ModalEdicao from "../ModalEdit";
 import * as Animatable from "react-native-animatable";
@@ -7,6 +13,7 @@ import shadow, { Theme } from "../../../utils/styles/index";
 import Pressure from "../../../models/Pressure";
 import Auth from "../../../models/Auth";
 import { deletar } from "../../../api/requests/pressure/delete";
+import { useToast } from "../../../context/ToastContext";
 
 interface PressureItemProps {
   pressure: Pressure;
@@ -20,13 +27,26 @@ export default function PressureItem({
   auth,
 }: PressureItemProps) {
   const [modalVisivel, setModalVisivel] = useState(false);
+  const { showToast } = useToast();
 
   const abrirModal = () => {
     setModalVisivel(true);
   };
 
-  const deletePressures = async () => {
-    try {
+
+const deletePressures = async () => {
+  try {
+    if (Platform.OS === "web") {
+      if (window.confirm("Deseja apagar esta medição?")) {
+        try {
+          await deletar(auth.id, auth.token);
+          showToast("success", "Medição excluída com sucesso!"); 
+        } catch (error) {
+          console.error("Erro ao excluir medição:", error);
+          showToast("error", "Erro ao excluir medição. Tente novamente mais tarde.");
+        }
+      }
+    } else {
       Alert.alert(
         "Confirmação",
         "Deseja apagar esta medição?",
@@ -38,20 +58,29 @@ export default function PressureItem({
           {
             text: "Apagar",
             onPress: async () => {
-              deletar(pressure.id, auth.token);
-              Alert.alert("Excluído com sucesso");
+              try {
+                await deletar(pressure.id, auth.token);
+                showToast("success", "Medição excluída com sucesso!"); // Usa showToast para sucesso
+              } catch (error) {
+                console.error("Erro ao excluir medição:", error);
+                showToast("error", "Erro ao excluir medição. Tente novamente mais tarde."); // Usa showToast para erro
+              }
             },
           },
         ],
         { cancelable: true }
       );
-    } catch (error) {}
-  };
+    }
+  } catch (error) {
+    console.error("Erro ao confirmar exclusão:", error);
+  }
+};
 
 
   const fecharModal = () => {
     setModalVisivel(false);
   };
+
   const avaliarPressao = () => {
     const sistolica = parseFloat(pressure.systolic);
     const diastolica = parseFloat(pressure.diastolic);

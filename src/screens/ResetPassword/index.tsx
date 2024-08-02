@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { Alert, View } from "react-native";
+import { View } from "react-native";
 import { styles } from "./styles";
-
 import LogoSvg from "../../assets/svg/logo.svg";
 import ResetPasswordForm from "../components/ResetPassword";
 import ResetPasswordForm2 from "../components/ResetPassword2";
@@ -12,10 +11,11 @@ import { verifyOtp } from "../../api/requests/auth/verifyOtp";
 import ChangePassword from "../../models/dto/ChangePasswordDTO";
 import { useNavigation } from "@react-navigation/native";
 import { propsStack } from "../../routes/types";
+import { useToast } from "../../context/ToastContext"; // Importa o contexto de Toast
 
 function ResetPassword() {
-
   const { navigate } = useNavigation<propsStack>();
+  const { showToast } = useToast(); // Obtém a função de mostrar toast
 
   const [resetEmail, setResetEmail] = useState("");
   const [codigoOtp, setCodigoOtp] = useState("");
@@ -33,12 +33,13 @@ function ResetPassword() {
       if (response.status === "OK") {
         setShowResetPassword(false);
         setShowResetPassword2(true);
+        showToast("success", "Código OTP enviado com sucesso!");
       } else {
-        Alert.alert(response.message || "Erro ao enviar código OTP.");
+        showToast("error", response.message || "Erro ao enviar código OTP.");
       }
     } catch (error) {
       console.error("Erro ao verificar email:", error);
-      Alert.alert("Erro ao enviar código OTP. Tente novamente mais tarde.");
+      showToast("error", "Erro ao enviar código OTP. Tente novamente mais tarde.");
     } finally {
       setLoading(false);
     }
@@ -51,12 +52,13 @@ function ResetPassword() {
       if (response.status === "OK") {
         setShowResetPassword(false);
         setShowResetPassword2(true);
+        showToast("success", "Código OTP enviado com sucesso!");
       } else {
-        Alert.alert(response.message || "Erro ao enviar código OTP.");
+        showToast("error", response.message || "Erro ao enviar código OTP.");
       }
     } catch (error) {
       console.error("Erro ao verificar email:", error);
-      Alert.alert("Erro ao enviar código OTP. Tente novamente mais tarde.");
+      showToast("error", "Erro ao enviar código OTP. Tente novamente mais tarde.");
     } finally {
       setLoading(false);
     }
@@ -69,12 +71,13 @@ function ResetPassword() {
       if (response.status === "OK") {
         setShowResetPassword2(false);
         setShowResetPassword3(true);
+        showToast("success", "Código OTP verificado com sucesso!");
       } else {
-        Alert.alert(response.message || "Erro ao verificar código OTP.");
+        showToast("error", response.message || "Erro ao verificar código OTP.");
       }
     } catch (error) {
       console.error("Erro ao verificar OTP:", error);
-      Alert.alert("Erro ao verificar código OTP. Tente novamente mais tarde.");
+      showToast("error", "Erro ao verificar código OTP. Tente novamente mais tarde.");
     } finally {
       setLoading(false);
     }
@@ -90,11 +93,11 @@ function ResetPassword() {
       setLoading(true);
       await changePassword(resetEmail, changePasswordData);
       setShowResetPassword3(false);
+      showToast("success", "Senha alterada com sucesso!");
       navigate("SignIn");
-    }
-    catch (error) {
+    } catch (error) {
       console.error("Erro ao mudar senha:", error);
-      Alert.alert("Erro ao alterar senha. Tente novamente mais tarde.");
+      showToast("error", "Erro ao alterar senha. Tente novamente mais tarde.");
     } finally {
       setLoading(false);
     }

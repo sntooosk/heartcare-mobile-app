@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, Platform } from "react-native";
 
 export const styles = StyleSheet.create({
   container: {
@@ -6,10 +6,15 @@ export const styles = StyleSheet.create({
   },
   themeToggleButton: {
     position: "absolute",
-    top: 40,
+    top: Platform.OS === 'web' ? 10 : 40,
     right: 10,
     padding: 10,
     borderRadius: 5,
+  },
+  scrollViewContent: {
+    flexGrow: 1,
+    justifyContent: Platform.OS === 'web' ? "center" : "space-between", // Alinha o conteúdo ao centro na Web
+    padding: 0,
   },
   messageNop: {
     alignItems: "center",
@@ -23,7 +28,7 @@ export const styles = StyleSheet.create({
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
     width: "100%",
-    height: "100%",
+    height: Platform.OS === 'web' ? 'auto' : '100%', // Ajusta a altura para Web
   },
   botoes: {
     flexDirection: "row",
@@ -40,9 +45,5 @@ export const styles = StyleSheet.create({
   buttonText: {
     fontSize: 18,
     fontWeight: "bold",
-  },
-  scrollViewContent: {
-    flexGrow: 1,
-    justifyContent: "space-between",
   },
 });

@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Text, View, Alert, ScrollView, TouchableOpacity } from "react-native";
+import { Text, View, ScrollView, TouchableOpacity } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import { FontAwesome } from "@expo/vector-icons";
 import { useTheme } from "../../context/ThemeContext";
 import { useAuth } from "../../context/AuthContext";
+import { useToast } from "../../context/ToastContext"; // Importa o contexto de Toast
 import Header from "../components/Header";
 import ProfileImage from "../components/ProfileImage";
 import UserProfileForm from "../components/UserProfileForm";
@@ -17,6 +18,7 @@ function Profile() {
   const { signOut, authData } = useAuth();
   const { email, id, token } = authData;
   const { theme, toggleTheme } = useTheme();
+  const { showToast } = useToast(); // Obtém a função de mostrar toast
   const [loading, setLoading] = useState(false);
   const [isDayMode, setIsDayMode] = useState(true);
   const [photo, setPhoto] = useState<string | null>(null);
@@ -39,18 +41,19 @@ function Profile() {
         setLoading(false);
       } catch (error) {
         setLoading(false);
+        showToast("error", "Erro ao obter dados do usuário");
         console.error("Erro ao obter dados do usuário:", error);
       }
     };
     fetchUserData();
-  }, [id, token]);
+  }, [id, token, showToast]);
 
   const handleChoosePhoto = async () => {
     try {
       const permissionResult =
         await ImagePicker.requestMediaLibraryPermissionsAsync();
       if (!permissionResult.granted) {
-        Alert.alert("Permissão negada");
+        showToast("error", "Permissão negada");
         return;
       }
       const result = await ImagePicker.launchImageLibraryAsync({
@@ -68,11 +71,12 @@ function Profile() {
         if (supportedFormats.includes(fileExtension)) {
           setPhoto(result.assets[0].uri);
         } else {
-          Alert.alert("Formato de imagem inválido");
+          showToast("error", "Formato de imagem inválido");
         }
       }
     } catch (error) {
       console.error("Erro ao escolher a foto:", error);
+      showToast("error", "Erro ao escolher a foto");
     }
   };
 
@@ -80,12 +84,12 @@ function Profile() {
     try {
       setLoading(true);
       if (!name || !lastName || !dob || !email) {
-        Alert.alert("Erro", "Preencha todos os campos");
+        showToast("error", "Preencha todos os campos");
         setLoading(false);
         return;
       }
       if (!photo) {
-        Alert.alert("Erro", "Adicione uma foto");
+        showToast("error", "Adicione uma foto");
         setLoading(false);
         return;
       }
@@ -101,11 +105,11 @@ function Profile() {
       };
       await update(id, token, userCache);
       setLoading(false);
-      Alert.alert("Perfil atualizado com sucesso!");
+      showToast("success", "Perfil atualizado com sucesso!");
     } catch (error) {
       setLoading(false);
+      showToast("error", "Erro ao atualizar perfil. Tente novamente mais tarde.");
       console.error("Erro ao atualizar perfil:", error);
-      Alert.alert("Erro ao atualizar perfil. Tente novamente mais tarde.");
     }
   };
 

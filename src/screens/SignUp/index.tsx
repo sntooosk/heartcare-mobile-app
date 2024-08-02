@@ -1,17 +1,16 @@
 import React, { useState } from "react";
-import { View, Alert } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { View } from "react-native";
 import SignUpForm from "../components/SignUpForm";
 import { styles } from "./styles";
-import { propsStack } from "../../routes/types";
 import { useAuth } from "../../context/AuthContext";
 import { useTheme } from "../../context/ThemeContext";
+import { useToast } from "../../context/ToastContext"; 
 import LogoSvg from "../../assets/svg/logo.svg";
 
 function SignUp() {
   const { signUp, isLoading } = useAuth();
-
   const { theme } = useTheme();
+  const { showToast } = useToast(); 
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -26,13 +25,15 @@ function SignUp() {
 
   const handleSignUp = async () => {
     if (password !== confPassword) {
-      Alert.alert("Erro", "As senhas não coincidem.");
+      showToast("error", "As senhas não coincidem."); 
       return;
     }
 
     try {
-      await signUp({ name, email, password , role});
-    } catch (error) {}
+      await signUp({ name, email, password, role });
+    } catch (error) {
+      console.error("Erro ao realizar cadastro:", error);
+    }
   };
 
   return (
