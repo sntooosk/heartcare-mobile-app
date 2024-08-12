@@ -16,6 +16,8 @@ export const styles = StyleSheet.create({
   },
   containerButton: {
     flexDirection: "row",
+    justifyContent: "space-between", // Adiciona espaço entre os botões
+    marginVertical: 10, // Adiciona espaço vertical entre os botões e outros elementos
   },
   button: {
     borderRadius: 4,

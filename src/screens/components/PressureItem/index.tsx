@@ -1,11 +1,5 @@
-import React, { useState } from "react";
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  Alert,
-  Platform,
-} from "react-native";
+import React, { useState, useEffect } from "react";
+import { View, Text, TouchableOpacity, Alert, Platform, Switch } from "react-native";
 import { styles } from "./styles";
 import ModalEdicao from "../ModalEdit";
 import * as Animatable from "react-native-animatable";
@@ -14,6 +8,8 @@ import Pressure from "../../../models/Pressure";
 import Auth from "../../../models/Auth";
 import { deletar } from "../../../api/requests/pressure/delete";
 import { useToast } from "../../../context/ToastContext";
+import { useNotification } from "../../../context/NotificationContext";
+import { FontAwesome } from "@expo/vector-icons";
 
 interface PressureItemProps {
   pressure: Pressure;
@@ -27,55 +23,54 @@ export default function PressureItem({
   auth,
 }: PressureItemProps) {
   const [modalVisivel, setModalVisivel] = useState(false);
+
   const { showToast } = useToast();
 
   const abrirModal = () => {
     setModalVisivel(true);
   };
 
-
-const deletePressures = async () => {
-  try {
-    if (Platform.OS === "web") {
-      if (window.confirm("Deseja apagar esta medição?")) {
-        try {
-          await deletar(auth.id, auth.token);
-          showToast("success", "Medição excluída com sucesso!"); 
-        } catch (error) {
-          console.error("Erro ao excluir medição:", error);
-          showToast("error", "Erro ao excluir medição. Tente novamente mais tarde.");
+  const deletePressures = async () => {
+    try {
+      if (Platform.OS === "web") {
+        if (window.confirm("Deseja apagar esta medição?")) {
+          try {
+            await deletar(auth.id, auth.token);
+            showToast("success", "Medição excluída com sucesso!");
+          } catch (error) {
+            console.error("Erro ao excluir medição:", error);
+            showToast("error", "Erro ao excluir medição. Tente novamente mais tarde.");
+          }
         }
-      }
-    } else {
-      Alert.alert(
-        "Confirmação",
-        "Deseja apagar esta medição?",
-        [
-          {
-            text: "Cancelar",
-            style: "cancel",
-          },
-          {
-            text: "Apagar",
-            onPress: async () => {
-              try {
-                await deletar(pressure.id, auth.token);
-                showToast("success", "Medição excluída com sucesso!"); // Usa showToast para sucesso
-              } catch (error) {
-                console.error("Erro ao excluir medição:", error);
-                showToast("error", "Erro ao excluir medição. Tente novamente mais tarde."); // Usa showToast para erro
-              }
+      } else {
+        Alert.alert(
+          "Confirmação",
+          "Deseja apagar esta medição?",
+          [
+            {
+              text: "Cancelar",
+              style: "cancel",
             },
-          },
-        ],
-        { cancelable: true }
-      );
+            {
+              text: "Apagar",
+              onPress: async () => {
+                try {
+                  await deletar(pressure.id, auth.token);
+                  showToast("success", "Medição excluída com sucesso!");
+                } catch (error) {
+                  console.error("Erro ao excluir medição:", error);
+                  showToast("error", "Erro ao excluir medição. Tente novamente mais tarde.");
+                }
+              },
+            },
+          ],
+          { cancelable: true }
+        );
+      }
+    } catch (error) {
+      console.error("Erro ao confirmar exclusão:", error);
     }
-  } catch (error) {
-    console.error("Erro ao confirmar exclusão:", error);
-  }
-};
-
+  };
 
   const fecharModal = () => {
     setModalVisivel(false);
@@ -118,6 +113,7 @@ const deletePressures = async () => {
       return "Valores inválidos";
     }
   };
+
 
   return (
     <Animatable.View
@@ -168,23 +164,18 @@ const deletePressures = async () => {
       </Text>
       <View style={styles.containerButton}>
         <TouchableOpacity
-          style={[styles.button, { backgroundColor: theme.COLORS.BUTTON }]}
+          style={[styles.button]}
           onPress={abrirModal}
         >
-          <Text style={[styles.textBotao, { color: theme.COLORS.BUTTON_TEXT }]}>
-            Editar
-          </Text>
+        <FontAwesome name="edit" size={30} color={theme.COLORS.ICON} />
         </TouchableOpacity>
         <TouchableOpacity
-          style={[styles.button, { backgroundColor: theme.COLORS.BUTTON }]}
+          style={[styles.button]}
           onPress={() => deletePressures()}
         >
-          <Text style={[styles.textBotao, { color: theme.COLORS.BUTTON_TEXT }]}>
-            Excluir
-          </Text>
+        <FontAwesome name="trash" size={30} color={theme.COLORS.ICON} />
         </TouchableOpacity>
       </View>
-
       <ModalEdicao
         visivel={modalVisivel}
         fecharModal={fecharModal}
