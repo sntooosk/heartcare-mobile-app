@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, TouchableOpacity, Image } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 import * as Animatable from "react-native-animatable";
 import { useNavigation } from "@react-navigation/native";
 
@@ -16,7 +16,9 @@ function Home() {
 
   return (
     <View style={[styles.container, { backgroundColor: "#1F2937" }]}>
-      <MainIllustrationSvg width={400} height={400} />
+      <View style={styles.svgContainer}>
+        <MainIllustrationSvg width={400} height={400} />
+      </View>
 
       <Animatable.View
         delay={600}
@@ -26,12 +28,21 @@ function Home() {
           { backgroundColor: theme.COLORS.BACKGROUND },
         ]}
       >
-        <Text style={[styles.title, { color: theme.COLORS.TITLE }]}>
+        <Animatable.Text
+          animation="fadeInDown"
+          duration={1500}
+          style={[styles.title, { color: theme.COLORS.TITLE }]}
+        >
           Cuide do seu coração
-        </Text>
-        <Text style={{ color: theme.COLORS.TITLE }}>
+        </Animatable.Text>
+        <Animatable.Text
+          animation="fadeInDown"
+          duration={1500}
+          delay={300}
+          style={[styles.text, { color: theme.COLORS.TITLE }]}
+        >
           Faça login para começar
-        </Text>
+        </Animatable.Text>
 
         <TouchableOpacity
           style={[

@@ -46,7 +46,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         const user = response as Auth;
         setAuthData(user);
         await asyncSetUser(user);
-        showToast('success', 'Login realizado com sucesso!');
       }
     } catch (error) {
       console.error("Erro ao entrar:", error);

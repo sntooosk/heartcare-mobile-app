@@ -34,4 +34,9 @@ export const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "bold",
   },
+  svgContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: -60, 
+  },
 });
