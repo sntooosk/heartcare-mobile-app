@@ -1,10 +1,9 @@
 import React, { ReactNode, useCallback } from 'react';
-import { Platform } from 'react-native';
+import { Platform, Alert } from 'react-native';
 
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-import Toast from 'react-native-toast-message';
 import { ToastContext } from '../context/ToastContext';
 
 export const ToastProvider = ({ children }: { children: ReactNode }) => {
@@ -14,17 +13,13 @@ export const ToastProvider = ({ children }: { children: ReactNode }) => {
       toast(message, { 
         type,
         position: 'top-right',
-        autoClose: 4000
+        autoClose: 4000,
       });
     } else {
-      Toast.show({
-        type,
-        position: 'top',
-        text1: type.charAt(0).toUpperCase() + type.slice(1),
-        text2: message,
-        visibilityTime: 4000,
-        autoHide: true,
-      });
+      Alert.alert(
+        type.charAt(0).toUpperCase() + type.slice(1),
+        message,
+      );
     }
   }, []);
 
@@ -34,7 +29,6 @@ export const ToastProvider = ({ children }: { children: ReactNode }) => {
         {children}
       </ToastContext.Provider>
       {Platform.OS === 'web' && <ToastContainer />}
-      {Platform.OS !== 'web' && <Toast />}
     </>
   );
 };
