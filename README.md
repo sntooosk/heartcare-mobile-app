@@ -11,7 +11,6 @@
 
 - **Home**: Tela inicial com visão geral das funcionalidades.
 - **Feed**: Atualizações e informações relevantes sobre saúde cardíaca.
-- **Pesquisar**: Busca de informações e recursos dentro da aplicação.
 - **Dúvidas**: Seção de perguntas frequentes e suporte.
 - **Profile**: Gerenciamento do perfil do usuário.
 - **Query**: Consulta de dados e medições do usuário.
