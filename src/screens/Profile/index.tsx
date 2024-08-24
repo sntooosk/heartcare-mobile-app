@@ -4,7 +4,7 @@ import * as ImagePicker from "expo-image-picker";
 import { FontAwesome } from "@expo/vector-icons";
 import { useTheme } from "../../context/ThemeContext";
 import { useAuth } from "../../context/AuthContext";
-import { useToast } from "../../context/ToastContext"; // Importa o contexto de Toast
+import { useToast } from "../../context/ToastContext";
 import Header from "../components/Header";
 import ProfileImage from "../components/ProfileImage";
 import UserProfileForm from "../components/UserProfileForm";
@@ -18,7 +18,7 @@ function Profile() {
   const { signOut, authData } = useAuth();
   const { email, id, token } = authData;
   const { theme, toggleTheme } = useTheme();
-  const { showToast } = useToast(); // Obtém a função de mostrar toast
+  const { showToast } = useToast();
   const [loading, setLoading] = useState(false);
   const [isDayMode, setIsDayMode] = useState(true);
   const [photo, setPhoto] = useState<string | null>(null);
@@ -124,7 +124,7 @@ function Profile() {
 
   return (
     <View style={[styles.container, { backgroundColor: "#1F2937" }]}>
-      <Header theme={theme} title="Perfil" />
+      <Header title="Perfil" />
       <ProfileImage photo={photo} onPress={handleChoosePhoto} />
       <TouchableOpacity
         style={[styles.button, { backgroundColor: "#1F2937" }]}

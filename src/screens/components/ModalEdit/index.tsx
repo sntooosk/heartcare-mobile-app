@@ -37,7 +37,7 @@ export default function ModalEdicao({
 
   const { showToast } = useToast();
 
-  const handleSalvarEdicao = async () => {
+  const SalvarEdicao = async () => {
     try {
       setLoading(true);
 
@@ -132,7 +132,7 @@ export default function ModalEdicao({
               styles.button,
               { borderColor: theme.COLORS.PRIMARY },
             ]}
-            onPress={handleSalvarEdicao}
+            onPress={SalvarEdicao}
             disabled={loading}
           >
             {loading ? (
@@ -148,3 +148,4 @@ export default function ModalEdicao({
     </Modal>
   );
 }
+

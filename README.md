@@ -15,7 +15,7 @@
 - **Profile**: Gerenciamento do perfil do usuário.
 - **Query**: Consulta de dados e medições do usuário.
 - **ResetPassword**: Funcionalidade para redefinir a senha.
-- **Signin**: Tela de login para acesso seguro.
+- **SignIn**: Tela de login para acesso seguro.
 - **SignUp**: Tela de cadastro para novos usuários.
 
 ## Instalação

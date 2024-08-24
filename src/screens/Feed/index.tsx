@@ -43,7 +43,7 @@ function Feed() {
 
   return (
     <View style={[styles.container, { backgroundColor: theme.COLORS.BACKGROUND }]}>
-      <Header title="HeartCare" theme={theme} />
+      <Header title="Publicações"/>
       <FlatList
         data={posts}
         keyExtractor={(item) => item.id.toString()}

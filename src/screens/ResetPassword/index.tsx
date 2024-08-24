@@ -11,11 +11,11 @@ import { verifyOtp } from "../../api/requests/auth/verifyOtp";
 import ChangePassword from "../../models/dto/ChangePasswordDTO";
 import { useNavigation } from "@react-navigation/native";
 import { propsStack } from "../../routes/types";
-import { useToast } from "../../context/ToastContext"; // Importa o contexto de Toast
+import { useToast } from "../../context/ToastContext";
 
 function ResetPassword() {
   const { navigate } = useNavigation<propsStack>();
-  const { showToast } = useToast(); // Obtém a função de mostrar toast
+  const { showToast } = useToast();
 
   const [resetEmail, setResetEmail] = useState("");
   const [codigoOtp, setCodigoOtp] = useState("");

@@ -54,7 +54,6 @@ function Query() {
     >
       <Header
         title={historicoVisivel ? "Histórico" : "Atividades"}
-        theme={theme}
       />
       {historicoVisivel ? (
         <TouchableOpacity

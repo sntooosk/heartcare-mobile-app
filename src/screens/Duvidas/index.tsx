@@ -20,7 +20,7 @@ function Duvidas() {
     <View
       style={[styles.container, { backgroundColor: theme.COLORS.BACKGROUND }]}
     >
-      <Header title="Dúvidas" theme={theme} />
+      <Header title="Dúvidas"/>
       <View style={{ backgroundColor: theme.COLORS.BACKGROUND }}>
         <ScrollView showsVerticalScrollIndicator={false}>
           {commonQuestions.map((item) => (

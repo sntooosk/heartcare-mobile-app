@@ -18,7 +18,7 @@ interface ResetPasswordForm2Props {
   loading: boolean;
 }
 
-const RESET_TIMEOUT = 20 * 1000; // 20 seconds in milliseconds
+const RESET_TIMEOUT = 20 * 1000;
 
 export default function ResetPasswordForm2({
   codigoOtp,

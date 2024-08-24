@@ -8,7 +8,6 @@ import Pressure from "../../../models/Pressure";
 import Auth from "../../../models/Auth";
 import { deletar } from "../../../api/requests/pressure/delete";
 import { useToast } from "../../../context/ToastContext";
-import { useNotification } from "../../../context/NotificationContext";
 import { FontAwesome } from "@expo/vector-icons";
 
 interface PressureItemProps {
