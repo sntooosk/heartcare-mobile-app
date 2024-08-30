@@ -25,10 +25,13 @@ export default function TabRoutes() {
         screenOptions={{
           headerShown: false,
           tabBarStyle: {
+            height: 80,
+            marginTop: 20,
+            paddingLeft: 10,
+            paddingRight: 20,
             backgroundColor: theme.COLORS.BACKGROUND,
             position: "absolute",
             borderTopColor: theme.COLORS.PRIMARY,
-            padding: 20,
             bottom: 25,
             left: 25,
             right: 25,
@@ -36,7 +39,6 @@ export default function TabRoutes() {
             borderRadius: 30,
             borderWidth: 2.5,
             borderColor: theme.COLORS.PRIMARY,
-            height: 80,
             ...shadow.shadowOverlay,
           }
           
