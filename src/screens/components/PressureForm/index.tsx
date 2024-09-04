@@ -34,7 +34,6 @@ export default function PressureForm({
         systolic: sistolica,
         diastolic: diastolica,
         pulse: pulso,
-        date: new Date().toISOString(),
         user: { id: auth.id },
       };
 
