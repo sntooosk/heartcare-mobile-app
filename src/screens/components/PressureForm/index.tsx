@@ -72,9 +72,6 @@ export default function PressureForm({ auth, theme }: PressureFormProps) {
         },
       ]}
     >
-      <Text style={[styles.label, { color: theme.COLORS.TITLE }]}>
-        Sistólica
-      </Text>
       <TextInput
         style={[
           styles.input,
@@ -86,10 +83,6 @@ export default function PressureForm({ auth, theme }: PressureFormProps) {
         onChangeText={setSistolica}
         keyboardType="numeric"
       />
-
-      <Text style={[styles.label, { color: theme.COLORS.TITLE }]}>
-        Diastólica
-      </Text>
       <TextInput
         style={[
           styles.input,
@@ -102,7 +95,6 @@ export default function PressureForm({ auth, theme }: PressureFormProps) {
         keyboardType="numeric"
       />
 
-      <Text style={[styles.label, { color: theme.COLORS.TITLE }]}>Pulso</Text>
       <TextInput
         style={[
           styles.input,

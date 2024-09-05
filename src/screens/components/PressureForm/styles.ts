@@ -7,15 +7,11 @@ export const styles = StyleSheet.create({
     padding: 20,
     marginBottom: 20,
   },
-  label: {
-    fontSize: 15,
-    marginBottom: 8,
-  },
   input: {
     height: 50,
     borderRadius: 10,
     borderWidth: 1,
-    fontSize: 14,
+    fontSize: 15,
     paddingHorizontal: 15,
     marginBottom: 15,
   },

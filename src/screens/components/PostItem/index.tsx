@@ -14,6 +14,7 @@ interface PostItemProps {
 
 const PostItem = ({ post, sharePost }: PostItemProps) => {
   const { theme } = useTheme();
+  
 
   const tempoDesdePost = (data: Date) => {
     const diferenca = new Date().getTime() - new Date(data).getTime();

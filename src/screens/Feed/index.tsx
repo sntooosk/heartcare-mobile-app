@@ -16,6 +16,9 @@ function Feed() {
   const [posts, setPosts] = useState<Post[]>([]);
   const [refreshing, setRefreshing] = useState(false);
 
+  const sortedPosts = posts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+
+
   useEffect(() => {
     fetchPosts();
   }, []);
@@ -47,7 +50,7 @@ function Feed() {
     >
       <Header title="Publicações" />
       <FlatList
-        data={posts}
+        data={sortedPosts}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
           <PostItem post={item} sharePost={sharePost} />
