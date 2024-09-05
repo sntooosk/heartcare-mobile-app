@@ -7,45 +7,45 @@ export const styles = StyleSheet.create({
     paddingHorizontal: "5%",
     paddingVertical: "5%",
   },
+  inputContainer: {
+    marginBottom: 15,
+  },
   title: {
-    fontSize: 13,
-    marginTop: 15,
-    paddingBottom: 8,
-  },
-  checkbox: {
-    margin: 5,
-  },
-  label: {
-    fontSize: 12,
-    paddingLeft: 5,
-  },
-  checkboxContainer: {
-    flexDirection: "row",
-    marginBottom: 12,
-  },
-  checkboxContainerDoc: {
-    flexDirection: "column",
-    marginBottom: 12,
-    borderRadius: 10,
-    padding: 10,
+    fontSize: 15,
+    marginBottom: 8,
   },
   input: {
     height: 50,
-    marginBottom: 12,
     borderRadius: 10,
-    fontSize: 12,
-    paddingStart: 10,
+    fontSize: 14,
+    paddingHorizontal: 15,
+  },
+  checkboxContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginVertical: 10,
+  },
+  checkboxWrapper: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  checkbox: {
+    marginRight: 10,
+  },
+  label: {
+    fontSize: 14,
   },
   button: {
     width: "100%",
     borderRadius: 10,
-    paddingVertical: 8,
-    marginTop: 14,
+    paddingVertical: 12,
     justifyContent: "center",
     alignItems: "center",
+    marginTop: 20,
+    elevation: 3,
   },
   buttonText: {
-    fontSize: 15,
+    fontSize: 16,
     fontWeight: "bold",
   },
 });

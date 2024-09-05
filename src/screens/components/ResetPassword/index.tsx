@@ -1,4 +1,3 @@
-
 import React from "react";
 import {
   Text,
@@ -11,11 +10,11 @@ import { useTheme } from "../../../context/ThemeContext";
 import { styles } from "./styles";
 
 interface ResetPasswordFormProps {
-    resetEmail: string;
-    setResetEmail: (email: string) => void;
-    handleEnvioCodigoOtp: () => void;
-    loading: boolean;
-  }
+  resetEmail: string;
+  setResetEmail: (email: string) => void;
+  handleEnvioCodigoOtp: () => void;
+  loading: boolean;
+}
 
 export default function ResetPasswordForm({
   resetEmail,

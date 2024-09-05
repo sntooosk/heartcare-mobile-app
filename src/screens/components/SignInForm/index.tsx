@@ -99,7 +99,7 @@ const SignInForm: React.FC<SignInFormProps> = ({
         </TouchableOpacity>
       </View>
       <TouchableOpacity
-        style={[styles.button, { alignItems: "flex-end" , paddingBottom: 20 }]}
+        style={[styles.button, { alignItems: "flex-end", paddingBottom: 20 }]}
         onPress={handleForgotPassword}
       >
         <Text

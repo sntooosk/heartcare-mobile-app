@@ -31,7 +31,9 @@ export default function ModalEdicao({
   auth,
 }: ModalEdicaoProps) {
   const [sistolicaEditada, setSistolicaEditada] = useState(pressure.systolic);
-  const [diastolicaEditada, setDiastolicaEditada] = useState(pressure.diastolic);
+  const [diastolicaEditada, setDiastolicaEditada] = useState(
+    pressure.diastolic
+  );
   const [pulsoEditado, setPulsoEditado] = useState(pressure.pulse);
   const [loading, setLoading] = useState(false);
 
@@ -74,7 +76,10 @@ export default function ModalEdicao({
         <View
           style={[
             styles.modalContent,
-            { backgroundColor: theme.COLORS.BACKGROUND, ...shadow.shadowOverlay },
+            {
+              backgroundColor: theme.COLORS.BACKGROUND,
+              ...shadow.shadowOverlay,
+            },
           ]}
         >
           <View style={{ alignItems: "flex-end" }}>
@@ -128,10 +133,7 @@ export default function ModalEdicao({
             keyboardType="numeric"
           />
           <TouchableOpacity
-            style={[
-              styles.button,
-              { borderColor: theme.COLORS.PRIMARY },
-            ]}
+            style={[styles.button, { borderColor: theme.COLORS.PRIMARY }]}
             onPress={SalvarEdicao}
             disabled={loading}
           >
@@ -148,4 +150,3 @@ export default function ModalEdicao({
     </Modal>
   );
 }
-

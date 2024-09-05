@@ -6,14 +6,14 @@ export const styles = StyleSheet.create({
   },
   themeToggleButton: {
     position: "absolute",
-    top: Platform.OS === 'web' ? 10 : 40,
+    top: Platform.OS === "web" ? 10 : 40,
     right: 10,
     padding: 10,
     borderRadius: 5,
   },
   scrollViewContent: {
     flexGrow: 1,
-    justifyContent: Platform.OS === 'web' ? "center" : "space-between", // Alinha o conteúdo ao centro na Web
+    justifyContent: Platform.OS === "web" ? "center" : "space-between", // Alinha o conteúdo ao centro na Web
     padding: 0,
   },
   messageNop: {
@@ -28,7 +28,7 @@ export const styles = StyleSheet.create({
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
     width: "100%",
-    height: Platform.OS === 'web' ? 'auto' : '100%', // Ajusta a altura para Web
+    height: Platform.OS === "web" ? "auto" : "100%", // Ajusta a altura para Web
   },
   botoes: {
     flexDirection: "row",

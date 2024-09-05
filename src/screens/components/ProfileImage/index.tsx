@@ -1,7 +1,7 @@
-import React from 'react';
-import { Image, TouchableOpacity, Platform } from 'react-native';
-import { styles } from './styles';
-import shadow from '../../../utils/styles';
+import React from "react";
+import { Image, TouchableOpacity, Platform } from "react-native";
+import { styles } from "./styles";
+import shadow from "../../../utils/styles";
 
 interface ProfileImageProps {
   photo: string | null;
@@ -13,16 +13,16 @@ export default function ProfileImage({ photo, onPress }: ProfileImageProps) {
     <TouchableOpacity
       style={[
         styles.profileImageContainer,
-        Platform.OS !== 'web' && {
-          ...shadow.shadowOverlay, 
+        Platform.OS !== "web" && {
+          ...shadow.shadowOverlay,
         },
       ]}
       onPress={onPress}
     >
       <Image
-        source={photo ? { uri: photo } : require('../../../assets/user.png')}
+        source={photo ? { uri: photo } : require("../../../assets/user.png")}
         style={styles.profileImage}
-        defaultSource={require('../../../assets/user.png')}
+        defaultSource={require("../../../assets/user.png")}
       />
     </TouchableOpacity>
   );

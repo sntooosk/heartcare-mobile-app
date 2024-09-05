@@ -32,8 +32,7 @@ function Query() {
       const pressuresRef = await get(auth.id, auth.token);
       setPressures(pressuresRef);
       setRefreshing(false);
-    } catch (error) {
-    }
+    } catch (error) {}
   };
 
   const onRefresh = useCallback(() => {
@@ -52,9 +51,7 @@ function Query() {
     <View
       style={[styles.container, { backgroundColor: theme.COLORS.BACKGROUND }]}
     >
-      <Header
-        title={historicoVisivel ? "Histórico" : "Atividades"}
-      />
+      <Header title={historicoVisivel ? "Histórico" : "Atividades"} />
       {historicoVisivel ? (
         <TouchableOpacity
           style={[

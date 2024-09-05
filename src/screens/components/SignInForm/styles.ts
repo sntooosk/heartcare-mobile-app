@@ -22,7 +22,7 @@ export const styles = StyleSheet.create({
   },
   inputPassword: {
     height: 50,
-    width: '85%',
+    width: "85%",
     marginBottom: 12,
     borderRadius: 10,
     fontSize: 12,
@@ -69,6 +69,5 @@ export const styles = StyleSheet.create({
   },
   togglePasswordButtonText: {
     fontSize: 14,
-    
   },
 });

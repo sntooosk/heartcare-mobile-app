@@ -1,8 +1,9 @@
 import axios from "axios";
+import { API } from "../..";
 
 export async function verifyOtp(otp : number, email: String) {
   try {
-    const response = await axios.post(`https://heartcare-backend.onrender.com/forgotPassword/verifyOtp/${otp}/${email}`,);
+    const response = await axios.post(`${API}/forgotPassword/verifyOtp/${otp}/${email}`,);
     return response.data;
   } catch (error) {
     console.error("Erro durante o envio do opt:", error);

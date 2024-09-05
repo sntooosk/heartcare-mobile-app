@@ -5,24 +5,36 @@ export const styles = StyleSheet.create({
     margin: 20,
     borderRadius: 20,
     padding: 20,
-    marginBottom: 20,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.1,
+    shadowRadius: 8,
+    elevation: 5,
   },
   textBotao: {
     fontWeight: "bold",
   },
   textPressure: {
-    fontSize: 14,
-    margin: 2,
+    fontSize: 16,
+    marginVertical: 4,
+    color: "#555",
   },
   containerButton: {
     flexDirection: "row",
-    justifyContent: "space-between", // Adiciona espaço entre os botões
-    marginVertical: 10, // Adiciona espaço vertical entre os botões e outros elementos
+    justifyContent: "space-between",
+    marginVertical: 15,
   },
   button: {
-    borderRadius: 4,
-    padding: 8,
-    marginHorizontal: 5,
-    marginTop: 8,
+    flex: 1,
+    borderRadius: 10,
+    borderWidth: 1,
+    paddingVertical: 12,
+    marginHorizontal: 8,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  buttonText: {
+    fontSize: 16,
+    fontWeight: "600",
   },
 });

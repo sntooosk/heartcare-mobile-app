@@ -4,7 +4,7 @@ import LoginRequest from "../../../models/dto/LoginRequestDTO";
 
 export async function signIn(credentials: LoginRequest) {
   try {
-    const response = await axios.post(`${API}/auth/login`, credentials);
+    const response = await axios.post(`${API}/api/v1/auth/login`, credentials);
     return response.data;
   } catch (error) {
     console.error("Erro durante o login:", error);

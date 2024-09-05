@@ -50,7 +50,7 @@ export default function UserProfileForm({
         { backgroundColor: theme.COLORS.BACKGROUND, ...shadow.shadowOverlay },
       ]}
     >
-      <ScrollView>
+      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         {[
           {
             label: "Nome",
@@ -78,9 +78,9 @@ export default function UserProfileForm({
             editable: !email.trim(),
           },
         ].map(({ label, value, onChange, placeholder, editable = true }) => (
-          <View key={label}>
+          <View key={label} style={styles.inputContainer}>
             <Text style={[styles.title, { color: theme.COLORS.TITLE }]}>
-              {label}:
+              {label}
             </Text>
             <TextInput
               style={[
@@ -101,9 +101,9 @@ export default function UserProfileForm({
         <Text style={[styles.title, { color: theme.COLORS.TITLE }]}>
           Gênero:
         </Text>
-        <View style={styles.checkboxContainerDoc}>
+        <View style={styles.checkboxContainer}>
           {genderOptions.map((genderOption) => (
-            <View key={genderOption} style={styles.checkbox}>
+            <View key={genderOption} style={styles.checkboxWrapper}>
               <Checkbox
                 value={gender === genderOption}
                 onValueChange={() => setGender(genderOption)}
@@ -125,9 +125,7 @@ export default function UserProfileForm({
         {loading ? (
           <ActivityIndicator size="small" color={theme.COLORS.WHITE} />
         ) : (
-          <Text
-            style={[styles.buttonText, { color: theme.COLORS.BUTTON_TEXT }]}
-          >
+          <Text style={[styles.buttonText, { color: theme.COLORS.BUTTON_TEXT }]}>
             Salvar Perfil
           </Text>
         )}

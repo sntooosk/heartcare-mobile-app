@@ -4,13 +4,13 @@ import SignUpForm from "../components/SignUpForm";
 import { styles } from "./styles";
 import { useAuth } from "../../context/AuthContext";
 import { useTheme } from "../../context/ThemeContext";
-import { useToast } from "../../context/ToastContext"; 
+import { useToast } from "../../context/ToastContext";
 import LogoSvg from "../../assets/svg/logo.svg";
 
 function SignUp() {
   const { signUp, isLoading } = useAuth();
   const { theme } = useTheme();
-  const { showToast } = useToast(); 
+  const { showToast } = useToast();
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -25,7 +25,7 @@ function SignUp() {
 
   const handleSignUp = async () => {
     if (password !== confPassword) {
-      showToast("error", "As senhas não coincidem."); 
+      showToast("error", "As senhas não coincidem.");
       return;
     }
 

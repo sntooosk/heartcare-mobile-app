@@ -22,7 +22,7 @@ function Feed() {
 
   const fetchPosts = async () => {
     try {
-      const response = await get(authData?.token || '');
+      const response = await get(authData?.token || "");
       setPosts(response);
     } catch (error) {
       console.error("Error fetching posts:", error);
@@ -42,8 +42,10 @@ function Feed() {
   };
 
   return (
-    <View style={[styles.container, { backgroundColor: theme.COLORS.BACKGROUND }]}>
-      <Header title="Publicações"/>
+    <View
+      style={[styles.container, { backgroundColor: theme.COLORS.BACKGROUND }]}
+    >
+      <Header title="Publicações" />
       <FlatList
         data={posts}
         keyExtractor={(item) => item.id.toString()}

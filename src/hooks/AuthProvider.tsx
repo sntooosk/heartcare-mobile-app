@@ -41,7 +41,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     try {
       const response = await signInApi(credentials);
       if ("message" in response) {
-        showToast('error', response.message);
+        showToast("error", response.message);
       } else {
         const user = response as Auth;
         setAuthData(user);
@@ -49,7 +49,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       }
     } catch (error) {
       console.error("Erro ao entrar:", error);
-      showToast('error', "Algo deu errado. Tente novamente.");
+      showToast("error", "Algo deu errado. Tente novamente.");
     } finally {
       setIsLoading(false);
     }
@@ -60,7 +60,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     try {
       const response = await signUpApi(credentials);
       if ("message" in response) {
-        showToast('error', response.message);
+        showToast("error", response.message);
       } else {
         const user = response as Auth;
         setAuthData(user);
@@ -68,14 +68,14 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       }
     } catch (error) {
       console.error("Erro ao se cadastrar:", error);
-      showToast('error', "Algo deu errado. Tente novamente.");
+      showToast("error", "Algo deu errado. Tente novamente.");
     } finally {
       setIsLoading(false);
     }
   };
 
   const signOut = async () => {
-    showToast('info', 'Você foi desconectado.');
+    showToast("info", "Você foi desconectado.");
     setAuthData(undefined);
     await asyncRemoveUser();
   };

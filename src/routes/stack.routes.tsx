@@ -23,7 +23,7 @@ export default function StackRoutes() {
         component={SignUp}
         options={{ headerShown: false, gestureEnabled: false }}
       />
-       <Screen
+      <Screen
         name="ResetPassword"
         component={ResetPassword}
         options={{ headerShown: false, gestureEnabled: true }}

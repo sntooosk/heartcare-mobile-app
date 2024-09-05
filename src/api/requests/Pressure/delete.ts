@@ -3,7 +3,7 @@ import { API } from "../..";
 
 export async function deletar(id: number, token: string) {
   try {
-    const response = await axios.delete(`${API}/pressure/${id}`, {
+    const response = await axios.delete(`${API}/api/v1/pressure/${id}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

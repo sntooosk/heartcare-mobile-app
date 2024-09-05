@@ -39,7 +39,10 @@ function ResetPassword() {
       }
     } catch (error) {
       console.error("Erro ao verificar email:", error);
-      showToast("error", "Erro ao enviar código OTP. Tente novamente mais tarde.");
+      showToast(
+        "error",
+        "Erro ao enviar código OTP. Tente novamente mais tarde."
+      );
     } finally {
       setLoading(false);
     }
@@ -58,7 +61,10 @@ function ResetPassword() {
       }
     } catch (error) {
       console.error("Erro ao verificar email:", error);
-      showToast("error", "Erro ao enviar código OTP. Tente novamente mais tarde.");
+      showToast(
+        "error",
+        "Erro ao enviar código OTP. Tente novamente mais tarde."
+      );
     } finally {
       setLoading(false);
     }
@@ -77,7 +83,10 @@ function ResetPassword() {
       }
     } catch (error) {
       console.error("Erro ao verificar OTP:", error);
-      showToast("error", "Erro ao verificar código OTP. Tente novamente mais tarde.");
+      showToast(
+        "error",
+        "Erro ao verificar código OTP. Tente novamente mais tarde."
+      );
     } finally {
       setLoading(false);
     }

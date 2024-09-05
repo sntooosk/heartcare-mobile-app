@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import {
+  View,
   Text,
-  TouchableOpacity,
   TextInput,
+  TouchableOpacity,
   ActivityIndicator,
 } from "react-native";
 import { styles } from "./styles";
@@ -17,10 +18,7 @@ interface PressureFormProps {
   theme: Theme;
 }
 
-export default function PressureForm({
-  auth,
-  theme,
-}: PressureFormProps) {
+export default function PressureForm({ auth, theme }: PressureFormProps) {
   const [sistolica, setSistolica] = useState("");
   const [diastolica, setDiastolica] = useState("");
   const [pulso, setPulso] = useState("");
@@ -29,7 +27,11 @@ export default function PressureForm({
   const { showToast } = useToast();
 
   const adicionarPressure = async () => {
-    if (sistolica.trim() !== "" && diastolica.trim() !== "" && pulso.trim() !== "") {
+    if (
+      sistolica.trim() !== "" &&
+      diastolica.trim() !== "" &&
+      pulso.trim() !== ""
+    ) {
       const novaPressure = {
         systolic: sistolica,
         diastolic: diastolica,
@@ -41,9 +43,16 @@ export default function PressureForm({
         setLoading(true);
         await create(auth.token, novaPressure);
         showToast("success", "Medição adicionada com sucesso!");
+
+        setSistolica("");
+        setDiastolica("");
+        setPulso("");
       } catch (error) {
         console.error("Erro ao adicionar medição:", error);
-        showToast("error", "Erro ao adicionar medição. Tente novamente mais tarde.");
+        showToast(
+          "error",
+          "Erro ao adicionar medição. Tente novamente mais tarde."
+        );
       } finally {
         setLoading(false);
       }
@@ -67,7 +76,10 @@ export default function PressureForm({
         Sistólica
       </Text>
       <TextInput
-        style={[styles.input, { color: theme.COLORS.CONTENT }]}
+        style={[
+          styles.input,
+          { borderColor: theme.COLORS.PRIMARY, color: theme.COLORS.CONTENT },
+        ]}
         placeholder="Digite a sistólica"
         placeholderTextColor={theme.COLORS.TEXT}
         value={sistolica}
@@ -79,7 +91,10 @@ export default function PressureForm({
         Diastólica
       </Text>
       <TextInput
-        style={[styles.input, { color: theme.COLORS.CONTENT }]}
+        style={[
+          styles.input,
+          { borderColor: theme.COLORS.PRIMARY, color: theme.COLORS.CONTENT },
+        ]}
         placeholder="Digite a diastólica"
         placeholderTextColor={theme.COLORS.TEXT}
         value={diastolica}
@@ -87,11 +102,12 @@ export default function PressureForm({
         keyboardType="numeric"
       />
 
-      <Text style={[styles.label, { color: theme.COLORS.TITLE }]}>
-        Pulso
-      </Text>
+      <Text style={[styles.label, { color: theme.COLORS.TITLE }]}>Pulso</Text>
       <TextInput
-        style={[styles.input, { color: theme.COLORS.CONTENT }]}
+        style={[
+          styles.input,
+          { borderColor: theme.COLORS.PRIMARY, color: theme.COLORS.CONTENT },
+        ]}
         placeholder="Digite o pulso"
         placeholderTextColor={theme.COLORS.TEXT}
         value={pulso}
@@ -107,7 +123,9 @@ export default function PressureForm({
         {loading ? (
           <ActivityIndicator size="small" color={theme.COLORS.WHITE} />
         ) : (
-          <Text style={{ color: theme.COLORS.BUTTON_TEXT, fontWeight: "bold" }}>
+          <Text
+            style={[styles.buttonText, { color: theme.COLORS.BUTTON_TEXT }]}
+          >
             Registrar
           </Text>
         )}

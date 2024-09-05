@@ -1,11 +1,11 @@
 import User from "./User";
 
 interface Auth {
-  id: number,
+  id: number;
   token: string;
   email: string;
   password: string;
-  role: string
+  role: string;
   User: User;
 }
 

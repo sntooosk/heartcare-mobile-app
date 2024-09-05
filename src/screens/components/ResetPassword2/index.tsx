@@ -52,8 +52,8 @@ export default function ResetPasswordForm2({
 
   const handleChangeDigit = (index: number, text: string) => {
     if (text.length > 1) {
-      const newOtpDigits = text.split('').slice(0, 6);
-      setCodigoOtp(newOtpDigits.join(''));
+      const newOtpDigits = text.split("").slice(0, 6);
+      setCodigoOtp(newOtpDigits.join(""));
       newOtpDigits.forEach((digit, idx) => {
         if (inputRefs.current[idx]) {
           inputRefs.current[idx].focus();
@@ -72,7 +72,7 @@ export default function ResetPasswordForm2({
   };
 
   const handleKeyPress = (index: number, key: string) => {
-    if (key === 'Backspace' && index > 0) {
+    if (key === "Backspace" && index > 0) {
       inputRefs.current[index - 1]?.focus();
     }
   };
@@ -122,7 +122,9 @@ export default function ResetPasswordForm2({
         {loading ? (
           <ActivityIndicator size="small" color={theme.COLORS.WHITE} />
         ) : (
-          <Text style={[styles.buttonText, { color: theme.COLORS.BUTTON_TEXT }]}>
+          <Text
+            style={[styles.buttonText, { color: theme.COLORS.BUTTON_TEXT }]}
+          >
             Verificar Código OTP
           </Text>
         )}

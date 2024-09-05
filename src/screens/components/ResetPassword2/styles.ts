@@ -56,7 +56,7 @@ export const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     textAlign: "center", // Centraliza o texto horizontalmente
-    fontWeight: "bold",  // Define o texto como negrito
-    fontSize: 20,        // Define o tamanho da fonte
+    fontWeight: "bold", // Define o texto como negrito
+    fontSize: 20, // Define o tamanho da fonte
   },
 });

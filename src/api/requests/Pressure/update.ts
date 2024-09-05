@@ -9,7 +9,7 @@ export async function update(
 ) {
   try {
     const response = await axios.put(
-      `${API}/pressure/${idPressure}`,
+      `${API}/api/v1/pressure/${idPressure}`,
       pressure,
       {
         headers: {

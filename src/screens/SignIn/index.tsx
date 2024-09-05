@@ -18,12 +18,11 @@ function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-  
+
   const handleLogin = async () => {
     try {
       await signIn({ email, password });
-    } catch (error) {
-    }
+    } catch (error) {}
   };
 
   const togglePasswordVisibility = () => {
@@ -31,27 +30,25 @@ function SignIn() {
   };
 
   const handleForgotPassword = () => {
-     navigate("ResetPassword");
+    navigate("ResetPassword");
   };
 
   return (
     <View style={[styles.container, { backgroundColor: "#1F2937" }]}>
       <LogoSvg width={200} height={150} />
 
-  
-        <SignInForm
-          email={email}
-          setEmail={setEmail}
-          password={password}
-          setPassword={setPassword}
-          isPasswordVisible={isPasswordVisible}
-          togglePasswordVisibility={togglePasswordVisibility}
-          handleLogin={handleLogin}
-          isLoading={isLoading}
-          theme={theme}
-          handleForgotPassword={handleForgotPassword}
-        />
-
+      <SignInForm
+        email={email}
+        setEmail={setEmail}
+        password={password}
+        setPassword={setPassword}
+        isPasswordVisible={isPasswordVisible}
+        togglePasswordVisibility={togglePasswordVisibility}
+        handleLogin={handleLogin}
+        isLoading={isLoading}
+        theme={theme}
+        handleForgotPassword={handleForgotPassword}
+      />
     </View>
   );
 }

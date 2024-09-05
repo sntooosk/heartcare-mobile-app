@@ -17,13 +17,11 @@ export default function TabRoutes() {
   const { theme } = useTheme();
   return (
     <>
-      <StatusBar
-        backgroundColor={"#1F2937"}
-        barStyle="light-content"
-      />
+      <StatusBar backgroundColor={"#1F2937"} barStyle="light-content" />
       <Navigator
         screenOptions={{
           headerShown: false,
+          tabBarShowLabel: false,
           tabBarStyle: {
             backgroundColor: theme.COLORS.BACKGROUND,
             position: "absolute",
@@ -38,8 +36,7 @@ export default function TabRoutes() {
             borderColor: theme.COLORS.PRIMARY,
             height: 80,
             ...shadow.shadowOverlay,
-          }
-          
+          },
         }}
       >
         <Screen

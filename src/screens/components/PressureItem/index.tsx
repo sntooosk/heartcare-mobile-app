@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, TouchableOpacity, Alert, Platform, Switch } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Alert,
+  Platform,
+  Switch,
+} from "react-native";
 import { styles } from "./styles";
 import ModalEdicao from "../ModalEdit";
 import * as Animatable from "react-native-animatable";
@@ -38,7 +45,10 @@ export default function PressureItem({
             showToast("success", "Medição excluída com sucesso!");
           } catch (error) {
             console.error("Erro ao excluir medição:", error);
-            showToast("error", "Erro ao excluir medição. Tente novamente mais tarde.");
+            showToast(
+              "error",
+              "Erro ao excluir medição. Tente novamente mais tarde."
+            );
           }
         }
       } else {
@@ -58,7 +68,10 @@ export default function PressureItem({
                   showToast("success", "Medição excluída com sucesso!");
                 } catch (error) {
                   console.error("Erro ao excluir medição:", error);
-                  showToast("error", "Erro ao excluir medição. Tente novamente mais tarde.");
+                  showToast(
+                    "error",
+                    "Erro ao excluir medição. Tente novamente mais tarde."
+                  );
                 }
               },
             },
@@ -113,7 +126,6 @@ export default function PressureItem({
     }
   };
 
-
   return (
     <Animatable.View
       animation="fadeInUp"
@@ -163,16 +175,16 @@ export default function PressureItem({
       </Text>
       <View style={styles.containerButton}>
         <TouchableOpacity
-          style={[styles.button]}
+          style={[styles.button, { borderColor: theme.COLORS.PRIMARY }]}
           onPress={abrirModal}
         >
-        <FontAwesome name="edit" size={30} color={theme.COLORS.ICON} />
+          <FontAwesome name="edit" size={30} color={theme.COLORS.ICON} />
         </TouchableOpacity>
         <TouchableOpacity
-          style={[styles.button]}
+          style={[styles.button, { borderColor: theme.COLORS.PRIMARY }]}
           onPress={() => deletePressures()}
         >
-        <FontAwesome name="trash" size={30} color={theme.COLORS.ICON} />
+          <FontAwesome name="trash" size={30} color={theme.COLORS.ICON} />
         </TouchableOpacity>
       </View>
       <ModalEdicao

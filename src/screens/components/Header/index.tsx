@@ -8,7 +8,6 @@ interface HeaderProps {
 }
 
 export default function Header({ title }: HeaderProps) {
-
   return (
     <View style={[styles.container, { backgroundColor: "#1F2937" }]}>
       <View style={styles.contain}>

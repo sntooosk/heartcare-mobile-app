@@ -1,10 +1,11 @@
 import axios from "axios";
 import ChangePassword from "../../../models/dto/ChangePasswordDTO";
+import { API } from "../..";
 
 export async function changePassword(email: string, changePassword: ChangePassword) {
   try {
     const response = await axios.post(
-      `https://heartcare-backend.onrender.com/forgotPassword/changePassword/${email}`, changePassword);
+      `${API}/forgotPassword/changePassword/${email}`, changePassword);
       
     response.data;
   } catch (error) {

@@ -3,7 +3,7 @@ import { API } from "../..";
 
 export async function get(id: number, token: string) {
   try {
-    const response = await axios.get(`${API}/users/${id}`, {
+    const response = await axios.get(`${API}/api/v1/users/${id}`, {
       headers: {
         Authorization: `Bearer ${token}`
       }

@@ -108,7 +108,10 @@ function Profile() {
       showToast("success", "Perfil atualizado com sucesso!");
     } catch (error) {
       setLoading(false);
-      showToast("error", "Erro ao atualizar perfil. Tente novamente mais tarde.");
+      showToast(
+        "error",
+        "Erro ao atualizar perfil. Tente novamente mais tarde."
+      );
       console.error("Erro ao atualizar perfil:", error);
     }
   };
