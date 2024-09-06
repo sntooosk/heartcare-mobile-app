@@ -16,9 +16,6 @@ function Feed() {
   const [posts, setPosts] = useState<Post[]>([]);
   const [refreshing, setRefreshing] = useState(false);
 
-  const sortedPosts = posts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-
-
   useEffect(() => {
     fetchPosts();
   }, []);
@@ -26,7 +23,8 @@ function Feed() {
   const fetchPosts = async () => {
     try {
       const response = await get(authData?.token || "");
-      setPosts(response);
+      const sortedPosts = response.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+      setPosts(sortedPosts);
     } catch (error) {
       console.error("Error fetching posts:", error);
     }
@@ -50,7 +48,7 @@ function Feed() {
     >
       <Header title="Publicações" />
       <FlatList
-        data={sortedPosts}
+        data={posts}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
           <PostItem post={item} sharePost={sharePost} />

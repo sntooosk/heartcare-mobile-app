@@ -14,18 +14,28 @@ interface PostItemProps {
 
 const PostItem = ({ post, sharePost }: PostItemProps) => {
   const { theme } = useTheme();
-  
 
+  // Função para calcular o tempo desde o post
   const tempoDesdePost = (data: Date) => {
-    const diferenca = new Date().getTime() - new Date(data).getTime();
-    const minutos = Math.floor(diferenca / 60000);
+    const agora = new Date();
+    const dataPost = new Date(data);
+    const diferencaMs = agora.getTime() - dataPost.getTime();
+    
+    const segundos = Math.floor(diferencaMs / 1000);
+    const minutos = Math.floor(segundos / 60);
     const horas = Math.floor(minutos / 60);
+    const dias = Math.floor(horas / 24);
 
-    return horas > 0
-      ? `${horas} horas atrás`
-      : minutos > 0
-      ? `${minutos} minutos atrás`
-      : "Agora mesmo";
+    if (dias > 0) {
+      return `${dias} ${dias === 1 ? "dia" : "dias"} atrás`;
+    }
+    if (horas > 0) {
+      return `${horas} ${horas === 1 ? "hora" : "horas"} atrás`;
+    }
+    if (minutos > 0) {
+      return `${minutos} ${minutos === 1 ? "minuto" : "minutos"} atrás`;
+    }
+    return "Agora mesmo";
   };
 
   return (

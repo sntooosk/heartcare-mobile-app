@@ -30,7 +30,8 @@ function Query() {
   const carregarPressures = async () => {
     try {
       const pressuresRef = await get(auth.id, auth.token);
-      setPressures(pressuresRef);
+      const sortedPressures = pressuresRef.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+      setPressures(sortedPressures);
       setRefreshing(false);
     } catch (error) {}
   };
