@@ -6,7 +6,7 @@
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "build:web": "npm install -g expo-cli && expo export -p web && npx workbox-cli generateSW workbox-config.js"
+    "build:web": "npm install -g expo-cli && npx expo export -p web && npx workbox-cli generateSW workbox-config.js"
   },
   "dependencies": {
     "@expo/metro-runtime": "^3.2.3",
