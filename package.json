@@ -11,9 +11,6 @@
   "dependencies": {
     "@expo/metro-runtime": "^3.2.3",
     "@expo/vector-icons": "^14.0.2",
-    "@iconify-icons/fa": "^1.2.4",
-    "@iconify-icons/mdi": "^1.2.48",
-    "@iconify/react": "^5.0.2",
     "@react-native-async-storage/async-storage": "^1.23.1",
     "@react-native-community/datetimepicker": "^8.2.0",
     "@react-navigation/bottom-tabs": "^6.5.20",
