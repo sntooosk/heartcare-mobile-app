@@ -15,6 +15,7 @@ interface PostItemProps {
 const PostItem = ({ post, sharePost }: PostItemProps) => {
   const { theme } = useTheme();
 
+  // Função para calcular o tempo desde o pst
   const tempoDesdePost = (data: Date) => {
     const agora = new Date();
     const dataPost = new Date(data);
