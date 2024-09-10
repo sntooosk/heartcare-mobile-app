@@ -11,12 +11,10 @@ import { FontAwesome } from "@expo/vector-icons";
 
 import { styles } from "./styles";
 import ModalEdicao from "../ModalEditPressure";
-import * as Animatable from "react-native-animatable";
 import shadow, { Theme } from "../../../utils/styles/index";
 import Pressure from "../../../models/Pressure";
 import Auth from "../../../models/Auth";
 import { useToast } from "../../../context/ToastContext";
-import { FontAwesome } from "@expo/vector-icons";
 import { deletePressure } from "../../../api/requests/pressure/delete";
 
 interface PressureItemProps {
@@ -30,7 +28,6 @@ const PressureItem: React.FC<PressureItemProps> = ({ pressure, theme, auth }) =>
   const { showToast } = useToast();
 
   const abrirModal = () => setModalVisivel(true);
-
   const fecharModal = () => setModalVisivel(false);
 
   const avaliarPressao = () => {
@@ -51,15 +48,47 @@ const PressureItem: React.FC<PressureItemProps> = ({ pressure, theme, auth }) =>
   };
 
   const tempoDesdePressure = (data: Date) => {
-    const diferencaMs = new Date().getTime() - new Date(data).getTime();
-    const segundos = Math.floor(diferencaMs / 1000);
-    const minutos = Math.floor(segundos / 60);
-    const horas = Math.floor(minutos / 60);
-    const dias = Math.floor(horas / 24);
+    const agora = new Date();
+    const dataPost = new Date(data);
 
+    let anos = agora.getFullYear() - dataPost.getFullYear();
+    let meses = agora.getMonth() - dataPost.getMonth();
+    let dias = agora.getDate() - dataPost.getDate();
+    let horas = agora.getHours() - dataPost.getHours();
+    let minutos = agora.getMinutes() - dataPost.getMinutes();
+
+    // Ajustar meses e anos
+    if (meses < 0) {
+      anos--;
+      meses += 12;
+    }
+
+    // Ajustar dias
+    if (dias < 0) {
+      meses--;
+      const diasNoMes = new Date(agora.getFullYear(), agora.getMonth(), 0).getDate();
+      dias += diasNoMes;
+    }
+
+    // Ajustar horas
+    if (horas < 0) {
+      dias--;
+      horas += 24;
+    }
+
+    // Ajustar minutos
+    if (minutos < 0) {
+      horas--;
+      minutos += 60;
+    }
+
+    // Formatar resultado
+    if (anos > 0) return `${anos} ${anos === 1 ? "ano" : "anos"} atrás`;
+    if (meses > 0) return `${meses} ${meses === 1 ? "mês" : "meses"} atrás`;
     if (dias > 0) return `${dias} ${dias === 1 ? "dia" : "dias"} atrás`;
     if (horas > 0) return `${horas} ${horas === 1 ? "hora" : "horas"} atrás`;
     if (minutos > 0) return `${minutos} ${minutos === 1 ? "minuto" : "minutos"} atrás`;
+
     return "Agora mesmo";
   };
 
@@ -68,9 +97,9 @@ const PressureItem: React.FC<PressureItemProps> = ({ pressure, theme, auth }) =>
       const confirmMessage = "Deseja apagar esta medição?";
 
       if (Platform.OS === "web") {
-        if (window.confirm("Deseja apagar esta medição?")) {
+        if (window.confirm(confirmMessage)) {
           try {
-            await deletePressure(auth.id, auth.token);
+            await deletePressure(pressure.id, auth.token);
             showToast("success", "Medição excluída com sucesso!");
           } catch (error) {
             console.error("Erro ao excluir medição:", error);
@@ -94,7 +123,10 @@ const PressureItem: React.FC<PressureItemProps> = ({ pressure, theme, auth }) =>
                   showToast("success", "Medição excluída com sucesso!");
                 } catch (error) {
                   console.error("Erro ao excluir medição:", error);
-                  showToast("error", "Erro ao excluir medição. Tente novamente mais tarde.");
+                  showToast(
+                    "error",
+                    "Erro ao excluir medição. Tente novamente mais tarde."
+                  );
                 }
               }
             }
@@ -119,19 +151,34 @@ const PressureItem: React.FC<PressureItemProps> = ({ pressure, theme, auth }) =>
       ]}
     >
       <Text style={[styles.textPressure, { color: theme.COLORS.CONTENT }]}>
-        Sistólica: <Text style={{ fontWeight: "bold", fontSize: 13 }}>{pressure.systolic}</Text>
+        Sistólica:{" "}
+        <Text style={{ fontWeight: "bold", fontSize: 13 }}>
+          {pressure.systolic}
+        </Text>
       </Text>
       <Text style={[styles.textPressure, { color: theme.COLORS.CONTENT }]}>
-        Diastólica: <Text style={{ fontWeight: "bold", fontSize: 13 }}>{pressure.diastolic}</Text>
+        Diastólica:{" "}
+        <Text style={{ fontWeight: "bold", fontSize: 13 }}>
+          {pressure.diastolic}
+        </Text>
       </Text>
       <Text style={[styles.textPressure, { color: theme.COLORS.CONTENT }]}>
-        Pulso: <Text style={{ fontWeight: "bold", fontSize: 13 }}>{pressure.pulse}</Text>
+        Pulso:{" "}
+        <Text style={{ fontWeight: "bold", fontSize: 13 }}>
+          {pressure.pulse}
+        </Text>
       </Text>
       <Text style={[styles.textPressure, { color: theme.COLORS.CONTENT }]}>
-        Medido a: <Text style={{ fontWeight: "bold", fontSize: 13 }}>{tempoDesdePressure(pressure.date)}</Text>
+        Medido a:{" "}
+        <Text style={{ fontWeight: "bold", fontSize: 13 }}>
+          {tempoDesdePressure(pressure.date)}
+        </Text>
       </Text>
       <Text style={[styles.textPressure, { color: theme.COLORS.CONTENT }]}>
-        Avaliação: <Text style={{ fontWeight: "bold", fontSize: 13 }}>{avaliarPressao()}</Text>
+        Avaliação:{" "}
+        <Text style={{ fontWeight: "bold", fontSize: 13 }}>
+          {avaliarPressao()}
+        </Text>
       </Text>
       <View style={styles.containerButton}>
         <TouchableOpacity

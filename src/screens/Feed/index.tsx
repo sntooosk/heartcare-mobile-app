@@ -22,14 +22,9 @@ function Feed() {
 
   const fetchPosts = async () => {
     try {
-<<<<<<< HEAD
       const response = await getPost(authData?.token || "");
-      setPosts(response);
-=======
-      const response = await get(authData?.token || "");
       const sortedPosts = response.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
       setPosts(sortedPosts);
->>>>>>> ffed515f1717898be03919105e274631fe81626e
     } catch (error) {
       console.error("Error fetching posts:", error);
     }
