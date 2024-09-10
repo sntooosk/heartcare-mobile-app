@@ -7,7 +7,7 @@ export type propsNavigationStack = {
   ResetPassword: undefined | any;
 
   Feed: undefined | any;
-  Duvidas: undefined | any;
+  Medications: undefined | any;
   Profile: undefined | any;
   Query: undefined | any;
 };

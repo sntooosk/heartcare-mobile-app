@@ -2,7 +2,7 @@ import axios from "axios";
 import { API } from "../..";
 import UpdateUserDTO from "../../../models/dto/UpdateUserDTO";
 
-export async function update(
+export async function updateUser(
   id: number,
   token: string,
   updateUser: UpdateUserDTO

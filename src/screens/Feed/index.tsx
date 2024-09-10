@@ -4,11 +4,11 @@ import Post from "../../models/Post";
 import PostItem from "../components/PostItem";
 import Header from "../components/Header";
 import { useTheme } from "../../context/ThemeContext";
-import { get } from "../../api/requests/post/get";
 import { useAuth } from "../../context/AuthContext";
 import * as Sharing from "expo-sharing";
 import * as FileSystem from "expo-file-system";
 import { styles } from "./styles";
+import { getPost } from "../../api/requests/post/get";
 
 function Feed() {
   const { theme } = useTheme();
@@ -25,7 +25,7 @@ function Feed() {
 
   const fetchPosts = async () => {
     try {
-      const response = await get(authData?.token || "");
+      const response = await getPost(authData?.token || "");
       setPosts(response);
     } catch (error) {
       console.error("Error fetching posts:", error);

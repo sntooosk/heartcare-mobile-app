@@ -14,9 +14,9 @@ import { useAuth } from "../../context/AuthContext";
 import PressureForm from "../components/PressureForm";
 import PressureItem from "../components/PressureItem";
 import Header from "../components/Header";
-import { get } from "../../api/requests/pressure/get";
+import { getPressureByUser } from "../../api/requests/pressure/get";
 
-function Query() {
+function ScreenPressures() {
   const [pressures, setPressures] = useState<Pressure[]>([]);
   const [historicoVisivel, setHistoricoVisivel] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
@@ -29,7 +29,7 @@ function Query() {
 
   const carregarPressures = async () => {
     try {
-      const pressuresRef = await get(auth.id, auth.token);
+      const pressuresRef = await getPressureByUser(auth.id, auth.token);
       setPressures(pressuresRef);
       setRefreshing(false);
     } catch (error) {}
@@ -113,4 +113,4 @@ function Query() {
   );
 }
 
-export default Query;
+export default ScreenPressures;

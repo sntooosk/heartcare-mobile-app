@@ -1,20 +1,21 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Feather } from "@expo/vector-icons";
-
 import { StatusBar } from "react-native";
 import { propsNavigationStack } from "./types";
 import Profile from "../screens/Profile";
 import { useTheme } from "../context/ThemeContext";
 import Query from "../screens/Query";
 import shadow from "../utils/styles";
-import Duvidas from "../screens/Duvidas";
 import Feed from "../screens/Feed";
+import ScreenMedications from "../screens/Medication";
+import ScreenPressures from "../screens/Query";
 
 const { Navigator, Screen } = createBottomTabNavigator<propsNavigationStack>();
 
 export default function TabRoutes() {
   const { theme } = useTheme();
+
   return (
     <>
       <StatusBar backgroundColor={"#1F2937"} barStyle="light-content" />
@@ -55,12 +56,12 @@ export default function TabRoutes() {
         />
 
         <Screen
-          name="Duvidas"
-          component={Duvidas}
+          name="Medications"
+          component={ScreenMedications}
           options={{
             tabBarIcon: ({ focused, size }) => (
               <Feather
-                name="info"
+                name="plus-circle"
                 size={focused ? size + 5 : size}
                 color={focused ? theme.COLORS.PRIMARY : theme.COLORS.TITLE}
               />
@@ -68,9 +69,10 @@ export default function TabRoutes() {
             tabBarLabel: () => null,
           }}
         />
+
         <Screen
           name="Query"
-          component={Query}
+          component={ScreenPressures}
           options={{
             tabBarIcon: ({ focused, size }) => (
               <Feather
@@ -82,6 +84,7 @@ export default function TabRoutes() {
             tabBarLabel: () => null,
           }}
         />
+
         <Screen
           name="Profile"
           component={Profile}

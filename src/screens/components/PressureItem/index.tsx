@@ -8,14 +8,14 @@ import {
   Switch,
 } from "react-native";
 import { styles } from "./styles";
-import ModalEdicao from "../ModalEdit";
+import ModalEdicao from "../ModalEditPressure";
 import * as Animatable from "react-native-animatable";
 import shadow, { Theme } from "../../../utils/styles/index";
 import Pressure from "../../../models/Pressure";
 import Auth from "../../../models/Auth";
-import { deletar } from "../../../api/requests/pressure/delete";
 import { useToast } from "../../../context/ToastContext";
 import { FontAwesome } from "@expo/vector-icons";
+import { deletePressure } from "../../../api/requests/pressure/delete";
 
 interface PressureItemProps {
   pressure: Pressure;
@@ -41,7 +41,7 @@ export default function PressureItem({
       if (Platform.OS === "web") {
         if (window.confirm("Deseja apagar esta medição?")) {
           try {
-            await deletar(auth.id, auth.token);
+            await deletePressure(auth.id, auth.token);
             showToast("success", "Medição excluída com sucesso!");
           } catch (error) {
             console.error("Erro ao excluir medição:", error);
@@ -64,7 +64,7 @@ export default function PressureItem({
               text: "Apagar",
               onPress: async () => {
                 try {
-                  await deletar(pressure.id, auth.token);
+                  await deletePressure(pressure.id, auth.token);
                   showToast("success", "Medição excluída com sucesso!");
                 } catch (error) {
                   console.error("Erro ao excluir medição:", error);

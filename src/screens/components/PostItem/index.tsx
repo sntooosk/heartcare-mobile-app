@@ -14,18 +14,48 @@ interface PostItemProps {
 
 const PostItem = ({ post, sharePost }: PostItemProps) => {
   const { theme } = useTheme();
-  
 
   const tempoDesdePost = (data: Date) => {
-    const diferenca = new Date().getTime() - new Date(data).getTime();
-    const minutos = Math.floor(diferenca / 60000);
-    const horas = Math.floor(minutos / 60);
+    const agora = new Date();
+    const dataPost = new Date(data);
 
-    return horas > 0
-      ? `${horas} horas atrás`
-      : minutos > 0
-      ? `${minutos} minutos atrás`
-      : "Agora mesmo";
+    let anos = agora.getFullYear() - dataPost.getFullYear();
+    let meses = agora.getMonth() - dataPost.getMonth();
+    let dias = agora.getDate() - dataPost.getDate();
+    let horas = agora.getHours() - dataPost.getHours();
+    let minutos = agora.getMinutes() - dataPost.getMinutes();
+
+    if (minutos < 0) {
+      minutos += 60;
+      horas--;
+    }
+    if (horas < 0) {
+      horas += 24;
+      dias--;
+    }
+    if (dias < 0) {
+      const ultimoMes = new Date(agora.getFullYear(), agora.getMonth(), 0).getDate();
+      dias += ultimoMes;
+      meses--;
+    }
+    if (meses < 0) {
+      meses += 12;
+      anos--;
+    }
+
+    if (anos > 0) {
+      return `${anos} ${anos === 1 ? 'ano' : 'anos'} atrás`;
+    } else if (meses > 0) {
+      return `${meses} ${meses === 1 ? 'mês' : 'meses'} atrás`;
+    } else if (dias > 0) {
+      return `${dias} ${dias === 1 ? 'dia' : 'dias'} atrás`;
+    } else if (horas > 0) {
+      return `${horas} ${horas === 1 ? 'hora' : 'horas'} atrás`;
+    } else if (minutos > 0) {
+      return `${minutos} ${minutos === 1 ? 'minuto' : 'minutos'} atrás`;
+    } else {
+      return "Agora mesmo";
+    }
   };
 
   return (

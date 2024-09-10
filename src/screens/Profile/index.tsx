@@ -9,10 +9,10 @@ import Header from "../components/Header";
 import ProfileImage from "../components/ProfileImage";
 import UserProfileForm from "../components/UserProfileForm";
 import { styles } from "./styles";
-import { update } from "../../api/requests/user/update";
-import { get } from "../../api/requests/user/get";
 import { convertPhotoToBytes } from "../../utils/ConvertPhotoBytes";
 import UpdateUserDTO from "../../models/dto/UpdateUserDTO";
+import { getUserById } from "../../api/requests/user/get";
+import { updateUser } from "../../api/requests/user/update";
 
 function Profile() {
   const { signOut, authData } = useAuth();
@@ -32,7 +32,7 @@ function Profile() {
     const fetchUserData = async () => {
       try {
         setLoading(true);
-        const userCache = await get(id, token);
+        const userCache = await getUserById(id, token);
         setName(userCache.name || "");
         setLastName(userCache.lastname || "");
         setDob(userCache.dob || "");
@@ -103,7 +103,7 @@ function Profile() {
         photo: photoBytes,
         auth: { id },
       };
-      await update(id, token, userCache);
+      await updateUser(id, token, userCache);
       setLoading(false);
       showToast("success", "Perfil atualizado com sucesso!");
     } catch (error) {

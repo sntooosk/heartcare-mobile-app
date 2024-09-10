@@ -1,7 +1,7 @@
 import axios from "axios";
 import { API } from "../..";
 
-export async function deletar(id: number, token: string) {
+export async function deletePressure(id: number, token: string) {
   try {
     const response = await axios.delete(`${API}/api/v1/pressure/${id}`, {
       headers: {

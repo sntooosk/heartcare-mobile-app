@@ -2,7 +2,7 @@ import axios from "axios";
 import { API } from "../..";
 import UpdatePressureDTO from "../../../models/dto/UpdatePressureDTO";
 
-export async function update(
+export async function updatePressure(
   idPressure: number,
   token: string,
   pressure: UpdatePressureDTO

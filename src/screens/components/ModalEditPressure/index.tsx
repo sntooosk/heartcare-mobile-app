@@ -12,8 +12,8 @@ import { styles } from "./styles";
 import shadow, { Theme } from "../../../utils/styles/index";
 import Pressure from "../../../models/Pressure";
 import Auth from "../../../models/Auth";
-import { update } from "../../../api/requests/pressure/update";
 import { useToast } from "../../../context/ToastContext";
+import { updatePressure } from "../../../api/requests/pressure/update";
 
 interface ModalEdicaoProps {
   visivel: boolean;
@@ -54,7 +54,7 @@ export default function ModalEdicao({
         },
       };
 
-      await update(pressure.id, auth.token, PressureParaAtualizar);
+      await updatePressure(pressure.id, auth.token, PressureParaAtualizar);
       fecharModal();
       showToast("success", "Edição realizada com sucesso!");
     } catch (error) {
