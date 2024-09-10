@@ -16,7 +16,7 @@ import PressureItem from "../components/PressureItem";
 import Header from "../components/Header";
 import { getPressureByUser } from "../../api/requests/pressure/get";
 
-function ScreenPressures() {
+function PressureInfo() {
   const [pressures, setPressures] = useState<Pressure[]>([]);
   const [historicoVisivel, setHistoricoVisivel] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
@@ -114,4 +114,4 @@ function ScreenPressures() {
   );
 }
 
-export default ScreenPressures;
+export default PressureInfo;

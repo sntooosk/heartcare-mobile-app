@@ -5,11 +5,10 @@ import { StatusBar } from "react-native";
 import { propsNavigationStack } from "./types";
 import Profile from "../screens/Profile";
 import { useTheme } from "../context/ThemeContext";
-import Query from "../screens/Query";
 import shadow from "../utils/styles";
 import Feed from "../screens/Feed";
-import ScreenMedications from "../screens/Medication";
-import ScreenPressures from "../screens/Query";
+import PressureInfo from "../screens/PressureInfo";
+import MedicationInfo from "../screens/MedicationInfo";
 
 const { Navigator, Screen } = createBottomTabNavigator<propsNavigationStack>();
 
@@ -56,8 +55,8 @@ export default function TabRoutes() {
         />
 
         <Screen
-          name="Medications"
-          component={ScreenMedications}
+          name="MedicationInfo"
+          component={MedicationInfo}
           options={{
             tabBarIcon: ({ focused, size }) => (
               <Feather
@@ -71,8 +70,8 @@ export default function TabRoutes() {
         />
 
         <Screen
-          name="Query"
-          component={ScreenPressures}
+          name="PressureInfo"
+          component={PressureInfo}
           options={{
             tabBarIcon: ({ focused, size }) => (
               <Feather

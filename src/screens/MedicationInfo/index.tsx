@@ -6,17 +6,17 @@ import {
   FlatList,
   RefreshControl,
 } from "react-native";
-import { styles } from "./styles";
 import { AntDesign, MaterialIcons } from "@expo/vector-icons";
+import { styles } from "./styles";
 import { useTheme } from "../../context/ThemeContext";
-import Medication from "../../models/Medication";
 import { useAuth } from "../../context/AuthContext";
+import Medication from "../../models/Medication";
 import MedicationForm from "../components/MedicationForm";
 import MedicationItem from "../components/MedicationItem";
 import Header from "../components/Header";
 import { getMedicationsByUser } from "../../api/requests/medication/get";
 
-function ScreenMedications() {
+const MedicationInfo = () => {
   const [medications, setMedications] = useState<Medication[]>([]);
   const [historicoVisivel, setHistoricoVisivel] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
@@ -24,7 +24,6 @@ function ScreenMedications() {
 
   const { authData } = useAuth();
   const auth = authData;
-
   const { theme } = useTheme();
 
   const carregarMedications = async () => {
@@ -38,6 +37,7 @@ function ScreenMedications() {
   };
 
   const onRefresh = useCallback(() => {
+    setRefreshing(true);
     carregarMedications();
   }, [carregarMedications]);
 
@@ -46,20 +46,15 @@ function ScreenMedications() {
   }, [carregarMedications]);
 
   const toggleScreen = () => {
-    setHistoricoVisivel(!historicoVisivel);
+    setHistoricoVisivel(prevState => !prevState);
   };
 
   return (
-    <View
-      style={[styles.container, { backgroundColor: theme.COLORS.BACKGROUND }]}
-    >
-      <Header title={historicoVisivel ? "Histórico" : "Medicamentos"} />
+    <View style={[styles.container, { backgroundColor: theme.COLORS.BACKGROUND }]}>
+      <Header title={historicoVisivel ? "Lista" : "Medicamentos"} />
 
       <TouchableOpacity
-        style={[
-          styles.themeToggleButton,
-          { backgroundColor: theme.COLORS.BACKGROUND },
-        ]}
+        style={[styles.themeToggleButton, { backgroundColor: theme.COLORS.BACKGROUND }]}
         onPress={toggleScreen}
       >
         {historicoVisivel ? (
@@ -74,10 +69,7 @@ function ScreenMedications() {
       </TouchableOpacity>
 
       <View
-        style={[
-          styles.containerForm,
-          { backgroundColor: theme.COLORS.BACKGROUND },
-        ]}
+        style={[styles.containerForm, { backgroundColor: theme.COLORS.BACKGROUND }]}
       >
         {!historicoVisivel && !formVisivel && (
           <MedicationForm auth={auth} theme={theme} />
@@ -86,6 +78,7 @@ function ScreenMedications() {
         {historicoVisivel && (
           <FlatList
             data={medications}
+            keyExtractor={item => item.id.toString()}
             ListEmptyComponent={
               <Text style={[styles.textoVazio, { color: theme.COLORS.TEXT }]}>
                 Nenhuma medicação encontrada
@@ -103,6 +96,6 @@ function ScreenMedications() {
       </View>
     </View>
   );
-}
+};
 
-export default ScreenMedications;
+export default MedicationInfo;

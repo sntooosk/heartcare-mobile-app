@@ -7,9 +7,9 @@ export type propsNavigationStack = {
   ResetPassword: undefined | any;
 
   Feed: undefined | any;
-  Medications: undefined | any;
+  MedicationInfo: undefined | any;
   Profile: undefined | any;
-  Query: undefined | any;
+  PressureInfo: undefined | any;
 };
 
 export type propsStack = NativeStackNavigationProp<propsNavigationStack>;
