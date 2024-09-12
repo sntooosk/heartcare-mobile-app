@@ -13,7 +13,6 @@ import shadow, { Theme } from "../../../utils/styles/index";
 import Auth from "../../../models/Auth";
 import { updateMedication } from "../../../api/requests/medication/update";
 import { useToast } from "../../../context/ToastContext";
-import DateTimePicker from '@react-native-community/datetimepicker';
 import Medication from "../../../models/Medication";
 import UpdateMedicationDTO from "../../../models/dto/UpdateMedicationDTO";
 
