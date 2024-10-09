@@ -153,7 +153,7 @@ const PressureItem: React.FC<PressureItemProps> = ({ pressure, theme, auth }) =>
       <Text style={[styles.textPressure, { color: theme.COLORS.CONTENT }]}>
         Sistólica:{" "}
         <Text style={{ fontWeight: "bold", fontSize: 13 }}>
-          {pressure.systolic}
+          {pressure.systolic} mmHg
         </Text>
       </Text>
       <Text style={[styles.textPressure, { color: theme.COLORS.CONTENT }]}>
