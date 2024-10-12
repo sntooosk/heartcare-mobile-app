@@ -48,28 +48,23 @@ const PressureChart: React.FC<PressureChartProps> = ({ pressure, theme }) => {
   };
 
   const chartConfig = {
-    backgroundGradientFrom: theme.COLORS.BACKGROUND_CARD,
+    backgroundGradientFrom: theme.COLORS.BACKGROUND,
     backgroundGradientFromOpacity: 0,
     backgroundGradientTo: theme.COLORS.BACKGROUND,
     backgroundGradientToOpacity: 0.5,
-    color: (opacity = 1) => theme.COLORS.TEXT, // Cor dos rótulos baseada no tema
-    fillShadowGradient: theme.COLORS.CHART_FILL, // Preenchimento do gráfico baseado no tema
-    fillShadowGradientOpacity: 1,
-    decimalPlaces: 0, // Sem casas decimais
+    color: (opacity = 1) => theme.COLORS.TEXT,
+    fillShadowGradient: theme.COLORS.CHART_FILL,
+    decimalPlaces: 0,
     propsForDots: {
       r: "6",
-      strokeWidth: "2",
-      stroke: theme.COLORS.CHART_LINE,
     },
-    gridColor: theme.COLORS.CHART_GRID,
   };
-
+  
   return (
     <View
       style={[
         styles.container,
         {
-          backgroundColor: theme.COLORS.BACKGROUND_CARD,
           ...shadow.shadowOverlay,
         },
       ]}

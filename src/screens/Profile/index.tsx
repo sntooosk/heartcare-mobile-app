@@ -128,7 +128,7 @@ function Profile() {
   return (
     <View style={[styles.container, { backgroundColor: "#1F2937" }]}>
       <Header title="Perfil" />
-      <ProfileImage photo={photo} onPress={handleChoosePhoto} />
+      <ProfileImage photo={photo} theme={theme} onPress={handleChoosePhoto} />
       <TouchableOpacity
         style={[styles.button, { backgroundColor: "#1F2937" }]}
         onPress={handleEditClick}
