@@ -6,7 +6,7 @@ import { useNavigation } from "@react-navigation/native";
 import { styles } from "./styles";
 import { propsStack } from "../../routes/types";
 
-import DrawMedicine from "../../assets/svg/undraw_medicine_b-1-ol.svg";
+import  HomeSvg from "../../assets/svg/home.svg";
 import { useTheme } from "../../context/ThemeContext";
 import { AntDesign } from "@expo/vector-icons";
 
@@ -17,7 +17,7 @@ function Home() {
   return (
     <View style={[styles.container, { backgroundColor: "#1F2937" }]}>
       <View style={styles.svgContainer}>
-        <DrawMedicine width={400} height={400} />
+        <HomeSvg width={400} height={400} />
       </View>
 
       <Animatable.View
