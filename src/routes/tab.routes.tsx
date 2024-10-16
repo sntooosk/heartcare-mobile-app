@@ -1,6 +1,6 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Feather } from "@expo/vector-icons";
+import { Feather, MaterialIcons } from "@expo/vector-icons";
 import { StatusBar } from "react-native";
 import { propsNavigationStack } from "./types";
 import Profile from "../screens/Profile";
@@ -27,12 +27,12 @@ export default function TabRoutes() {
             position: "absolute",
             borderTopColor: theme.COLORS.PRIMARY,
             padding: 20,
-            bottom: 25,
-            left: 25,
-            right: 25,
+            bottom: 26,
+            left: 26,
+            right: 26,
             elevation: 0,
             borderRadius: 30,
-            borderWidth: 2.5,
+            borderWidth: 2.6,
             borderColor: theme.COLORS.PRIMARY,
             height: 80,
             ...shadow.shadowOverlay,
@@ -46,7 +46,7 @@ export default function TabRoutes() {
             tabBarIcon: ({ focused, size }) => (
               <Feather
                 name="heart"
-                size={focused ? size + 5 : size}
+                size={focused ? size + 6 : size}
                 color={focused ? theme.COLORS.PRIMARY : theme.COLORS.TITLE}
               />
             ),
@@ -59,9 +59,9 @@ export default function TabRoutes() {
           component={MedicationInfo}
           options={{
             tabBarIcon: ({ focused, size }) => (
-              <Feather
-                name="plus-circle"
-                size={focused ? size + 5 : size}
+              <MaterialIcons
+                name="medication"
+                size={focused ? size + 6 : size}
                 color={focused ? theme.COLORS.PRIMARY : theme.COLORS.TITLE}
               />
             ),
@@ -75,8 +75,8 @@ export default function TabRoutes() {
           options={{
             tabBarIcon: ({ focused, size }) => (
               <Feather
-                name="calendar"
-                size={focused ? size + 5 : size}
+                name="activity"
+                size={focused ? size + 6 : size}
                 color={focused ? theme.COLORS.PRIMARY : theme.COLORS.TITLE}
               />
             ),
@@ -91,7 +91,7 @@ export default function TabRoutes() {
             tabBarIcon: ({ focused, size }) => (
               <Feather
                 name="user"
-                size={focused ? size + 5 : size}
+                size={focused ? size + 10 : size}
                 color={focused ? theme.COLORS.PRIMARY : theme.COLORS.TITLE}
               />
             ),

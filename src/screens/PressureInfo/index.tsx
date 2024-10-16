@@ -93,6 +93,7 @@ function PressureInfo() {
             refreshControl={
               <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
             }
+            showsVerticalScrollIndicator={false}
           />
         ) : (
           <PressureForm auth={authData} theme={theme} />
