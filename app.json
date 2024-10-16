@@ -12,10 +12,6 @@
       "backgroundColor": "#1F2937"
     },
     "assetBundlePatterns": ["**/*"],
-    "packageOpts": {
-      "config": "metro.config.js",
-      "sourceExts": ["js", "jsx", "ts", "tsx", "svg"]
-    },
     "ios": {
       "supportsTablet": true
     },
