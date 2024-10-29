@@ -1,12 +1,11 @@
 import React from "react";
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity, Image } from "react-native";
 import * as Animatable from "react-native-animatable";
 import { useNavigation } from "@react-navigation/native";
 
 import { styles } from "./styles";
 import { propsStack } from "../../routes/types";
 
-import  HomeSvg from "../../assets/svg/home.svg";
 import { useTheme } from "../../context/ThemeContext";
 import { AntDesign } from "@expo/vector-icons";
 
@@ -16,8 +15,12 @@ function Home() {
 
   return (
     <View style={[styles.container, { backgroundColor: "#1F2937" }]}>
-      <View style={styles.svgContainer}>
-        <HomeSvg width={400} height={400} />
+      <View style={styles.imageContainer}>
+        <Image
+          source={require("../../../assets/icon.png")}
+          style={styles.image}
+          resizeMode="contain"
+        />
       </View>
 
       <Animatable.View

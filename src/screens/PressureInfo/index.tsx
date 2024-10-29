@@ -51,7 +51,7 @@ function PressureInfo() {
     <View
       style={[styles.container, { backgroundColor: theme.COLORS.BACKGROUND }]}
     >
-      <Header title={historicoVisivel ? "Histórico" : "Atividades"} />
+      <Header title={historicoVisivel ? "Histórico" : "Medições"} />
       <TouchableOpacity
         style={[
           styles.themeToggleButton,
