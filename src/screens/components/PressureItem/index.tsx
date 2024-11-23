@@ -1,11 +1,5 @@
 import React, { useState } from "react";
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  Alert,
-  Platform,
-} from "react-native";
+import { View, Text, TouchableOpacity, Alert, Platform } from "react-native";
 import * as Animatable from "react-native-animatable";
 import { FontAwesome } from "@expo/vector-icons";
 
@@ -23,7 +17,11 @@ interface PressureItemProps {
   auth: Auth;
 }
 
-const PressureItem: React.FC<PressureItemProps> = ({ pressure, theme, auth }) => {
+const PressureItem: React.FC<PressureItemProps> = ({
+  pressure,
+  theme,
+  auth,
+}) => {
   const [modalVisivel, setModalVisivel] = useState(false);
   const { showToast } = useToast();
 
@@ -47,6 +45,25 @@ const PressureItem: React.FC<PressureItemProps> = ({ pressure, theme, auth }) =>
     return "Pressão não classificada";
   };
 
+  const getCorPressao = () => {
+    const sistolica = parseFloat(pressure.systolic);
+    const diastolica = parseFloat(pressure.diastolic);
+
+    if (isNaN(sistolica) || isNaN(diastolica)) {
+      return theme.COLORS.ALERT;
+    }
+
+    if (sistolica < 90 && diastolica < 60) return theme.COLORS.LOW;
+    if (sistolica <= 120 && diastolica <= 80) return theme.COLORS.NORMAL;
+    if (sistolica <= 140 && diastolica <= 90)
+      return theme.COLORS.PRE_HYPERTENSION;
+    if (sistolica <= 160 && diastolica <= 100)
+      return theme.COLORS.HYPERTENSION1;
+    if (sistolica > 160 && diastolica > 100) return theme.COLORS.HYPERTENSION2;
+
+    return theme.COLORS.ALERT;
+  };
+
   const tempoDesdePressure = (data: Date) => {
     const agora = new Date();
     const dataPost = new Date(data);
@@ -66,7 +83,11 @@ const PressureItem: React.FC<PressureItemProps> = ({ pressure, theme, auth }) =>
     // Ajustar dias
     if (dias < 0) {
       meses--;
-      const diasNoMes = new Date(agora.getFullYear(), agora.getMonth(), 0).getDate();
+      const diasNoMes = new Date(
+        agora.getFullYear(),
+        agora.getMonth(),
+        0
+      ).getDate();
       dias += diasNoMes;
     }
 
@@ -87,7 +108,8 @@ const PressureItem: React.FC<PressureItemProps> = ({ pressure, theme, auth }) =>
     if (meses > 0) return `${meses} ${meses === 1 ? "mês" : "meses"} atrás`;
     if (dias > 0) return `${dias} ${dias === 1 ? "dia" : "dias"} atrás`;
     if (horas > 0) return `${horas} ${horas === 1 ? "hora" : "horas"} atrás`;
-    if (minutos > 0) return `${minutos} ${minutos === 1 ? "minuto" : "minutos"} atrás`;
+    if (minutos > 0)
+      return `${minutos} ${minutos === 1 ? "minuto" : "minutos"} atrás`;
 
     return "Agora mesmo";
   };
@@ -128,8 +150,8 @@ const PressureItem: React.FC<PressureItemProps> = ({ pressure, theme, auth }) =>
                     "Erro ao excluir medição. Tente novamente mais tarde."
                   );
                 }
-              }
-            }
+              },
+            },
           ],
           { cancelable: true }
         );
@@ -138,6 +160,8 @@ const PressureItem: React.FC<PressureItemProps> = ({ pressure, theme, auth }) =>
       console.error("Erro ao confirmar exclusão:", error);
     }
   };
+
+  const corPressao = getCorPressao();
 
   return (
     <Animatable.View
@@ -152,20 +176,20 @@ const PressureItem: React.FC<PressureItemProps> = ({ pressure, theme, auth }) =>
     >
       <Text style={[styles.textPressure, { color: theme.COLORS.CONTENT }]}>
         Sistólica:{" "}
-        <Text style={{ fontWeight: "bold", fontSize: 13 }}>
+        <Text style={{ fontWeight: "bold", fontSize: 13, color: corPressao }}>
           {pressure.systolic} mmHg
         </Text>
       </Text>
       <Text style={[styles.textPressure, { color: theme.COLORS.CONTENT }]}>
         Diastólica:{" "}
-        <Text style={{ fontWeight: "bold", fontSize: 13 }}>
-          {pressure.diastolic}
+        <Text style={{ fontWeight: "bold", fontSize: 13, color: corPressao }}>
+          {pressure.diastolic} mmHg
         </Text>
       </Text>
       <Text style={[styles.textPressure, { color: theme.COLORS.CONTENT }]}>
         Pulso:{" "}
         <Text style={{ fontWeight: "bold", fontSize: 13 }}>
-          {pressure.pulse}
+          {pressure.pulse} bpm
         </Text>
       </Text>
       <Text style={[styles.textPressure, { color: theme.COLORS.CONTENT }]}>

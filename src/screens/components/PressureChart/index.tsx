@@ -1,10 +1,9 @@
 import React from "react";
-import { StyleSheet, View, ScrollView, Text } from "react-native";
+import { StyleSheet, View, Dimensions } from "react-native";
 import { LineChart } from "react-native-chart-kit";
-import { Dimensions } from "react-native";
-import styles from "./styles";
 import Pressure from "../../../models/Pressure";
 import shadow, { Theme } from "../../../utils/styles";
+import styles from "./styles";
 
 const screenWidth = Dimensions.get("window").width;
 
@@ -13,38 +12,39 @@ interface PressureChartProps {
   theme: Theme;
 }
 
-// Função para pegar o dia da semana em português
 const getDiaDaSemana = (date: Date) => {
   const dias = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"];
   return dias[date.getDay()];
 };
 
 const PressureChart: React.FC<PressureChartProps> = ({ pressure, theme }) => {
-  // Pegar as últimas 7 medições de pressão
-  const ultimasSeteMedicoes = pressure.slice(-7);
+  const defaultData = [
+    { date: new Date().toISOString(), systolic: 0, diastolic: 0 },
+  ];
 
-  // Extrair os labels e dados das últimas 7 medições
-  const labels = ultimasSeteMedicoes.map((p) => getDiaDaSemana(new Date(p.date))); // Mostrar o dia da semana
-  const dadosSistolicos = ultimasSeteMedicoes.map((p) => parseFloat(p.systolic)); // Transformar os valores sistólicos em números
-  const dadosDiastolicos = ultimasSeteMedicoes.map((p) => parseFloat(p.diastolic)); // Transformar os valores diastólicos em números
+  const ultimasSeteMedicoes = pressure.length > 0 ? pressure.slice(-7) : defaultData;
+
+  const labels = ultimasSeteMedicoes.map((p) => getDiaDaSemana(new Date(p.date)));
+  const dadosSistolicos = ultimasSeteMedicoes.map((p) => parseFloat(p.systolic));
+  const dadosDiastolicos = ultimasSeteMedicoes.map((p) => parseFloat(p.diastolic));
 
   const data = {
     labels: labels,
     datasets: [
       {
         data: dadosSistolicos,
-        color: (opacity = 1) => `rgba(255, 0, 0, ${opacity})`, // Vermelho para a pressão sistólica
+        color: (opacity = 1) => `rgba(255, 0, 0, ${opacity})`,
         strokeWidth: 2,
         label: "Sistólica",
       },
       {
         data: dadosDiastolicos,
-        color: (opacity = 1) => `rgba(0, 0, 255, ${opacity})`, // Azul para a pressão diastólica
+        color: (opacity = 1) => `rgba(0, 0, 255, ${opacity})`,
         strokeWidth: 2,
         label: "Diastólica",
       },
     ],
-    legend: ["Sistólica", "Diastólica"], // Legenda em português
+    legend: ["Sistólica", "Diastólica"],
   };
 
   const chartConfig = {
@@ -53,13 +53,12 @@ const PressureChart: React.FC<PressureChartProps> = ({ pressure, theme }) => {
     backgroundGradientTo: theme.COLORS.BACKGROUND,
     backgroundGradientToOpacity: 0.5,
     color: (opacity = 1) => theme.COLORS.TEXT,
-    fillShadowGradient: theme.COLORS.CHART_FILL,
     decimalPlaces: 0,
     propsForDots: {
       r: "6",
     },
   };
-  
+
   return (
     <View
       style={[

@@ -13,9 +13,12 @@ export interface Theme {
     TITLE: string;
     CONTENT: string;
     OVERLAY: string;
-    CHART_LINE: string;
-    CHART_FILL: string;
-    CHART_GRID: string;
+    LOW: string;
+    NORMAL: string;
+    PRE_HYPERTENSION: string;
+    HYPERTENSION1: string;
+    HYPERTENSION2: string;
+    ALERT: string;
   };
 }
 
@@ -33,9 +36,12 @@ export const themes: { light: Theme; dark: Theme } = {
       TITLE: "#333",
       CONTENT: "#555",
       OVERLAY: "rgba(0,0,0,0.6)",
-      CHART_LINE: "#f5295a",
-      CHART_FILL: "rgba(244,143,177,0.2)",
-      CHART_GRID: "#FDE2E4",
+      LOW: "#1E90FF",
+      NORMAL: "#32CD32",
+      PRE_HYPERTENSION: "#FFA500",
+      HYPERTENSION1: "#FF4500",
+      HYPERTENSION2: "#8B0000",
+      ALERT: "#FFD700",
     },
   },
   dark: {
@@ -51,9 +57,12 @@ export const themes: { light: Theme; dark: Theme } = {
       TITLE: "#FFF",
       CONTENT: "#DDD",
       OVERLAY: "rgba(0,0,0,0.8)",
-      CHART_LINE: "#F06292",
-      CHART_FILL: "rgba(240,98,146,0.2)",
-      CHART_GRID: "#880E4F",
+      LOW: "#1E90FF",
+      NORMAL: "#32CD32",
+      PRE_HYPERTENSION: "#FFA500",
+      HYPERTENSION1: "#FF4500",
+      HYPERTENSION2: "#8B0000",
+      ALERT: "#FFD700",
     },
   },
 };
@@ -69,4 +78,3 @@ const shadow = StyleSheet.create({
 });
 
 export default shadow;
-
