@@ -13,12 +13,6 @@ export interface Theme {
     TITLE: string;
     CONTENT: string;
     OVERLAY: string;
-    LOW: string;
-    NORMAL: string;
-    PRE_HYPERTENSION: string;
-    HYPERTENSION1: string;
-    HYPERTENSION2: string;
-    ALERT: string;
   };
 }
 
@@ -36,12 +30,6 @@ export const themes: { light: Theme; dark: Theme } = {
       TITLE: "#333",
       CONTENT: "#555",
       OVERLAY: "rgba(0,0,0,0.6)",
-      LOW: "#1E90FF",
-      NORMAL: "#32CD32",
-      PRE_HYPERTENSION: "#FFA500",
-      HYPERTENSION1: "#FF4500",
-      HYPERTENSION2: "#8B0000",
-      ALERT: "#FFD700",
     },
   },
   dark: {
@@ -57,12 +45,6 @@ export const themes: { light: Theme; dark: Theme } = {
       TITLE: "#FFF",
       CONTENT: "#DDD",
       OVERLAY: "rgba(0,0,0,0.8)",
-      LOW: "#1E90FF",
-      NORMAL: "#32CD32",
-      PRE_HYPERTENSION: "#FFA500",
-      HYPERTENSION1: "#FF4500",
-      HYPERTENSION2: "#8B0000",
-      ALERT: "#FFD700",
     },
   },
 };

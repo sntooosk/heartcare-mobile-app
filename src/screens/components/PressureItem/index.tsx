@@ -45,25 +45,6 @@ const PressureItem: React.FC<PressureItemProps> = ({
     return "Pressão não classificada";
   };
 
-  const getCorPressao = () => {
-    const sistolica = parseFloat(pressure.systolic);
-    const diastolica = parseFloat(pressure.diastolic);
-
-    if (isNaN(sistolica) || isNaN(diastolica)) {
-      return theme.COLORS.ALERT;
-    }
-
-    if (sistolica < 90 && diastolica < 60) return theme.COLORS.LOW;
-    if (sistolica <= 120 && diastolica <= 80) return theme.COLORS.NORMAL;
-    if (sistolica <= 140 && diastolica <= 90)
-      return theme.COLORS.PRE_HYPERTENSION;
-    if (sistolica <= 160 && diastolica <= 100)
-      return theme.COLORS.HYPERTENSION1;
-    if (sistolica > 160 && diastolica > 100) return theme.COLORS.HYPERTENSION2;
-
-    return theme.COLORS.ALERT;
-  };
-
   const tempoDesdePressure = (data: Date) => {
     const agora = new Date();
     const dataPost = new Date(data);
@@ -161,8 +142,6 @@ const PressureItem: React.FC<PressureItemProps> = ({
     }
   };
 
-  const corPressao = getCorPressao();
-
   return (
     <Animatable.View
       animation="fadeInUp"
@@ -176,13 +155,13 @@ const PressureItem: React.FC<PressureItemProps> = ({
     >
       <Text style={[styles.textPressure, { color: theme.COLORS.CONTENT }]}>
         Sistólica:{" "}
-        <Text style={{ fontWeight: "bold", fontSize: 13, color: corPressao }}>
+        <Text style={{ fontWeight: "bold", fontSize: 13 }}>
           {pressure.systolic} mmHg
         </Text>
       </Text>
       <Text style={[styles.textPressure, { color: theme.COLORS.CONTENT }]}>
         Diastólica:{" "}
-        <Text style={{ fontWeight: "bold", fontSize: 13, color: corPressao }}>
+        <Text style={{ fontWeight: "bold", fontSize: 13 }}>
           {pressure.diastolic} mmHg
         </Text>
       </Text>

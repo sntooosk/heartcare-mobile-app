@@ -93,11 +93,16 @@ function ResetPassword() {
   };
 
   const handleMudarAsenha = async () => {
-    const changePasswordData: ChangePassword = {
+    if (mudarPassword !== mudarPasswordConf) {
+      showToast("error", "As senhas não coincidem. Tente novamente.");
+      return;
+    }
+  
+    const changePasswordData = {
       password: mudarPassword,
       repeatPassword: mudarPasswordConf,
     };
-
+  
     try {
       setLoading(true);
       await changePassword(resetEmail, changePasswordData);
@@ -111,6 +116,7 @@ function ResetPassword() {
       setLoading(false);
     }
   };
+  
 
   return (
     <View style={[styles.container, { backgroundColor: "#1F2937" }]}>
