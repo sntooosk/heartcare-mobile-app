@@ -50,35 +50,37 @@ function Profile() {
 
   const handleChoosePhoto = async () => {
     try {
-      const permissionResult =
-        await ImagePicker.requestMediaLibraryPermissionsAsync();
+      const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
       if (!permissionResult.granted) {
         showToast("error", "Permissão negada");
         return;
       }
+  
       const result = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.Images,
         allowsEditing: true,
         aspect: [1, 1],
         quality: 1,
       });
+  
       if (!result.canceled && result.assets?.length > 0) {
         const supportedFormats = ["jpeg", "png", "jpg"];
-        const fileExtension = result.assets[0].uri
-          .split(".")
-          .pop()
-          .toLowerCase();
+        const fileExtension = result.assets[0].uri.split(".").pop().toLowerCase();
         if (supportedFormats.includes(fileExtension)) {
           setPhoto(result.assets[0].uri);
         } else {
           showToast("error", "Formato de imagem inválido");
         }
+      } else {
+        // Se o usuário cancelou a escolha de foto, você pode definir como null
+        setPhoto(null);
       }
     } catch (error) {
       console.error("Erro ao escolher a foto:", error);
       showToast("error", "Erro ao escolher a foto");
     }
   };
+  
 
   const handleUpdate = async () => {
     try {
@@ -88,12 +90,9 @@ function Profile() {
         setLoading(false);
         return;
       }
-      if (!photo) {
-        showToast("error", "Adicione uma foto");
-        setLoading(false);
-        return;
-      }
-      const photoBytes = await convertPhotoToBytes(photo);
+      
+      let photoBytes = photo ? await convertPhotoToBytes(photo) : null;
+  
       const userCache: UpdateUserDTO = {
         id,
         name,
@@ -103,6 +102,7 @@ function Profile() {
         photo: photoBytes,
         auth: { id },
       };
+  
       await updateUser(id, token, userCache);
       setLoading(false);
       showToast("success", "Perfil atualizado com sucesso!");
@@ -115,6 +115,7 @@ function Profile() {
       console.error("Erro ao atualizar perfil:", error);
     }
   };
+  
 
   const handleEditClick = () => {
     setEditMode(!editMode);

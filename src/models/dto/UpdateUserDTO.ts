@@ -4,7 +4,7 @@ interface UpdateUserDTO {
   lastname: string;
   dob: string;
   gender: string;
-  photo: string;
+  photo?: string;
   auth: {
     id: number;
   };
