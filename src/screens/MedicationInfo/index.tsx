@@ -15,6 +15,7 @@ import MedicationForm from "../components/MedicationForm";
 import MedicationItem from "../components/MedicationItem";
 import Header from "../components/Header";
 import { getMedicationsByUser } from "../../api/requests/medication/get";
+import MedicationsList from "../../utils/MedicationsList";
 
 const MedicationInfo = () => {
   const [medications, setMedications] = useState<Medication[]>([]);
@@ -72,7 +73,7 @@ const MedicationInfo = () => {
         style={[styles.containerForm, { backgroundColor: theme.COLORS.BACKGROUND }]}
       >
         {!historicoVisivel && !formVisivel && (
-          <MedicationForm auth={auth} theme={theme} />
+          <MedicationForm MedicationsList={MedicationsList} auth={auth} theme={theme} />
         )}
 
         {historicoVisivel && (

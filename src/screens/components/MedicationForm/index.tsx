@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Text,
   TextInput,
@@ -12,16 +12,24 @@ import Auth from "../../../models/Auth";
 import { createMedication } from "../../../api/requests/medication/create";
 import { useToast } from "../../../context/ToastContext";
 import CreateMedicationDTO from "../../../models/dto/CreateMedicationDTO";
+import DropDownPicker from "react-native-dropdown-picker";
 
 interface MedicationFormProps {
   auth: Auth;
   theme: Theme;
+  MedicationsList: { label: string; value: string }[];
 }
 
-export default function MedicationForm({ auth, theme }: MedicationFormProps) {
+export default function MedicationForm({
+  auth,
+  theme,
+  MedicationsList,
+}: MedicationFormProps) {
   const [name, setName] = useState("");
   const [dosage, setDosage] = useState("");
   const [loading, setLoading] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [selectedMedication, setSelectedMedication] = useState<string | null>(null); // Medicamento selecionado
 
   const { showToast } = useToast();
 
@@ -40,6 +48,7 @@ export default function MedicationForm({ auth, theme }: MedicationFormProps) {
 
         setName("");
         setDosage("");
+        setSelectedMedication(null);
       } catch (error) {
         console.error("Erro ao adicionar medicação:", error);
         showToast("error", "Erro ao adicionar medicação. Tente novamente mais tarde.");
@@ -50,6 +59,12 @@ export default function MedicationForm({ auth, theme }: MedicationFormProps) {
       showToast("error", "Por favor, preencha todos os campos");
     }
   };
+
+  useEffect(() => {
+    if (selectedMedication) {
+      setName(selectedMedication);
+    }
+  }, [selectedMedication]);
 
   return (
     <Animatable.View
@@ -62,20 +77,39 @@ export default function MedicationForm({ auth, theme }: MedicationFormProps) {
         },
       ]}
     >
-      <TextInput
+      <DropDownPicker
+        open={open}
+        value={selectedMedication}
+        items={MedicationsList}
+        setOpen={setOpen}
+        setValue={setSelectedMedication}
+        placeholder="Selecione a medicação"
+        placeholderStyle={{
+          color: theme.COLORS.TEXT,
+        }}
         style={[
-          styles.input,
-          { borderColor: theme.COLORS.PRIMARY, color: theme.COLORS.CONTENT },
+          styles.dropdown,
+          {
+            backgroundColor: theme.COLORS.BACKGROUND_CARD,
+            borderColor: theme.COLORS.PRIMARY,
+          },
         ]}
-        placeholder="Nome do Medicamento"
-        placeholderTextColor={theme.COLORS.TEXT}
-        value={name}
-        onChangeText={setName}
+        dropDownContainerStyle={[
+          styles.dropdownContainer,
+          {
+            backgroundColor: theme.COLORS.BACKGROUND_CARD,
+            borderColor: theme.COLORS.PRIMARY,
+          },
+        ]}
       />
+
       <TextInput
         style={[
           styles.input,
-          { borderColor: theme.COLORS.PRIMARY, color: theme.COLORS.CONTENT },
+          {
+            borderColor: theme.COLORS.PRIMARY,
+            color: theme.COLORS.CONTENT,
+          },
         ]}
         placeholder="Dosagem"
         placeholderTextColor={theme.COLORS.TEXT}

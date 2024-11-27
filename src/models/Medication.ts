@@ -6,6 +6,4 @@ interface Medication {
       id: number;
     };
   }
-  
-  export default Medication;
-  
+export default Medication

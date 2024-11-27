@@ -28,4 +28,10 @@ export const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "bold",
   },
+  dropdown: {
+    borderWidth: 1,
+    borderRadius: 8,
+  },
+  dropdownContainer: {
+  },
 });
