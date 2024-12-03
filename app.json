@@ -24,7 +24,7 @@
     },
     "extra": {
       "eas": {
-        "projectId": "2b306298-b994-4437-9d45-a2751352f5b2"
+        "projectId": process.env.EAS_PROJECT_ID
       }
     },
     "owner": "sntooosk"
